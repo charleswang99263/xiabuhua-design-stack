@@ -18,6 +18,7 @@ import signal
 import sys
 import tempfile
 import time
+import uuid
 from pathlib import Path
 from typing import Iterable, Iterator
 
@@ -401,7 +402,7 @@ def rewrite_exact_rules(path: Path) -> list[Path]:
     changed: list[Path] = []
     pending: list[tuple[Path, str]] = []
     for file in paths:
-        original = file.read_text(encoding="utf-8")
+        original = file.read_bytes().decode("utf-8")
         updated, did_change = _rewrite_rule_text(original)
         if did_change:
             backup = file.with_name(file.name + ".xiabuhua-backup")
@@ -511,7 +512,7 @@ def install(package_root: Path, target: Path, extra_old_roots: Iterable[Path] = 
         rules = Path(rules).expanduser()
         if rules.is_symlink() or not rules.exists():
             raise InstallError(f"Explicit --rules path is missing or symlinked: {rules}")
-    backup = target.parent / f".{target.name}.xiabuhua-backup-{int(time.time())}-{os.getpid()}"
+    backup = target.parent / f".{target.name}.xiabuhua-backup-{uuid.uuid4().hex}"
     state_path = state_path_for(target)
     if state_path.is_symlink():
         raise InstallError(f"Refusing symlink installation journal: {state_path}")
@@ -700,7 +701,7 @@ def rollback_journal(journal: dict[str, object], state_path: Path, guard: bool =
     managed_manifest = target / MANIFEST_NAME
     if managed_manifest.exists() and not journal.get("had_manifest", False):
         managed_manifest.unlink()
-    elif journal.get("had_manifest", False):
+    elif journal.get("had_manifest", False) and (guard or MANIFEST_NAME in journal.get("moved", [])):
         previous_manifest = backup / MANIFEST_NAME
         if not previous_manifest.is_file() or previous_manifest.is_symlink():
             raise InstallError("Rollback manifest backup is missing")

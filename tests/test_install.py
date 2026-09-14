@@ -5,6 +5,7 @@ import json
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -119,7 +120,8 @@ class InstallerTests(unittest.TestCase):
         installer.rollback(self.target)
         self.assertEqual((legacy / "SKILL.md").read_text(), owned_skill("frontend-slides", "legacy"))
 
-    def test_upgrade_rollback_restores_prior_manifest_and_verify(self):
+    @patch.object(installer.time, "time", return_value=1700000000)
+    def test_upgrade_rollback_restores_prior_manifest_and_verify(self, frozen_clock):
         self.install()
         prior_manifest = (self.target / installer.MANIFEST_NAME).read_bytes()
         source_file = self.package / "skills" / "brand-style-reference" / "SKILL.md"
@@ -130,6 +132,21 @@ class InstallerTests(unittest.TestCase):
         }))
         self.install()
         installer.rollback(self.target)
+        self.assertEqual((self.target / installer.MANIFEST_NAME).read_bytes(), prior_manifest)
+        self.assertIn("Verified", installer.verify(self.target))
+
+    def test_upgrade_staging_failure_preserves_previous_manifest(self):
+        self.install()
+        prior_manifest = (self.target / installer.MANIFEST_NAME).read_bytes()
+        source_file = self.package / "skills" / "brand-style-reference" / "SKILL.md"
+        source_file.write_text(source_file.read_text() + "upgrade\n")
+        files = installer.validate_package(self.package / "skills")
+        (self.package / installer.PACKAGE_MANIFEST_NAME).write_text(json.dumps({
+            "version": installer.VERSION, "skills": list(installer.RELEASE_SKILLS), "files": files,
+        }))
+        with patch.object(installer.shutil, "copytree", side_effect=OSError("staging failed")):
+            with self.assertRaisesRegex(OSError, "staging failed"):
+                self.install()
         self.assertEqual((self.target / installer.MANIFEST_NAME).read_bytes(), prior_manifest)
         self.assertIn("Verified", installer.verify(self.target))
 
@@ -178,7 +195,8 @@ class InstallerTests(unittest.TestCase):
 
     def test_rules_are_report_only_unless_explicit_and_exact(self):
         rules = self.root / "rules.md"
-        rules.write_text("- frontend-slides\r\nUse frontend-slides in this sentence.\r\n```md\r\n- frontend-slides\r\n```\r\n    - frontend-slides\r\n<!--\r\n- frontend-slides\r\n-->\r\nfrontend-slides\r\n- other-skill\r\n")
+        rules.write_bytes(b"- frontend-slides\r\nUse frontend-slides in this sentence.\r\n```md\r\n- frontend-slides\r\n```\r\n    - frontend-slides\r\n<!--\r\n- frontend-slides\r\n-->\r\nfrontend-slides\r\n- other-skill\r\n")
+        original = rules.read_bytes()
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
             self.install(rules=rules)
@@ -187,6 +205,7 @@ class InstallerTests(unittest.TestCase):
         # A repeat install is a no-op, so test the explicit rewrite helper directly.
         changed = installer.rewrite_exact_rules(rules)
         self.assertEqual(changed, [rules])
+        self.assertEqual(rules.read_bytes(), original.replace(b"- frontend-slides", b"- html-deck-runtime", 1))
         self.assertIn("- html-deck-runtime", rules.read_text())
         self.assertIn("Use frontend-slides in this sentence.", rules.read_text())
         self.assertIn("```md\n- frontend-slides\n```", rules.read_text())
