@@ -1,0 +1,30 @@
+name: Validate installation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Verify package integrity
+        run: python -c "from pathlib import Path; import install; print(len(install.validate_package(Path('skills'))), 'verified payload files')"
+      - name: Test upgrade, cleanup and recovery
+        run: python -m unittest discover -s tests -v
