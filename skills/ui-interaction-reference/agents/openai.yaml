@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Interaction Reference"
+  short_description: "Find and adapt interaction components for web experiences"
+  default_prompt: "Use $ui-interaction-reference to find and adapt suitable interaction components for this design."

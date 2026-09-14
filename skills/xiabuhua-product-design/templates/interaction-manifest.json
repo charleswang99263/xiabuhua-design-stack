@@ -1,0 +1,139 @@
+{
+  "version": "1.0",
+  "graphMode": "journey",
+  "interactionTarget": {
+    "platform": "handheld",
+    "inputMode": "touch",
+    "unit": "pt",
+    "minimum": {
+      "width": 44,
+      "height": 44
+    }
+  },
+  "gateTypes": [
+    "none",
+    "authentication",
+    "permission",
+    "connectivity",
+    "payment"
+  ],
+  "screens": [
+    {
+      "id": "home",
+      "name": "Home",
+      "role": "entry",
+      "entry": true,
+      "terminal": false
+    },
+    {
+      "id": "detail",
+      "name": "Detail",
+      "role": "task",
+      "entry": false,
+      "terminal": false
+    },
+    {
+      "id": "sign-in",
+      "name": "Sign in",
+      "role": "gate",
+      "entry": false,
+      "terminal": false
+    },
+    {
+      "id": "published",
+      "name": "Published",
+      "role": "success",
+      "entry": false,
+      "terminal": true
+    }
+  ],
+  "edges": [
+    {
+      "id": "home.open-detail",
+      "source": "home",
+      "trigger": "tap:featured-card",
+      "target": "detail",
+      "gate": "none",
+      "gateId": null,
+      "requiredOutcomes": [],
+      "resolvesGate": null,
+      "returnContext": null,
+      "preservedState": [],
+      "cancelTarget": null,
+      "retryTarget": null,
+      "hotspot": {
+        "width": 320,
+        "height": 88
+      }
+    },
+    {
+      "id": "detail.request-publish",
+      "source": "detail",
+      "trigger": "tap:publish",
+      "target": "sign-in",
+      "gate": "authentication",
+      "gateId": "publish-auth",
+      "requiredOutcomes": [
+        "success",
+        "cancel"
+      ],
+      "resolvesGate": null,
+      "returnContext": {
+        "screen": "detail",
+        "resumeTrigger": "tap:publish"
+      },
+      "preservedState": [
+        "draft"
+      ],
+      "cancelTarget": "detail",
+      "retryTarget": null,
+      "hotspot": {
+        "width": 120,
+        "height": 48
+      }
+    },
+    {
+      "id": "sign-in.resume-publish",
+      "source": "sign-in",
+      "trigger": "system:authentication-success",
+      "target": "published",
+      "gate": "none",
+      "gateId": null,
+      "requiredOutcomes": [],
+      "resolvesGate": {
+        "gateId": "publish-auth",
+        "outcome": "success"
+      },
+      "returnContext": null,
+      "preservedState": [
+        "draft"
+      ],
+      "cancelTarget": null,
+      "retryTarget": null,
+      "hotspot": null
+    },
+    {
+      "id": "sign-in.cancel-publish",
+      "source": "sign-in",
+      "trigger": "tap:cancel",
+      "target": "detail",
+      "gate": "none",
+      "gateId": null,
+      "requiredOutcomes": [],
+      "resolvesGate": {
+        "gateId": "publish-auth",
+        "outcome": "cancel"
+      },
+      "returnContext": null,
+      "preservedState": [
+        "draft"
+      ],
+      "cancelTarget": null,
+      "retryTarget": null,
+      "hotspot": {
+        "width": 88,
+        "height": 44
+      }
+    }
+  ]
+}

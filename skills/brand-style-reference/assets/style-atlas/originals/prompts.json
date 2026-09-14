@@ -1,0 +1,126 @@
+{
+  "mode": "built-in image_gen",
+  "theme": "进阶之路",
+  "styles": [
+    {
+      "id": "minimal",
+      "name": "Minimalism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Minimalism. A solitary precise white architectural stair rising into a warm daylight opening, immense quiet ivory negative space, small sophisticated black typography, museum-level architectural photography, serene reduction."
+    },
+    {
+      "id": "swiss",
+      "name": "Swiss International typography",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Swiss International typography. Typographic poster driven by a strict visible asymmetric editorial grid, huge black STEP 01 02 03 stacked with a vivid vermilion ascending diagonal rule, white ground, deliberate flush-left typography; flat graphic clarity, no 3D objects."
+    },
+    {
+      "id": "editorial",
+      "name": "Editorial magazine",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Editorial magazine. An elegant travel and learning magazine spread, large expressive serif headline, carefully framed photographic mountain switchback trail, narrow editorial columns and fine rules, cream paper and moss green, sophisticated publication art direction."
+    },
+    {
+      "id": "brutal",
+      "name": "Web Brutalism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Web Brutalism. Raw monochrome internet manifesto, enormous compressed black type cropped with intention, unvarnished rectangular black-white blocks, a stark xerox photograph of concrete stairs, browser-native link cues, confrontational asymmetric hierarchy."
+    },
+    {
+      "id": "neo",
+      "name": "Neo-brutalism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Neo-brutalism. Playful flat graphic ascending staircase made from yellow and cobalt blocks, thick black outlines and crisp offset black shadows, huge bold black Chinese type on warm cream, one hot pink arrow, energetic poster, clean deliberate forms."
+    },
+    {
+      "id": "maximal",
+      "name": "Maximalism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Maximalism. Rich exuberant art-school poster: densely interlocking orange pink cobalt lime typography, flowers, arrows and stair motifs, diverse scales and strong central reading path, spectacular controlled abundance, no random tangled anatomy."
+    },
+    {
+      "id": "hand",
+      "name": "Hand-drawn illustration",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Hand-drawn illustration. Warm hand-inked illustrated winding hillside path with a little backpack resting by a signpost, charming irregular charcoal lines, watercolor apricot and sage, airy cream paper, handwritten title, human and gentle; no people."
+    },
+    {
+      "id": "organic",
+      "name": "Humanist organic modern",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Humanist organic modern. Sculptural warm terracotta stepping stones crossing a quiet sand garden, soft organic contours and matte natural materials, olive leaf shadows and daylight, elegant humanist type, tactile calm earth palette."
+    },
+    {
+      "id": "geometric",
+      "name": "Geometric modern",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Geometric modern. Bold precise Bauhaus-like abstract composition: circles semicircles bars triangles forming an upward progression, flat primary red yellow blue with black on cream, rigorously balanced negative space, crisp geometric lettering."
+    },
+    {
+      "id": "deco",
+      "name": "Art Deco",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Art Deco. Luxurious symmetrical emerald and gold Art Deco poster, geometric sunburst above a monumental stepped portal, fine fan-shaped gold rules, elegant tall lettering, crisp restrained ornament, 1920s architectural rhythm."
+    },
+    {
+      "id": "retroweb",
+      "name": "Retro Web",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Retro Web. Authentic charming late-1990s personal learning homepage shown straight-on, gray beveled windows, blue underlined links, pixel folder icons, small visitor counter, central pixel staircase map, bright white canvas, organized nostalgic desktop UI."
+    },
+    {
+      "id": "y2k",
+      "name": "Y2K",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Y2K. Luminous turn-of-millennium graphic poster, liquid chrome ribbon rising in a smooth loop like an ascending path, translucent lilac bubble forms, icy white and silver with iridescent pastel sheen, futuristic wide typography, polished simple silhouette."
+    },
+    {
+      "id": "retrofuture",
+      "name": "Retrofuturism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Retrofuturism. Vintage space-age travel poster, elegant curved ramp leading to a distant orbital observatory under a huge warm planet, muted teal burnt orange cream, airbrushed lithographic grain, optimistic 1960s science fiction, no astronaut people."
+    },
+    {
+      "id": "cyber",
+      "name": "Cyberpunk",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Cyberpunk. Cinematic rain-soaked neon city stairway leading upward between dense urban buildings, magenta cyan signs and black wet reflections, dark atmospheric technological noir, sharp luminous Chinese headline, dense but legible environmental storytelling."
+    },
+    {
+      "id": "pixel",
+      "name": "Pixel art",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Pixel art. Beautiful coherent 16-bit pixel game scene: ascending moss-covered stone platforms over a blue mountain valley toward a tiny sunlit gate, precisely consistent square pixel scale, joyful cyan emerald gold, pixel typography, no blurry vector shapes."
+    },
+    {
+      "id": "darktech",
+      "name": "Dark tech minimal",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Dark tech minimal. Very restrained near-black technology poster, one graphite monolithic ascending arc lit by a fine icy white rim, huge quiet space, crisp small technical notation and confident white headline, premium precise lighting, no neon city or colorful gradients."
+    },
+    {
+      "id": "collage",
+      "name": "Paper collage",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Paper collage. Beautiful analog paper collage with torn cream blue and ochre papers building a mountain trail, archival hiking photograph fragments, tape and penciled arrows, one botanical cutout, tactile overlapping paper edges, carefully composed large Chinese headline."
+    },
+    {
+      "id": "glass",
+      "name": "Glassmorphism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Glassmorphism. Translucent frosted glass stepped panels floating over a vivid soft coral and turquoise atmospheric backdrop, clearly visible transmitted color and edge refraction, subtle white typography, real layered depth, elegant quiet geometric composition."
+    },
+    {
+      "id": "neumo",
+      "name": "Neumorphism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Neumorphism. Monochrome pearl-gray tactile interface specimen, embossed three-step progress path and recessed circular start control molded from the SAME surface, paired soft light-dark shadows, gentle relief, clear dark gray title, no transparent glass."
+    },
+    {
+      "id": "skeuo",
+      "name": "Skeuomorphism",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Skeuomorphism. Exquisite physical-object learning interface: an open stitched leather field journal with embossed tabs, paper route card, brass compass and a mechanical progress dial, realistic functional material cues and believable scale, warm overhead photography."
+    },
+    {
+      "id": "bento",
+      "name": "Bento grid layout",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Bento grid layout. Beautiful asymmetric modular learning dashboard, six differently sized purposeful blocks composing one coherent rectangle: big upward route map, progress 68%, small chapter list, timer 25:00, book illustration and next-step card, mint cream cobalt, precise spacing."
+    },
+    {
+      "id": "immersive",
+      "name": "3D immersive",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: 3D immersive. Immersive premium architectural 3D vista: monumental ivory stairs wind around a lush green island above a serene sea toward an open circular pavilion, wide camera depth, believable geometry, warm cinematic sunlight, beautifully restrained coral accent."
+    },
+    {
+      "id": "motion",
+      "name": "Motion-first",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Motion-first. Elegant motion-design storyboard poster on deep ultramarine: three successive frames of an orange ribbon arrow unfolding into an ascending path, purposeful ghosted positions and clear 01 02 03 timeline, expressive kinetic typography, readable temporal progression."
+    },
+    {
+      "id": "regional",
+      "name": "Chinese cultural contemporary interpretation",
+      "prompt": "Generate ONE polished art-direction specimen for a Chinese design-style atlas, landscape 4:3 composition, finished professional graphic design with a strong beautiful subject. Theme is personal growth / the road forward. Exact main headline: “进阶之路”. Optional small supporting text only: “开启下一程” or “NEXT CHAPTER”. Make headline legible and integrated. No device mockup, no surrounding browser frame unless required by retro web, no style name label, no watermarks, no people or strange humanoid figures. This is an independent full-bleed finished artwork, not a contact sheet. Visual language: Chinese cultural contemporary interpretation. Contemporary Chinese ink-and-paper editorial interpretation, a poetic mountain ascent painted with controlled ink washes and restrained cinnabar route markers on warm xuan-paper texture, beautiful spacious calligraphic Chinese headline, small seal-like geometric accent; avoid generic dragon decorations."
+    }
+  ]
+}

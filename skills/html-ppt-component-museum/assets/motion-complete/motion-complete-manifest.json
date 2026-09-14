@@ -1,0 +1,61 @@
+{
+  "schema_version": "motion-complete-local/v1",
+  "purpose": "本地 motion recipe 与 case workflow 的可复用元数据；不改变主 Skill 路由",
+  "runtime": "runtime.js",
+  "lab": "lab.html",
+  "tool_execution": {
+    "status": "node-bridge-available-python-optional",
+    "node_bridge": {
+      "path": "../../scripts/motion-tools/node-bridge.mjs",
+      "playwright": "bundled Node runtime available",
+      "verified_commands": ["structure", "churn", "verify", "record"],
+      "artifacts_verified": ["PNG nonempty", "WebM nonempty", "record temp directory cleaned"],
+      "fixture_assertions": ["structure title/lang/sections", "churn transform change", "verify real wheel + hover + PASS", "broken fixture nonzero exit"],
+      "fixture": "bridge-fixture.html"
+    },
+    "playwright": "unavailable in current Python environment; real browser tools return DEPENDENCY_ERROR",
+    "ffmpeg_ffprobe": "unavailable on PATH; real frame/record tools return DEPENDENCY_ERROR",
+    "fontTools_brotli": "unavailable; real subset tool returns DEPENDENCY_ERROR",
+    "verified_now": ["runtime pure API tests", "six tool dependency/error contracts"],
+    "not_claimed": ["screenshots", "decoded frame artifacts", "subset WOFF2", "browser runtime verdict"]
+  },
+  "coverage": {
+    "api_models_exercised": 20,
+    "browser_dom_or_canvas_full_implementations": 0,
+    "actionable_workflows": 20,
+    "conditional_case_workflows": 7,
+    "full_recipe_implementation": 0,
+    "note": "runtime.js 是纯状态/API层；lab 可运行机制状态演示，但不等价于目标项目的 DOM/Canvas/WebGL/音频/视频实现。真实浏览器/媒体依赖缺失时工具明确失败。"
+  },
+  "recipes": [
+    {"id":"recipe-01","name":"Text Split Reveal","status":"workflow","input":"in-view heading","render":"DOM line wrappers + clip","source_timing":"700ms; 80ms stagger; 105% to 0","local_api":"MotionComplete.textSplitReveal","acceptance":"visual line wrappers, real text accessible, reduced settles"},
+    {"id":"recipe-02","name":"Magnetic Hover","status":"api-model","input":"mousemove/pointer","render":"transform shell, unchanged hitbox","source_timing":"strength .35/.4; enter .1s; leave .5s","local_api":"MotionComplete.magneticHover","acceptance":"bounded attraction and return; keyboard/touch fallback"},
+    {"id":"recipe-03","name":"Clip-Path Curtain Reveal","status":"api-model","input":"in-view","render":"clip-path + inner scale","source_timing":".8-.9s cubic; inner 1.15 to 1","local_api":"MotionComplete.clipCurtain","acceptance":"reverse/cancel and reduced immediate"},
+    {"id":"recipe-04","name":"Scroll-Velocity Skew","status":"api-model","input":"native scroll delta + dt","render":"skewY compositor property","source_timing":"max 5deg; velocity .08; decay .9","local_api":"MotionComplete.scrollVelocity","acceptance":"scroll input, cap, settle and will-change threshold"},
+    {"id":"recipe-05","name":"Horizontal Scroll Rail","status":"workflow","input":"vertical scroll","render":"desktop pinned rail; mobile stack","source_timing":"scrub 1; snap 1/(n-1); end rail width","local_api":"MotionComplete.horizontalRail","acceptance":"pin only desktop; local scroll owner"},
+    {"id":"recipe-06","name":"Parallax Depth Stack","status":"api-model","input":"pointer/touch/keyboard","render":"three bounded transform layers","source_timing":"depth .2/.5/.8; one RAF","local_api":"MotionComplete.parallaxDepth","acceptance":"far/mid/near offsets and neutral return"},
+    {"id":"recipe-07","name":"Cursor Trail / Custom Cursor","status":"workflow","input":"document pointer","render":"fixed cursor; fine pointer only","source_timing":"follower .12; 24 to 48px hover","local_api":"MotionComplete.customCursor","acceptance":"coarse pointer hides custom cursor, system cursor remains"},
+    {"id":"recipe-08","name":"Route / Page Transition","status":"workflow","input":"route key change","render":"DOM view continuity","source_timing":"enter .45s; exit .25s; wait","local_api":"MotionComplete.routeTransition","acceptance":"state/focus/return context preserved"},
+    {"id":"recipe-09","name":"Scroll-Pinned Sequence","status":"workflow","input":"scroll/step","render":"sticky labelled sequence","source_timing":"end 200vh; scrub 1.5","local_api":"MotionComplete.pinnedSequence","acceptance":"mobile vertical stack and interruptible steps"},
+    {"id":"recipe-10","name":"Number / Counter Reveal","status":"api-model","input":"viewport entry","render":"truthful DOM number","source_timing":"1.4s power2; once at 85%","local_api":"MotionComplete.counterReveal","acceptance":"prefix/suffix/decimal and immediate data commit"},
+    {"id":"recipe-11","name":"SVG Goo Metaball Reveal","status":"conditional","input":"pointer drag/hover","render":"SVG filter + mask","source_timing":"6-point lag .12 to .19; blur 22; matrix 22 -9","local_api":"MotionComplete.gooMask","acceptance":"filter failure and DOM fallback"},
+    {"id":"recipe-12","name":"Lenis + GSAP ScrollTrigger","status":"workflow","input":"wheel/Lenis clock","render":"single scroll clock","source_timing":"lerp .085; ticker; lagSmoothing 0","local_api":"MotionComplete.scrollOwner","acceptance":"one owner, destroy and native fallback"},
+    {"id":"recipe-13","name":"Scroll-Adaptive Header Theme","status":"workflow","input":"scroll + computed background","render":"fixed header theme","source_timing":"probe y38; luminance threshold145; two RAF","local_api":"MotionComplete.adaptiveHeader","acceptance":"static class/live luminance paths stay truthful"},
+    {"id":"recipe-14","name":"Drawn Annotation Ring","status":"workflow","input":"painted bbox + dwell","render":"SVG ellipse + leader","source_timing":"perimeter341; bbox 1.22-1.30; fade200ms","local_api":"MotionComplete.annotationRing","acceptance":"bbox sizing, pointer gate and visible affordance"},
+    {"id":"recipe-15","name":"Verlet Text Curtain","status":"conditional","input":"pointer repulsion + wheel energy","render":"canvas2d independent columns","source_timing":"5 passes; anchor .35; wheel decay .97","local_api":"MotionComplete.verletCurtain","acceptance":"no horizontal links; rest/anchor/bleed oracle"},
+    {"id":"recipe-16","name":"Native Scroll Reveal / CSS Stagger","status":"workflow","input":"view/trigger support","render":"finished CSS + optional native timeline","source_timing":".35s trigger; sibling delay60ms; @supports","local_api":"MotionComplete.nativeReveal","acceptance":"Firefox/reduced sees finished state"},
+    {"id":"recipe-17","name":"Corner-Pin Warp","status":"conditional","input":"four corner positions","render":"DOM matrix3d","source_timing":"CSS floor .016px; tilt asin(h/w)×.85","local_api":"MotionComplete.cornerPin","acceptance":"convex quad guard and flat fallback"},
+    {"id":"recipe-18","name":"Verlet Card Chain","status":"workflow","input":"pointer head","render":"Verlet nodes + corner-pin cards","source_timing":"N7; rest118; gravity .55; 16 iterations","local_api":"MotionComplete.verletCardChain","acceptance":"segment error stable; degenerate0"},
+    {"id":"recipe-19","name":"Slack String Between Anchor and Datum","status":"workflow","input":"exact datum + real drag","render":"soft body with exact endpoints","source_timing":"dt1/120; tipK1600; body3×.5","local_api":"MotionComplete.slackString","acceptance":"endpoint error and sag pull together"},
+    {"id":"recipe-20","name":"Cumulative Emergence","status":"api-model","input":"visible dealing clock","render":"DOM cards, arrival z-order","source_timing":"tick167ms; skips1/2/3; CAP46","local_api":"MotionComplete.cumulativeEmergence","acceptance":"hard placement, count/live split, foreground survives"}
+  ],
+  "case_workflows": [
+    {"id":"char-curtain","status":"workflow","source_invariant":"24 independent Verlet strings; zero horizontal links; real pointer split","local_route":"MotionComplete.verletCurtain","required_oracle":"median sideways motion, far-side bleed, rest links, anchor return","fallback":"DOM text block / reduced settled canvas"},
+    {"id":"ink-crowd","status":"conditional","source_invariant":"620 WebGL2 instances, MRT/depth discontinuity, 11Hz boil, pointer follow","local_route":"GraphicsThree + MotionComplete probes","required_oracle":"layer/program/resource, follow from every corner, DPR/visibility","fallback":"DOM/SVG readable scene"},
+    {"id":"lyre-crows","status":"workflow","source_invariant":"strum releases words, crow hunts, capture rewrites tail, cap4","local_route":"MotionComplete.gooMask/physics contract + new ecology lab","required_oracle":"real strum, cap, gap convergence, tail mutation","fallback":"DOM causal state list"},
+    {"id":"press-stack","status":"workflow","source_invariant":"native sticky stack, Canvas drawn art, gradient wipe, beats","local_route":"Scroll Stack + graphics runtime","required_oracle":"scrollY/sticky, wipe gradient, canvas lifecycle","fallback":"linear DOM stack"},
+    {"id":"string-clock","status":"workflow","source_invariant":"exact tips with slack body, stiff tip spring, real fling","local_route":"MotionComplete.slackString","required_oracle":"endpoint≤1.5deg, sag≥1.12, stretch≤3.2, real pointer","fallback":"analytic restShape DOM/SVG"},
+    {"id":"toy-flipbook","status":"workflow","source_invariant":"4 hard-cut yaw frames, 11Hz held jitter, hop spring","local_route":"MotionComplete.routeTransition + owned image frames","required_oracle":"hard cut, continuous frame coverage, wheel kick/squash","fallback":"single settled frame"},
+    {"id":"wheel-rail","status":"workflow","source_invariant":"wheel hijack, exponential rail, 3 pointer planes, radar","local_route":"MotionComplete.scrollOwner + parallaxDepth","required_oracle":"preventDefault/scrollY/lag/depth/churn/idle","fallback":"native vertical scroll + static radar"}
+  ]
+}

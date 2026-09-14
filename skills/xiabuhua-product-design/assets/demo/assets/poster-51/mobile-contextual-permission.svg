@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" role="img" aria-labelledby="mobile-contextual-permission-title mobile-contextual-permission-desc" data-component-id="mobile-contextual-permission">
+  <title id="mobile-contextual-permission-title">上下文权限</title>
+  <desc id="mobile-contextual-permission-desc">在任务语境内解释相机用途与替代路径。</desc>
+  <rect width="360" height="520" rx="28" fill="#F4F9FC"/>
+  <circle cx="316" cy="52" r="72" fill="#DFF3F5" opacity=".82"/>
+  <circle cx="42" cy="468" r="78" fill="#E6EEFF" opacity=".72"/>
+  
+      <text x="24" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#087F8B" text-anchor="start">PERMISSION / CONTEXT</text>
+      <text x="24" y="62" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22px" font-weight="760" fill="#112C43" text-anchor="start">加入会议室</text>
+      <rect x="24" y="92" width="312" height="56" rx="14" fill="#FFFFFFD9" stroke="#FFFFFF" stroke-width="1"/><text x="42" y="119" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="650" fill="#112C43" text-anchor="start">会议室：8F · 设计评审</text><text x="42" y="137" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">下一步需要确认现场位置</text>
+      <rect x="24" y="165" width="312" height="76" rx="16" fill="#E8F5F6" stroke="#CDE8E9"/>
+      <circle cx="55" cy="202" r="20" fill="#FFFFFF"/><rect x="45" y="193" width="20" height="15" rx="3" fill="none" stroke="#087F8B" stroke-width="2"/><circle cx="55" cy="200" r="4" fill="none" stroke="#087F8B" stroke-width="2"/>
+      <text x="88" y="197" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="650" fill="#112C43" text-anchor="start">扫描二维码，自动填入会议室</text><text x="88" y="218" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#087F8B" text-anchor="start">只在这次加入会议时使用相机</text>
+      <rect x="0" y="0" width="360" height="520" rx="28" fill="#112C43" opacity=".18"/>
+      <rect x="0" y="256" width="360" height="264" rx="26" fill="#FFFFFFF7" stroke="#FFFFFF" stroke-width="1"/>
+      <text x="24" y="299" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="20px" font-weight="760" fill="#112C43" text-anchor="start">允许使用相机？</text>
+      <text x="24" y="331" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="400" fill="#506A80" text-anchor="start">用于扫描会议室二维码，减少手动输入。</text><text x="24" y="351" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="400" fill="#506A80" text-anchor="start">你也可以改为手动输入会议室编号。</text>
+      <rect x="24" y="380" width="312" height="44" rx="14" fill="#176AF0"/><text x="180" y="407" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="700" fill="#FFFFFF" text-anchor="middle">继续授权</text>
+      <rect x="24" y="436" width="312" height="44" rx="14" fill="#F4F9FC" stroke="#D8E5EE"/><text x="180" y="463" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="700" fill="#506A80" text-anchor="middle">手动输入</text>
+      <text x="24" y="500" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="400" fill="#506A80" text-anchor="start">说明层不是系统权限弹窗；系统结果回来后再更新状态。</text>
+    
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" role="img" aria-labelledby="mobile-form-validation-keyboard-title mobile-form-validation-keyboard-desc" data-component-id="mobile-form-validation-keyboard">
+  <title id="mobile-form-validation-keyboard-title">表单 · 校验 · 键盘</title>
+  <desc id="mobile-form-validation-keyboard-desc">键盘态的字段错误与操作可见性。</desc>
+  <rect width="360" height="520" rx="28" fill="#F4F9FC"/>
+  <circle cx="316" cy="52" r="72" fill="#DFF3F5" opacity=".82"/>
+  <circle cx="42" cy="468" r="78" fill="#E6EEFF" opacity=".72"/>
+  
+      <text x="24" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#087F8B" text-anchor="start">FORM / FOCUS</text>
+      <text x="24" y="62" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21px" font-weight="750" fill="#112C43" text-anchor="start">补充任务备注</text>
+      <text x="24" y="85" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">保存后同步给项目协作者</text>
+      <text x="24" y="122" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="700" fill="#506A80" text-anchor="start">标题</text>
+      <rect x="24" y="131" width="312" height="44" rx="12" fill="#FFFFFFEC" stroke="#D8E5EE" stroke-width="1"/><text x="42" y="159" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="600" fill="#112C43" text-anchor="start">周会资料版本确认</text>
+      <text x="24" y="202" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="700" fill="#506A80" text-anchor="start">备注（必填）</text>
+      <rect x="24" y="211" width="312" height="58" rx="12" fill="#FFF8F8" stroke="#D65363" stroke-width="1.5"/>
+      <text x="42" y="239" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="400" fill="#A76A70" text-anchor="start">例如：请 @设计 同学补充移动端截图</text>
+      <circle cx="317" cy="257" r="9" fill="#D65363"/><text x="317" y="261" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="800" fill="#FFFFFF" text-anchor="middle">!</text>
+      <text x="24" y="290" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="650" fill="#D65363" text-anchor="start">请填写备注后再保存</text>
+      <rect x="24" y="306" width="312" height="44" rx="14" fill="#176AF0"/><text x="180" y="333" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="700" fill="#FFFFFF" text-anchor="middle">保存备注</text>
+      <text x="24" y="378" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#506A80" text-anchor="start">KEYBOARD OPEN</text>
+      <rect x="16" y="390" width="328" height="114" rx="18" fill="#DDE7EE" stroke="#C7D7E1"/>
+      <line x1="28" y1="418" x2="332" y2="418" stroke="#C2D1DC" stroke-width="1"/><line x1="28" y1="447" x2="332" y2="447" stroke="#C2D1DC" stroke-width="1"/><line x1="28" y1="476" x2="332" y2="476" stroke="#C2D1DC" stroke-width="1"/>
+      <text x="180" y="410" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15px" font-weight="700" fill="#506A80" text-anchor="middle">⌃</text><text x="180" y="436" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="600" fill="#506A80" text-anchor="middle">中文输入键盘区域示意</text><text x="180" y="465" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="600" fill="#506A80" text-anchor="middle">焦点字段保持在可见区域</text>
+    
+</svg>

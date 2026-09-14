@@ -1,0 +1,132 @@
+/*
+ * Canonical execution CSS for explicitly opted-in fixed-stage decks.
+ * Presentation CSS remains parent-owned. The two host forms are:
+ *   <deck-stage> with runtime/deck-stage.js
+ *   <div class="deck-viewport" data-html-deck-runtime-standalone>
+ */
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) {
+    --html-deck-runtime-stage-width: 1920px;
+    --html-deck-runtime-stage-height: 1080px;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) > .execution-frame {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--html-deck-runtime-stage-width);
+    height: var(--html-deck-runtime-stage-height);
+    overflow: hidden;
+    transform-origin: 0 0;
+}
+
+deck-stage.execution-viewport > .execution-frame > .execution-canvas {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: 0 0 auto;
+    transform-origin: center center;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .slide {
+    position: absolute;
+    inset: 0;
+    width: var(--html-deck-runtime-stage-width);
+    height: var(--html-deck-runtime-stage-height);
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .slide.active,
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .slide.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) img,
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) video,
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) canvas,
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+:where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .deck-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+@media print {
+    body:has(> deck-stage.execution-viewport),
+    body:has(> .deck-viewport[data-html-deck-runtime-standalone]) {
+        margin: 0;
+    }
+
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) {
+        position: static !important;
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    deck-stage.execution-viewport > .execution-frame,
+    deck-stage.execution-viewport > .execution-frame > .execution-canvas {
+        position: static !important;
+        display: block !important;
+        width: var(--html-deck-runtime-stage-width) !important;
+        height: auto !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: var(--html-deck-runtime-stage-width);
+        height: var(--html-deck-runtime-stage-height);
+        break-after: page;
+        page-break-after: always;
+    }
+
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) .deck-controls {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) *,
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) *::before,
+    :where(.deck-viewport[data-html-deck-runtime-standalone], deck-stage.execution-viewport) *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+}

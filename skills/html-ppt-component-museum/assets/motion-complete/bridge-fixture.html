@@ -1,0 +1,4 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Bridge fixture</title>
+<style>body{margin:0;min-height:180vh;font:16px/1.5 system-ui;background:#f5f1e8;color:#18221f}main{padding:40px}section{min-height:80vh;padding:20px;border-top:1px solid #bbb}button{min-width:120px;min-height:44px;transition:transform .15s,background .15s}button:hover{transform:translateY(-4px);background:#e7b09b}</style></head>
+<body><main><h1>Motion bridge fixture</h1><button id="hover-target" type="button">Hover target</button><p id="motion" data-motion="0">wheel: 0</p><section><h2>Section one</h2></section><section><h2>Section two</h2></section></main>
+<script>let n=0;addEventListener('wheel',e=>{n+=e.deltaY;const x=document.querySelector('#motion');x.dataset.motion=String(n);x.style.transform='translateX('+Math.min(180,n/2)+'px)';x.textContent='wheel: '+n});</script></body></html>

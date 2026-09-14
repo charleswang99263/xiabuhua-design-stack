@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" role="img" aria-labelledby="mobile-empty-offline-title mobile-empty-offline-desc" data-component-id="mobile-empty-offline">
+  <title id="mobile-empty-offline-title">空态 · 离线</title>
+  <desc id="mobile-empty-offline-desc">空数据与网络状态分开说清楚。</desc>
+  <rect width="360" height="520" rx="28" fill="#F4F9FC"/>
+  <circle cx="316" cy="52" r="72" fill="#DFF3F5" opacity=".82"/>
+  <circle cx="42" cy="468" r="78" fill="#E6EEFF" opacity=".72"/>
+  
+      <text x="24" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#087F8B" text-anchor="start">EMPTY / OFFLINE</text>
+      <text x="24" y="62" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22px" font-weight="760" fill="#112C43" text-anchor="start">收藏资料</text><text x="24" y="83" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">0 条本地可读内容</text>
+      <rect x="24" y="100" width="312" height="40" rx="12" fill="#FFF5E5" stroke="#F0DEC1"/><circle cx="48" cy="120" r="9" fill="#E2A33A"/><text x="48" y="124" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="800" fill="#FFFFFF" text-anchor="middle">!</text><text x="68" y="124" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="650" fill="#8C6225" text-anchor="start">当前离线，暂无缓存资料</text>
+      <circle cx="180" cy="218" r="42" fill="#E6EEFF"/><path d="M156 221c11-17 35-17 48 0M162 235h36" fill="none" stroke="#176AF0" stroke-width="3" stroke-linecap="round"/><path d="M180 198v21M171 208l9-10 9 10" fill="none" stroke="#087F8B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="180" y="277" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17px" font-weight="720" fill="#112C43" text-anchor="middle">连接后再加载资料</text><text x="180" y="301" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="middle">网络恢复后，你可以重新获取收藏内容。</text>
+      <rect x="80" y="328" width="200" height="44" rx="14" fill="#176AF0"/><text x="180" y="355" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="700" fill="#FFFFFF" text-anchor="middle">重新加载</text>
+      <text x="180" y="406" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="600" fill="#506A80" text-anchor="middle">离线状态保持可见，避免误解为资料被删除。</text>
+      <line x1="24" y1="448" x2="336" y2="448" stroke="#D8E5EE" stroke-width="1"/><text x="24" y="474" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="650" fill="#176AF0" text-anchor="start">返回上一级</text><text x="336" y="474" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="600" fill="#506A80" text-anchor="end">需要网络</text>
+    
+</svg>

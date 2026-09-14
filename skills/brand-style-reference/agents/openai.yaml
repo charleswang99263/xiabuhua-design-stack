@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand Style Reference"
+  short_description: "Match project briefs to brand-inspired visual references"
+  default_prompt: "Use $brand-style-reference to select and adapt relevant brand design references for this project."

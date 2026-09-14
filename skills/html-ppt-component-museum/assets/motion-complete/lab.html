@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Motion Complete · 20 recipe lab</title>
+  <style>
+    :root{color-scheme:light;--ink:#18221f;--muted:#61706a;--paper:#f4f0e8;--card:#fffdf8;--line:#d8d0c2;--accent:#b6492d}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,sans-serif}
+    main{max-width:1180px;margin:auto;padding:52px 22px 80px}header{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:30px}
+    h1{margin:0;font-size:clamp(38px,7vw,82px);line-height:.95;letter-spacing:-.06em}header p{margin:0;color:var(--muted);max-width:470px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.meta span{border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--muted);font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}.recipe{border:1px solid var(--line);background:var(--card);padding:18px;min-height:178px;display:flex;flex-direction:column;justify-content:space-between}
+    .recipe h2{font-size:18px;line-height:1.2;margin:0 0 7px}.recipe p{color:var(--muted);font-size:13px;margin:0}.recipe code{font-size:11px;color:var(--accent)}
+    button{min-height:44px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}.recipe button{align-self:start;margin-top:15px;background:transparent;color:var(--ink)}button:focus-visible{outline:3px solid #e4a08a;outline-offset:2px}
+    .status{margin-top:28px;padding:18px;border-left:4px solid var(--accent);background:#fff8ed;min-height:60px}.status strong{display:block}.vis{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:16px}.vis i{display:block;height:20px;background:var(--accent);transform-origin:bottom;opacity:.55}
+    @media(max-width:700px){header{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.vis{grid-template-columns:repeat(2,1fr)}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+<main>
+  <header><div><div class="meta"><span>PROJECT OWNED</span><span>20 RECIPES</span><span>NO CDN</span></div><h1>Motion<br>Complete</h1></div><p>本地机制实验台。每张卡只演示一个动作契约：触发、状态、时序、取消、降级和 dispose 都由同一个运行时 API 提供。视觉方向仍由消费项目决定。</p></header>
+  <section id="grid" class="grid" aria-label="20 个 motion recipe"></section>
+  <section class="status" aria-live="polite"><strong id="statusTitle">等待选择</strong><span id="statusBody">选择一个 recipe，实验台会只运行该机制并显示可观察状态。</span><div id="vis" class="vis" aria-hidden="true"></div></section>
+</main>
+<script src="./runtime.js"></script>
+<script>
+const MC=globalThis.MotionComplete, grid=document.querySelector('#grid'), title=document.querySelector('#statusTitle'), body=document.querySelector('#statusBody'), vis=document.querySelector('#vis');
+const cards=[
+ ['01','Text Split Reveal','分行裁切入场','textSplitReveal'],['02','Magnetic Hover','指针吸附与回位','magneticHover'],['03','Clip Curtain','裁切揭示与反向','clipCurtain'],['04','Scroll Velocity','滚动速度转 skew','scrollVelocity'],['05','Horizontal Rail','横向轨道进度','horizontalRail'],['06','Parallax Depth','三层深度偏移','parallaxDepth'],['07','Custom Cursor','指针跟随与放大','customCursor'],['08','Route Transition','退出后进入','routeTransition'],['09','Pinned Sequence','滚动分步','pinnedSequence'],['10','Counter Reveal','真实数值插值','counterReveal'],['11','Goo Mask','拖拽揭示 mask','gooMask'],['12','Scroll Owner','单一滚动时钟','scrollOwner'],['13','Adaptive Header','背景亮度主题','adaptiveHeader'],['14','Annotation Ring','绘制 painted bbox 圈','annotationRing'],['15','Verlet Curtain','独立字符串帘','verletCurtain'],['16','Native Reveal','finished CSS 优先','nativeReveal'],['17','Corner Pin','四角矩阵防护','cornerPin'],['18','Card Chain','Verlet 卡片链','verletCardChain'],['19','Slack String','端点精确、中段松弛','slackString'],['20','Cumulative','按 tick 堆积内容','cumulativeEmergence']
+];
+let active=null;
+cards.forEach(([id,name,desc,key])=>{const el=document.createElement('article');el.className='recipe';el.innerHTML='<div><code>'+id+'</code><h2>'+name+'</h2><p>'+desc+'</p></div><button type="button">运行实验</button>';el.querySelector('button').addEventListener('click',()=>run(id,name,key));grid.append(el)});
+function run(id,name,key){
+  active?.dispose?.(); const fn=MC.recipes[key]; let model;
+  if(key==='counterReveal')model=fn(98.7);else if(key==='horizontalRail'||key==='pinnedSequence')model=fn({count:4,steps:3});else model=fn({});
+  const state=model.state; if(model.step)model.step(.66); if(model.sample)model.sample(130,16); if(model.update){if(key==='magneticHover')model.update({x:120,y:80},{left:0,top:0,width:240,height:160});else if(key==='parallaxDepth')model.update(210,80,400,200);else if(key==='customCursor'){model.target(210,80);model.tick(16)}else if(key==='gooMask')model.update(180,80);else if(key==='adaptiveHeader')model.update([120,130,125]);else if(key==='annotationRing')model.update({x:20,y:20,width:160,height:80},.8);else if(key==='cornerPin')model.update([0,0,180,8,8,120,190,110]);else if(key==='verletCardChain')model.setHead(180,80);else if(key==='slackString')model.update({x:180,y:80},.7);else if(key==='scrollOwner')model.update(320)} if(model.deal)model.deal(); if(model.finish)model.finish(); title.textContent=id+' · '+name;body.textContent=JSON.stringify(state);vis.replaceChildren(...Array.from({length:8},(_,i)=>{const bar=document.createElement('i');bar.style.transform='scaleY('+(.2+((i+1)%5)/5)+')';return bar}));active=model;
+}
+window.addEventListener('pagehide',()=>active?.dispose?.());
+</script>
+</body>
+</html>

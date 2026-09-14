@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" role="img" aria-labelledby="mobile-loading-error-retry-title mobile-loading-error-retry-desc" data-component-id="mobile-loading-error-retry">
+  <title id="mobile-loading-error-retry-title">加载 · 失败 · 重试</title>
+  <desc id="mobile-loading-error-retry-desc">可信状态比装饰性进度更重要。</desc>
+  <rect width="360" height="520" rx="28" fill="#F4F9FC"/>
+  <circle cx="316" cy="52" r="72" fill="#DFF3F5" opacity=".82"/>
+  <circle cx="42" cy="468" r="78" fill="#E6EEFF" opacity=".72"/>
+  
+      <text x="24" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#087F8B" text-anchor="start">SYNC / RECOVERY</text>
+      <text x="24" y="62" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22px" font-weight="760" fill="#112C43" text-anchor="start">工作台</text>
+      <text x="312" y="61" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22px" font-weight="700" fill="#176AF0" text-anchor="middle">↻</text>
+      <rect x="24" y="86" width="312" height="58" rx="14" fill="#FFFFFFE6" stroke="#D8E5EE" stroke-width="1"/>
+      <circle cx="50" cy="115" r="12" fill="#E4F5F3"/><path d="M44 115h12M50 109v12" stroke="#087F8B" stroke-width="2" stroke-linecap="round"/>
+      <text x="74" y="112" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="650" fill="#112C43" text-anchor="start">显示上次同步的摘要</text><text x="74" y="130" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="400" fill="#506A80" text-anchor="start">2026-09-11 09:18 · 内容可继续查看</text>
+      <text x="24" y="185" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="700" fill="#506A80" text-anchor="start">同步状态</text>
+      <rect x="24" y="198" width="312" height="96" rx="16" fill="#FFF6F7" stroke="#F0CFD2"/>
+      <circle cx="49" cy="226" r="12" fill="#F8DDE0"/><path d="M44 221l10 10M54 221l-10 10" stroke="#D65363" stroke-width="2" stroke-linecap="round"/>
+      <text x="74" y="228" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14px" font-weight="700" fill="#A84350" text-anchor="start">同步失败 · 网络暂不可用</text><text x="74" y="249" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#7E6469" text-anchor="start">数据已保留，稍后可再次尝试</text>
+      <rect x="246" y="250" width="90" height="30" rx="12" fill="#FFFFFF" stroke="#D65363"/><text x="291" y="270" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="700" fill="#A84350" text-anchor="middle">重试</text>
+      <text x="24" y="337" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="700" fill="#506A80" text-anchor="start">加载态契约</text>
+      <rect x="24" y="350" width="312" height="74" rx="15" fill="#FFFFFFD9" stroke="#FFFFFF" stroke-width="1"/>
+      <rect x="42" y="369" width="134" height="10" rx="5" fill="#DCE7EF"/><rect x="42" y="388" width="218" height="8" rx="4" fill="#E7EEF3"/>
+      <text x="288" y="382" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#176AF0" text-anchor="middle">loading</text>
+      <text x="24" y="462" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">未收到可信进度信号时，只描述阶段，不编造百分比。</text>
+    
+</svg>

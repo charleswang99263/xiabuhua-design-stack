@@ -1,0 +1,1430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="27个原创交互机制。按解释用途检索，在同一个大舞台中实际操作，查看结果与使用边界。">
+<title>Component Museum — 交互机制实验室</title>
+<!-- Project-owned HTML/CSS/SVG/Canvas. External sources are conceptual references only. No CDN. -->
+<style>
+:root{--bg:#efefeb;--surface:#fff;--plate:#f5f5f0;--tint:#e7e8df;--ink:#20241f;--muted:#676e63;--line:#d1d5cb;--accent:#dd4928;--accent2:#246c51;--onaccent:#fff;--shadow:none;--r:2px;--body:"Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;--display:var(--body);--mono:"SFMono-Regular",Consolas,monospace;--grid:rgba(55,67,44,.045)}
+[data-skin=collage]{--bg:#e8e1d1;--surface:#fffaf0;--plate:#f0e7d3;--tint:#f2d79b;--ink:#34291f;--muted:#78664d;--line:#c5b18c;--accent:#b93625;--accent2:#356453;--r:5px;--shadow:3px 4px 0 #34291f20;--display:Georgia,"Songti SC","SimSun",serif;--grid:rgba(119,91,56,.06)}
+[data-skin=dark-tech]{--bg:#0b1011;--surface:#111a1c;--plate:#172326;--tint:#22383a;--ink:#edf4ef;--muted:#98ada7;--line:#2c4345;--accent:#a4edb7;--accent2:#8fc5ec;--onaccent:#14251d;--r:12px;--shadow:0 12px 36px #0003;--display:var(--mono);--grid:rgba(152,203,191,.045)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--body)}button,input,select{font:inherit}button{cursor:pointer}button,select{min-height:44px}button{color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:9px 14px;transition:background .18s,border-color .18s,transform .18s}button:hover{border-color:var(--ink);background:var(--plate)}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible,a:focus-visible{outline:3px solid var(--accent2);outline-offset:3px}button.active,button[aria-pressed=true],button.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}button.accent{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}input[type=range]{width:100%;height:44px;accent-color:var(--accent);cursor:ew-resize}input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}a{color:var(--accent2)}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:var(--display)}h1{font-size:18px;letter-spacing:-.04em;font-weight:800}h2{font-size:27px;line-height:1.18;letter-spacing:-.04em}h3{font-size:22px;line-height:1.25}small{font-size:12px}strong{font-weight:650}svg{display:block;width:100%;overflow:visible}svg text{font-family:var(--body);fill:var(--ink)}[hidden]{display:none!important}.mono,.eyebrow,.number{font-family:var(--mono)}.eyebrow{font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.muted{color:var(--muted)}.small{font-size:12px}.mast{height:78px;padding:0 28px;display:flex;align-items:center;gap:17px;border-bottom:1px solid var(--line);background:var(--surface)}.brand-mark{width:36px;height:36px;background:var(--accent);position:relative;flex:none}.brand-mark:before,.brand-mark:after{content:"";position:absolute;background:var(--surface);width:7px;height:20px;left:9px;top:8px;transform:skewY(-22deg)}.brand-mark:after{left:20px;top:5px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.04em}.mast-note{margin-left:20px;padding-left:22px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}.skins{margin-left:auto;display:flex;gap:4px;align-items:center}.skins button{font:11px var(--mono);padding:8px 12px;min-height:44px}.skins-label{font-size:11px;color:var(--muted);margin-right:6px}.layout{max-width:1800px;margin:auto;display:grid;grid-template-columns:268px minmax(0,1fr)}.sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;border-right:1px solid var(--line);padding:24px 15px 14px 20px}.catalog-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;align-items:center}.catalog-label span{font:11px var(--mono);color:var(--muted)}.search-wrap{position:relative;margin:16px 0 10px}.search-wrap span{position:absolute;left:13px;top:12px;color:var(--muted)}#search{width:100%;height:44px;padding:10px 12px 10px 34px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);font-size:13px}.catalog-scroll{min-height:0;overflow-y:auto;scrollbar-width:thin;padding-right:5px}.nav-group{margin:17px 0 6px;padding:0 8px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:650}.nav-group span{font:10px var(--mono)}.nav-item{display:grid;grid-template-columns:25px 1fr 12px;gap:5px;width:100%;text-align:left;padding:9px 9px;min-height:50px;border:1px solid transparent;background:none;margin:2px 0;align-items:center;border-radius:var(--r)}.nav-item:hover{background:var(--surface);border-color:var(--line)}.nav-item.active{background:var(--surface);border-color:var(--accent);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}.nav-item .nav-num{font:10px var(--mono);color:var(--muted)}.nav-cn{font-size:13px;font-weight:600}.nav-en{font:9px/1.5 var(--mono);color:var(--muted);display:block}.nav-arrow{color:var(--accent);opacity:0}.nav-item.active .nav-arrow{opacity:1}.sidebar-foot{padding-top:14px;margin-top:auto;font-size:10px;color:var(--muted);border-top:1px solid var(--line)}.empty{padding:20px 8px;color:var(--muted);font-size:13px}.main{padding:26px clamp(20px,3vw,44px) 32px;min-width:0}.selected-head{display:flex;align-items:flex-end;gap:20px;margin-bottom:20px}.selected-head .eyebrow{margin-bottom:10px}.selected-head h2{margin-bottom:7px}.selected-head .intro{max-width:720px;color:var(--muted);font-size:13px;line-height:1.7}.mechanism-en{font:12px var(--mono);margin-left:10px;color:var(--muted);font-weight:400;letter-spacing:-.02em;display:inline-block}.previous-next{margin-left:auto;display:flex;gap:5px;flex:none}.previous-next button{width:44px;padding:0;font-size:20px}.bench{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.bench-top{min-height:56px;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;border-bottom:1px solid var(--line);gap:14px}.specimen-name{font-size:12px;display:flex;gap:8px;align-items:center}.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2)}.bench-top .eyebrow{font-size:10px}.runbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.runbar button{min-height:44px;font-size:12px;padding:8px 11px}.runbar label{display:flex;align-items:center;gap:5px;font-size:11px;min-height:44px;padding:0 5px;cursor:pointer}.stage{min-height:480px;position:relative;background-color:var(--plate);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;padding:30px;isolation:isolate}.stage:focus{outline-offset:-4px}.demo{width:100%;max-width:1080px;margin:auto;position:relative;min-height:405px}.demo-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:22px}.demo-head h3{font-size:22px;margin:7px 0}.demo-head p{font-size:12px;max-width:520px;color:var(--muted)}.tag{display:inline-flex;align-items:center;gap:6px;font:10px var(--mono);padding:5px 8px;min-height:26px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}.demo-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:20px}.demo-actions button{font-size:12px}.segmented{display:flex;gap:4px;flex-wrap:wrap}.segmented button{font-size:12px;padding:8px 13px}.result-row{display:grid;grid-template-columns:110px 1fr;border-top:1px solid var(--line);padding:18px 20px;gap:16px;align-items:start;background:var(--surface);min-height:82px}.result-label{font:10px var(--mono);color:var(--accent2);letter-spacing:.08em;display:flex;align-items:center;gap:7px;padding-top:3px}.result-label:before{content:"";width:5px;height:5px;background:var(--accent2)}#result{font-size:13px;line-height:1.7}.guide{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;margin-top:25px}.guide h3{font:11px var(--mono);color:var(--muted);letter-spacing:.07em;margin-bottom:8px}.guide p{font-size:13px;line-height:1.75;max-width:640px}.source-details{margin-top:22px;border-top:1px solid var(--line);font-size:12px}.source-details summary{cursor:pointer;padding:15px 0;color:var(--muted)}.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:18px}.meta-grid dt{font-size:10px;color:var(--muted);margin-bottom:5px}.meta-grid dd{margin:0;font-size:12px;line-height:1.7}.page-foot{margin-top:12px;padding-top:16px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px}.panel .eyebrow{margin-bottom:10px}.panel p{color:var(--muted);font-size:13px;line-height:1.8}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}.pill{padding:4px 8px;background:var(--tint);font-size:10px;color:var(--accent2);border-radius:var(--r)}.accent-text{color:var(--accent)}.stat-number{font:650 clamp(36px,5vw,62px)/1 var(--display);letter-spacing:-.05em}.rule{border-top:1px solid var(--line);margin:18px 0}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:14px}.legend i{display:inline-block;width:8px;height:8px;margin-right:5px;background:var(--accent)}.legend i.alt{background:var(--accent2)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.static-banner{margin:0 auto 16px;padding:10px 14px;max-width:1080px;border-left:3px solid var(--accent2);background:var(--surface);font-size:12px;color:var(--muted)}.static-mode .demo button,.static-mode .demo input{pointer-events:none}.static-mode .demo-actions,.static-mode .segmented,.static-mode .range-control{display:none}.stage.is-paused *,.stage.is-suspended *{animation-play-state:paused!important}
+/* Typographic staging */
+.title-scene{overflow:hidden;min-height:400px;display:flex;flex-direction:column;padding:12px 5px}.title-kicker{font:11px var(--mono);letter-spacing:.1em;color:var(--accent2);display:flex;justify-content:space-between;gap:20px}.title-lines{margin-top:34px;position:relative}.title-line{font:750 clamp(34px,4.6vw,70px)/1.12 var(--display);letter-spacing:-.06em;display:block;overflow:hidden;padding-bottom:9px}.title-line span{display:inline-block}.title-line.emphasis{color:var(--accent)}.title-rule{height:4px;background:var(--ink);margin-top:26px;transform-origin:left}.title-caption{display:flex;align-items:start;justify-content:space-between;gap:20px;margin-top:22px;color:var(--muted);font-size:13px}.title-caption p{max-width:420px}.title-index{font:11px var(--mono);white-space:nowrap}.title-scene[data-phase="0"] .title-line span,.title-scene[data-phase="0"] .title-rule,.title-scene[data-phase="0"] .title-caption{opacity:0}.title-scene[data-phase="1"] .title-line:nth-child(2) span,.title-scene[data-phase="1"] .title-rule,.title-scene[data-phase="1"] .title-caption{opacity:0}.title-scene[data-phase="2"] .title-caption{opacity:0}.title-scene [data-reveal]{transition:opacity .5s,transform .65s}.title-scene[data-phase="0"] [data-reveal]{transform:translateY(42px)}
+/* Complete same-object comparison */
+.compare-shell{position:relative;height:343px;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);box-shadow:0 10px 30px #00000008;background:var(--surface)}.compare-layer{position:absolute;inset:0;background:var(--surface);overflow:hidden}.compare-layer.after{clip-path:inset(0 0 0 var(--split,50%))}.miniapp{display:grid;grid-template-columns:115px 1fr;height:100%;font-size:11px}.miniapp-sidebar{background:var(--tint);padding:20px 13px;border-right:1px solid var(--line)}.miniapp-sidebar b{font-size:14px;display:block;margin-bottom:25px}.miniapp-sidebar span{display:block;padding:10px 0;color:var(--muted)}.miniapp-sidebar span.chosen{color:var(--ink);font-weight:700}.miniapp-main{padding:21px 24px;min-width:0}.appcrumb{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-bottom:22px}.app-title{font-size:19px;font-weight:650;letter-spacing:-.03em}.app-heading{display:flex;justify-content:space-between;align-items:center;gap:15px}.app-sub{font-size:10px;color:var(--muted);margin-top:5px}.app-data{margin:17px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;font-size:10px;color:var(--muted);line-height:2}.app-legacy-actions{display:flex;gap:8px;font-size:10px}.fake-btn{border:1px solid var(--line);padding:7px 10px;display:inline-flex;align-items:center;justify-content:center;min-height:31px;font-size:10px;color:var(--ink);background:var(--plate)}.fake-btn.solid{background:var(--ink);border-color:var(--ink);color:var(--surface)}.app-progress{height:3px;background:var(--line);margin:12px 0 7px}.app-progress i{display:block;width:72%;height:100%;background:var(--accent2)}.app-summary{margin:16px 0 11px;padding:14px 16px;background:var(--plate);border-left:3px solid var(--accent2)}.app-summary strong{font-size:13px}.app-summary p{margin-top:5px;font-size:11px;color:var(--muted)}.app-task-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}.compare-handle{position:absolute;top:0;bottom:0;left:var(--split,50%);width:2px;background:var(--accent);pointer-events:none;z-index:2}.compare-handle:after{content:"↔";position:absolute;top:47%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--onaccent);display:grid;place-items:center;font-size:20px;box-shadow:0 0 0 5px #ffffff44}.compare-labels{display:flex;justify-content:space-between;font:10px var(--mono);color:var(--muted);margin:9px 0}.range-control{display:grid;grid-template-columns:1fr auto;gap:15px;align-items:center}.range-control output{font:11px var(--mono);min-width:50px;text-align:right}.static-mode .compare-shell{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:visible;border:0}.static-mode .compare-layer{position:relative;clip-path:none;min-width:0;border:1px solid var(--line)}.static-mode .compare-handle{display:none}.static-mode .miniapp{grid-template-columns:1fr}.static-mode .miniapp-sidebar{display:none}.static-mode .miniapp-main{padding:14px}
+/* Source cards that become a detail surface */
+.shared-board{position:relative;min-height:345px}.shared-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.shared-card{display:block;position:relative;padding:0;text-align:left;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);min-height:300px;border:1px solid var(--line)}.shared-card:hover{transform:translateY(-3px)}.art{height:153px;position:relative;overflow:hidden;background:var(--tint);border-bottom:1px solid var(--line)}.art svg{width:100%;height:100%}.art .art-index{position:absolute;top:12px;left:13px;font:10px var(--mono);color:var(--muted)}.shared-card-body{padding:18px}.shared-card h4{margin:8px 0 6px;font:650 19px var(--display);letter-spacing:-.03em}.shared-card p{font-size:11px;color:var(--muted);line-height:1.8}.shared-card .card-bottom{margin-top:18px;display:flex;justify-content:space-between;align-items:center;font:10px var(--mono);color:var(--accent2)}.shared-detail{position:absolute;inset:0;z-index:3;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:36% 1fr;box-shadow:var(--shadow);transform-origin:top left}.shared-detail .art{height:100%;border:0;border-right:1px solid var(--line)}.shared-content{padding:24px 27px}.shared-content h4{font:650 27px/1.2 var(--display);margin:16px 0 10px;letter-spacing:-.04em}.shared-content p{font-size:12px;color:var(--muted);line-height:1.8}.shared-content ul{font-size:12px;line-height:1.8;padding-left:18px;margin:12px 0}.shared-content .shared-back{font-size:11px;padding:6px 10px}.shared-ghost{position:absolute;z-index:5;pointer-events:none;transform-origin:top left;margin:0;will-change:transform;overflow:hidden;transition:none}.shared-ghost .shared-card{height:100%;min-height:0}.shared-ghost .art{height:48%}.shared-ghost .shared-card-body{padding:12px}.shared-ghost h4{font-size:18px}
+/* Charts and ordered evidence */
+.metric-layout{display:grid;grid-template-columns:175px 1fr;gap:25px;align-items:center}.metric-summary{border-left:3px solid var(--accent);padding-left:18px}.metric-summary .stat-number{font-size:50px}.metric-summary p{font-size:12px;color:var(--muted);margin-top:12px}.bar-chart{height:245px;position:relative;padding:0 20px 30px 42px}.grid-lines{position:absolute;inset:0 20px 30px 42px;display:flex;flex-direction:column;justify-content:space-between}.grid-lines i{height:1px;background:var(--line);position:relative;display:block;font-style:normal}.grid-lines span{position:absolute;right:calc(100% + 12px);top:-8px;font:10px var(--mono);color:var(--muted)}.bars{position:relative;display:flex;justify-content:space-around;align-items:flex-end;height:100%;gap:18px}.bar{width:min(24%,82px);position:relative;height:var(--v);background:var(--accent);transition:height .65s cubic-bezier(.2,.8,.2,1)}.bar:nth-child(2){background:var(--accent2)}.bar:nth-child(3){background:var(--ink)}.bar b{position:absolute;top:-24px;left:0;width:100%;text-align:center;font:12px var(--mono)}.bar span{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);white-space:nowrap;color:var(--muted);font-size:11px}.chart-foot{margin-top:15px;font-size:11px;color:var(--muted)}.radar-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:25px;align-items:center}.radar-chart{max-width:450px;margin:auto}.radar-chart svg{height:280px}.data-list{display:grid;gap:12px}.data-row{display:grid;grid-template-columns:64px 1fr 36px;gap:12px;font-size:12px;align-items:center}.data-track{height:4px;background:var(--line)}.data-track i{display:block;height:100%;background:var(--accent);transition:width .5s}.data-row b{font:12px var(--mono)}.sankey-diagram{padding:7px 20px}.sankey-diagram svg{height:245px}.sankey-edge{fill:none;stroke:var(--accent);opacity:.58;transition:opacity .25s;cursor:pointer}.sankey-edge:nth-of-type(2){stroke:var(--accent2)}.sankey-edge.active{opacity:1}.sankey-edge.dim{opacity:.13}.conservation{display:flex;justify-content:space-between;gap:15px;padding-top:15px;border-top:1px solid var(--line);font:11px var(--mono);color:var(--muted)}.heat-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:25px;align-items:start}.heat-colnames{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;text-align:center;font-size:10px;color:var(--muted);margin-bottom:9px}.heat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.heat-cell{min-height:58px;border:1px solid transparent;font:12px var(--mono);background:color-mix(in srgb,var(--accent) calc(var(--level)*8%),var(--surface));color:var(--ink);position:relative}.heat-cell.unknown{background:repeating-linear-gradient(135deg,var(--surface) 0,var(--surface) 5px,var(--line) 5px,var(--line) 6px)}.heat-cell.active{background:color-mix(in srgb,var(--accent) calc(var(--level)*8%),var(--surface));border:2px solid var(--ink);color:var(--ink)}.heat-legend{display:flex;gap:10px;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:13px}.heat-info h4{font:650 18px var(--display);margin:8px 0}.heat-info .stat-number{font-size:40px}.heat-info p{font-size:12px}.poll-row{display:grid;grid-template-columns:90px 1fr 60px 90px;gap:14px;align-items:center;margin:16px 0}.poll-row .poll-track{height:27px;background:var(--tint);position:relative}.poll-track i{display:block;height:100%;background:var(--accent);transition:width .35s}.poll-row:nth-child(2) .poll-track i{background:var(--accent2)}.poll-row:nth-child(3) .poll-track i{background:var(--ink)}.poll-row b{font:12px var(--mono)}.poll-row span{font-size:13px}.poll-row button{font-size:11px}.poll-total{display:flex;justify-content:space-between;padding-top:17px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+/* Ordered process and causal maps */
+.timeline-track{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;position:relative}.timeline-track:before{content:"";height:1px;background:var(--line);position:absolute;top:24px;left:15px;right:15px}.timeline-node{padding:0;background:none;border:0;text-align:left;z-index:1}.timeline-node:hover{background:none;border:0}.timeline-node .dot{width:47px;height:47px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font:12px var(--mono);margin-bottom:12px}.timeline-node.active{background:none;color:var(--ink)}.timeline-node.active .dot{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}.timeline-node strong{font-size:13px}.timeline-node small{display:block;color:var(--muted);margin-top:3px;font-size:10px}.timeline-detail{display:grid;grid-template-columns:75px 1fr;gap:22px;padding:22px;background:var(--surface);border:1px solid var(--line)}.timeline-big{font:650 48px/1 var(--display);color:var(--accent)}.timeline-detail p{font-size:13px;color:var(--muted);margin-top:10px}.checklist{display:flex;gap:15px;font-size:11px;color:var(--accent2);margin-top:18px;flex-wrap:wrap}.flow-svg{height:230px}.flow-svg .edge{fill:none;stroke:var(--line);stroke-width:2}.flow-svg .edge.active{stroke:var(--accent);stroke-width:3;stroke-dasharray:7 6;animation:flow 1s linear infinite}.flow-svg .flow-box{fill:var(--surface);stroke:var(--line);stroke-width:1.5}.flow-svg .flow-box.current{stroke:var(--accent);stroke-width:2}.flow-status{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px 18px;border:1px solid var(--line);background:var(--surface);font-size:12px}.route-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:25px;align-items:center}.route-diagram svg{height:280px}.route-diagram path{fill:none;stroke:var(--line);stroke-width:2}.route-diagram path.focus{stroke:var(--accent);stroke-width:3}.route-node{cursor:pointer}.route-node circle{fill:var(--surface);stroke:var(--line);stroke-width:2}.route-node.active circle{fill:var(--accent);stroke:var(--accent)}.route-node.active text{fill:var(--onaccent)}.route-diagram text{font-size:13px}.ordered-list{display:flex;flex-direction:column;gap:10px}.order-row{display:grid;grid-template-columns:36px 1fr auto;gap:15px;align-items:center;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}.order-rank{font:12px var(--mono);color:var(--accent)}.order-row strong{font-size:14px}.order-row p{font-size:11px;color:var(--muted);margin-top:4px}.order-controls{display:flex;gap:5px}.order-controls button{padding:0;width:44px}.order-note{display:flex;gap:15px;font-size:12px;color:var(--muted);margin-top:15px}.matrix-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:45px;align-items:center}.matrix-field{height:248px;position:relative;border-left:1px solid var(--ink);border-bottom:1px solid var(--ink);background:linear-gradient(0deg,transparent calc(60% - 1px),var(--line) 60%,transparent calc(60% + 1px)),linear-gradient(90deg,transparent calc(60% - 1px),var(--line) 60%,transparent calc(60% + 1px));margin:0 20px 29px 24px}.matrix-field .quadrant{position:absolute;font-size:11px;color:var(--muted)}.matrix-field .q1{top:10px;right:9px;color:var(--accent2)}.matrix-field .q2{top:10px;left:9px}.matrix-field .q3{bottom:10px;left:9px}.matrix-field .q4{bottom:10px;right:9px}.matrix-point{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--accent);transform:translate(-50%,50%);transition:left .15s,bottom .15s}.axis-x{position:absolute;bottom:-28px;right:0;font-size:10px;color:var(--muted)}.axis-y{position:absolute;left:-22px;top:0;font-size:10px;color:var(--muted);writing-mode:vertical-rl}.axis-zero{position:absolute;left:-12px;bottom:-20px;font:9px var(--mono);color:var(--muted)}.slider-label{display:flex;justify-content:space-between;font-size:12px;margin-top:15px}.slider-label b{font:12px var(--mono)}.matrix-result{font:650 23px var(--display);color:var(--accent2);margin-bottom:15px}
+/* Annotation, prompt and progressive narrative */
+.quote-layout{display:grid;grid-template-columns:70px 1fr;gap:22px;margin:15px 0 26px}.quote-mark{font:110px/1 Georgia,serif;color:var(--accent)}.quote-text{font:500 clamp(23px,3vw,38px)/1.45 var(--display);letter-spacing:-.035em;max-width:850px}.quote-context{margin-top:25px;padding-top:17px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:22px;font-size:12px;color:var(--muted)}.quote-context strong{display:block;color:var(--ink);margin-bottom:4px}.code-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:0;border:1px solid var(--line);background:var(--surface)}.code-editor{padding:18px 0;background:var(--ink);color:var(--surface);overflow:auto}.code-filename{padding:0 18px 13px;font:10px var(--mono);opacity:.55}.code-line{display:grid;grid-template-columns:28px 1fr;width:100%;border:0;border-left:3px solid transparent;border-radius:0;min-height:44px;padding:9px 16px;background:none;color:var(--surface);font:12px/1.8 var(--mono);text-align:left;opacity:.45;white-space:pre}.code-line:hover{background:#ffffff12;border-color:transparent}.code-line.active{background:#ffffff12;border-left-color:var(--accent);color:var(--surface);opacity:1}.code-line .ln{opacity:.5;font-size:10px}.code-explanation{padding:26px 24px}.code-explanation h4{font:650 20px var(--display);margin:13px 0}.code-explanation p{font-size:12px;color:var(--muted);line-height:1.9}.code-example{padding:12px;background:var(--plate);font-size:11px;line-height:1.8;margin-top:18px}.code-example b{color:var(--accent2)}.prompt-options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.prompt-option{padding:22px 18px;text-align:left;min-height:175px;position:relative}.prompt-option.active{background:var(--surface);color:var(--ink);border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}.prompt-option .option-num{font:10px var(--mono);color:var(--accent2)}.prompt-option strong{display:block;font:650 19px var(--display);margin:20px 0 9px}.prompt-option p{font-size:11px;color:var(--muted);line-height:1.8}.prompt-answer{margin-top:20px;display:flex;gap:20px;align-items:center;justify-content:space-between;padding:18px 20px;border:1px solid var(--line);background:var(--surface)}.prompt-answer strong{font-size:14px}.prompt-answer p{color:var(--muted);font-size:12px;margin-top:4px}.step-workspace{display:grid;grid-template-columns:1fr 1fr;gap:28px}.step-anchor{padding:22px;background:var(--surface);border:1px solid var(--line);align-self:start;position:sticky;top:0}.step-visual{height:120px;margin-top:15px;background:var(--plate);display:flex;align-items:center;justify-content:center;gap:10px}.step-visual i{width:47px;height:47px;background:var(--tint);display:grid;place-items:center;font:12px var(--mono);font-style:normal;transition:background .4s}.step-visual i.active{background:var(--accent);color:var(--onaccent)}.step-progress{height:3px;background:var(--line);margin-bottom:20px}.step-progress i{height:100%;display:block;width:33.333%;background:var(--accent);transition:width .4s}.step-anchor h4{font:650 25px var(--display);margin:10px 0}.step-anchor p{font-size:12px;color:var(--muted);line-height:1.8}.step-scroll{height:295px;overflow:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-left:1px solid var(--line);padding-left:20px;scrollbar-width:thin}.step-scroll section{height:295px;padding:25px 0;scroll-snap-align:start;scroll-snap-stop:always}.step-scroll section h4{font:650 21px var(--display);margin:14px 0}.step-scroll section p{font-size:13px;color:var(--muted);line-height:1.9}.step-copy{padding:22px 0}.step-copy h4{font:650 22px var(--display);margin:15px 0}.step-copy p{font-size:13px;color:var(--muted);line-height:1.9}.step-copy .checklist{display:block;line-height:2.5}
+/* Material and state transitions */
+.sticker-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;align-items:center}.sticker-object{height:302px;position:relative;isolation:isolate;touch-action:none;user-select:none;margin:5px 12px}.sticker-under{position:absolute;inset:9px;background:var(--surface);border:1px solid var(--line);padding:25px;display:flex;flex-direction:column;justify-content:center;transform:rotate(-2deg)}.sticker-under h4{font:650 24px var(--display);margin:12px 0}.sticker-under p{font-size:12px;color:var(--muted);line-height:1.8}.sticker-paper{position:absolute;inset:0;background:#f1c959;color:#3e3321;box-shadow:4px 10px 15px #352b2025;padding:26px;transform:rotate(2deg);clip-path:polygon(0 0,100% 0,100% var(--cut,100%),var(--cut,100%) 100%,0 100%);transition:clip-path .5s ease}.sticker-paper:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#6a52120a 0px,#6a52120a 1px,transparent 1px,transparent 5px)}.sticker-paper .paper-stamp{font:10px var(--mono);border:1px solid #5c4b2c;padding:5px 8px;display:inline-block;transform:rotate(-5deg)}.sticker-paper h4{font:650 33px/1.2 var(--display);letter-spacing:-.04em;margin:32px 0 18px}.sticker-paper p{font-size:12px;line-height:1.8;color:#6c593a;max-width:220px}.peel-corner{position:absolute;right:0;bottom:0;width:var(--fold,42px);height:var(--fold,42px);background:linear-gradient(135deg,#e1b340 0%,#fff0bb 47%,#8d702152 50%,transparent 52%);transform-origin:bottom right;transition:width .5s,height .5s;pointer-events:none}.sticker-object.peeled .sticker-paper{--cut:13%}.sticker-object.peeled .peel-corner{--fold:215px}.sticker-object.dragging .sticker-paper,.sticker-object.dragging .peel-corner{transition:none}.sticker-help h4{font:650 22px var(--display);margin:12px 0}.sticker-help p{font-size:12px;color:var(--muted);line-height:1.9}.pixel-viewport{position:relative;overflow:hidden;background:#15261f;border:1px solid var(--line);min-height:275px;isolation:isolate}.pixel-screen{min-height:275px;color:#dbedcd;padding:27px 32px;display:grid;grid-template-columns:1fr 130px;gap:30px;font-family:var(--mono)}.pixel-screen .eyebrow{color:#9cb79c}.pixel-screen h4{font:650 30px/1.2 var(--mono);margin:19px 0 12px;letter-spacing:-.05em}.pixel-screen p{font-size:12px;line-height:1.8;color:#a9c2a7;max-width:430px}.pixel-screen .pixel-meta{font-size:10px;color:#a9c2a7;margin-top:20px}.pixel-art{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:4px;aspect-ratio:1;align-self:center}.pixel-art i{background:#c9e6a6;opacity:.12}.pixel-art i.on{opacity:1}.pixel-overlay{position:absolute;inset:0;display:grid;grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(9,1fr);pointer-events:none;z-index:2}.pixel-overlay i{background:var(--accent);opacity:0}.pixel-progress{height:3px;background:var(--line);margin-top:13px}.pixel-progress i{display:block;height:100%;background:var(--accent);width:0}.state-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center}.sync-card{padding:24px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r)}.sync-icon{width:44px;height:44px;display:grid;place-items:center;background:var(--tint);font:20px var(--mono);margin-bottom:22px}.sync-card h4{font:650 21px var(--display);margin:13px 0 8px}.sync-card p{font-size:12px;color:var(--muted);line-height:1.8}.sync-card button{width:100%;margin-top:20px}.sync-progress{height:3px;background:var(--line);margin-top:17px}.sync-progress i{display:block;width:0;height:100%;background:var(--accent2);transition:width .35s}.state-log{font-size:12px;line-height:1.7}.state-log ol{list-style:none;padding:0;margin:16px 0}.state-log li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)}.state-log li:before{content:"";width:7px;height:7px;border:1px solid var(--line);border-radius:50%}.state-log li.current{color:var(--ink)}.state-log li.current:before{background:var(--accent);border-color:var(--accent)}.state-log code{font:10px var(--mono);color:var(--accent2);width:68px;flex:none}.state-outcome{display:flex;gap:6px;margin-top:18px}.state-outcome button{font-size:11px}.state-explain{padding:14px;border-left:2px solid var(--accent2);background:var(--surface);font-size:12px;line-height:1.8;color:var(--muted)}
+/* Canvas experiments use one selected runtime */
+.canvas-demo .demo-head{margin-bottom:16px}.canvas-frame{position:relative;border:1px solid var(--line);height:342px;background:var(--surface);overflow:hidden;border-radius:var(--r)}.canvas-frame canvas{width:100%;height:100%;display:block;touch-action:none}.canvas-stamp{position:absolute;left:17px;top:14px;pointer-events:none;font:10px var(--mono);color:var(--muted)}.canvas-scale{position:absolute;right:17px;top:14px;pointer-events:none;font:10px var(--mono);color:var(--accent2)}.canvas-key{position:absolute;bottom:12px;left:17px;right:17px;display:flex;justify-content:space-between;pointer-events:none;color:var(--muted);font:10px var(--mono)}.canvas-info{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:13px}.canvas-info p{font-size:12px;color:var(--muted)}.canvas-info button{font-size:12px}.canvas-fallback{padding:30px;min-height:280px;display:flex;flex-direction:column;justify-content:center}.canvas-fallback h4{font:650 25px var(--display);margin:0 0 12px}.canvas-fallback p{font-size:13px;line-height:1.9;color:var(--muted)}.canvas-fallback svg{height:140px;margin-top:16px}.canvas-fallback svg text{font-size:13px}
+@keyframes flow{to{stroke-dashoffset:-26}}@keyframes pulse{50%{opacity:.45}}
+/* Skins change typography, material and component geometry; no theme re-selection workflow. */
+[data-skin=collage] .mast{border-bottom:2px solid var(--ink)}[data-skin=collage] .brand-mark{transform:rotate(-7deg)}[data-skin=collage] .bench{border:1.5px solid var(--ink);box-shadow:5px 6px 0 #34291f1a}[data-skin=collage] .bench-top{border-bottom:1px dashed var(--line)}[data-skin=collage] .tag{border-style:dashed;transform:rotate(-1.3deg)}[data-skin=collage] .shared-card:nth-child(2){transform:rotate(1.2deg)}[data-skin=collage] .shared-card:nth-child(3){transform:rotate(-1deg)}[data-skin=collage] .panel,[data-skin=collage] .sync-card{box-shadow:3px 4px 0 #34291f16}[data-skin=collage] .stage{background-image:repeating-linear-gradient(0deg,transparent 0,transparent 5px,#60472604 5px,#60472604 6px)}[data-skin=collage] .nav-item.active{border-style:dashed}[data-skin=collage] .title-rule{height:5px;transform:rotate(-.6deg)}[data-skin=dark-tech] .stage{background-size:20px 20px}[data-skin=dark-tech] .bench-top{background:#122124}[data-skin=dark-tech] .tag{border-radius:20px}[data-skin=dark-tech] .art{background:radial-gradient(ellipse at 50% 80%,#335445,var(--tint))}[data-skin=dark-tech] .stat-number{font-weight:500}[data-skin=dark-tech] .code-editor{background:#091011;color:#d0eddb}[data-skin=dark-tech] .code-line{color:#d0eddb}[data-skin=dark-tech] .code-line.active{color:#d0eddb}[data-skin=dark-tech] .timeline-node .dot{border-radius:50%}[data-skin=dark-tech] .title-line{font-size:clamp(32px,4.3vw,65px);letter-spacing:-.07em}[data-skin=swiss] .title-lines{padding-left:8%;border-left:4px solid var(--accent)}[data-skin=swiss] .art{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:25px 25px}
+body[data-motion=reduce] *,body[data-motion=reduce] *:before,body[data-motion=reduce] *:after{animation-duration:0s!important;transition-duration:0s!important;scroll-behavior:auto!important}
+@media(min-width:1600px){.stage{min-height:560px;padding:42px}.demo{min-height:440px}.canvas-frame{height:380px}.compare-shell{height:380px}.miniapp-main{padding:30px 36px}.app-summary{margin-top:25px}}
+@media(max-width:1120px){.layout{grid-template-columns:234px minmax(0,1fr)}.sidebar{padding:20px 10px 14px 15px}.main{padding:23px 22px}.mast-note{display:none}.mechanism-en{display:block;margin:7px 0 0}.stage{padding:23px}.shared-card-body{padding:14px}.shared-card h4{font-size:17px}.code-layout{grid-template-columns:1.1fr 1fr}.code-line{font-size:10px;padding-left:10px;grid-template-columns:23px 1fr}.metric-layout{grid-template-columns:130px 1fr}.metric-summary .stat-number{font-size:40px}.miniapp{grid-template-columns:89px 1fr}.miniapp-sidebar{padding:18px 10px}.miniapp-main{padding:19px 18px}.app-title{font-size:17px}.heat-layout{grid-template-columns:1fr}.heat-info{display:grid;grid-template-columns:1fr 1fr;gap:15px}.heat-info .rule{display:none}.shared-detail{grid-template-columns:30% 1fr}.shared-content{padding:18px}.sticker-layout{grid-template-columns:1fr .7fr}.sticker-paper h4{font-size:28px}}
+@media(max-width:850px){.mast{padding:0 18px;height:72px}.skins-label{display:none}.layout{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:16px 18px;border-right:0;border-bottom:1px solid var(--line)}.catalog-label{cursor:pointer}.catalog-scroll{max-height:245px;display:none}.sidebar.open .catalog-scroll{display:block}.sidebar-foot{display:none}.search-wrap{margin-bottom:0}.sidebar.open .search-wrap{margin-bottom:9px}.catalog-label:after{content:"展开目录 ↓";font-size:11px;color:var(--accent2)}.sidebar.open .catalog-label:after{content:"收起 ↑"}.catalog-label span{margin-left:auto;margin-right:15px}.main{padding:23px 18px}.stage{min-height:470px}.bench-top{padding:7px 13px;align-items:center}.specimen-name{font-size:10px}.runbar{gap:2px}.runbar button{font-size:11px;padding:6px 9px}.runbar label{font-size:10px;padding:0 3px}.guide{gap:22px}.meta-grid{grid-template-columns:1fr 1fr}.shared-board{min-height:330px}.shared-card{min-height:300px}.shared-detail .art{height:100%}}
+@media(max-width:580px){.mast{gap:10px;height:70px}.brand-mark{width:29px;height:29px}.brand-mark:before{left:6px;top:6px;height:17px}.brand-mark:after{left:17px;top:4px;height:17px}.mast h1{font-size:15px}.brand-sub{font-size:9px}.skins{gap:2px}.skins button{font-size:9px;padding:7px;min-height:44px}.selected-head{gap:10px;align-items:center}.selected-head h2{font-size:25px}.selected-head .intro{font-size:12px}.selected-head .eyebrow{font-size:9px}.mechanism-en{font-size:10px}.previous-next{display:none}.bench-top{display:block}.specimen-name{padding:6px 0 3px}.bench-top>.eyebrow{display:none}.runbar{justify-content:space-between;gap:0}.runbar label{font-size:10px}.stage{padding:20px 15px;min-height:460px}.demo{min-height:385px}.demo-head{gap:12px;margin-bottom:18px}.demo-head h3{font-size:19px}.demo-head p{font-size:11px}.demo-head>.tag{display:none}.demo-head .segmented{margin-top:7px}.two-col,.metric-layout,.radar-layout,.route-layout,.matrix-layout,.sticker-layout,.state-layout,.step-workspace{grid-template-columns:1fr}.guide{grid-template-columns:1fr;gap:20px}.meta-grid{grid-template-columns:1fr}.page-foot{display:block;line-height:1.8}.result-row{grid-template-columns:1fr;gap:8px;padding:15px}.result-label{font-size:9px}#result{font-size:12px}.shared-cards{grid-template-columns:1fr;gap:10px}.shared-card{min-height:120px;display:grid;grid-template-columns:105px 1fr}.shared-card .art{height:100%;border-right:1px solid var(--line);border-bottom:0}.shared-card h4{font-size:17px;margin:4px 0}.shared-card .card-bottom{margin-top:8px}.shared-card-body{padding:12px}.shared-card p{font-size:10px}.shared-detail{position:absolute;grid-template-columns:1fr;grid-template-rows:100px 1fr}.shared-detail .art{height:100px;border-right:0;border-bottom:1px solid var(--line)}.shared-content{padding:14px 18px}.shared-content h4{font-size:22px;margin:9px 0}.shared-content p,.shared-content ul{font-size:11px}.shared-ghost .shared-card{display:block}.shared-ghost .art{height:45%}.shared-ghost .shared-card-body{padding:8px}.metric-layout{gap:25px}.metric-summary{display:flex;align-items:center;gap:16px}.metric-summary p{margin:0;max-width:165px}.metric-summary .stat-number{font-size:34px}.bar-chart{height:235px;margin-top:10px}.compare-shell{height:325px}.miniapp{grid-template-columns:1fr}.miniapp-sidebar{display:none}.miniapp-main{padding:17px 15px}.app-title{font-size:16px}.appcrumb{margin-bottom:17px}.app-summary{padding:12px}.app-task-row{font-size:10px}.static-mode .compare-shell{grid-template-columns:1fr}.quote-layout{grid-template-columns:27px 1fr;gap:13px}.quote-mark{font-size:70px}.quote-text{font-size:25px}.quote-context{grid-template-columns:1fr;gap:15px}.code-layout{grid-template-columns:1fr}.code-editor{padding:14px 0}.code-line{font-size:11px;min-height:44px}.code-explanation{padding:20px}.code-explanation h4{font-size:19px}.timeline-detail{grid-template-columns:43px 1fr;padding:18px;gap:17px}.timeline-big{font-size:34px}.timeline-detail h3{font-size:19px}.timeline-node strong{font-size:12px}.timeline-node small{font-size:9px}.flow-svg{height:205px}.flow-status{display:block;font-size:11px}.flow-status span{display:block;margin-top:5px}.order-row{grid-template-columns:25px 1fr auto;gap:8px;padding:12px 10px}.order-row strong{font-size:12px}.order-row p{font-size:10px;max-width:155px}.order-controls{gap:2px}.order-controls button{width:44px}.order-note{font-size:11px}.matrix-layout{gap:20px}.matrix-field{height:235px}.matrix-result{font-size:20px}.prompt-options{grid-template-columns:1fr;gap:9px}.prompt-option{min-height:90px;padding:15px 17px;display:grid;grid-template-columns:25px 1fr;gap:4px 12px}.prompt-option strong{margin:0;font-size:18px}.prompt-option p{grid-column:2}.prompt-answer{display:block;padding:16px}.prompt-answer button{margin-top:15px}.poll-row{grid-template-columns:55px 1fr 43px;gap:10px;margin:17px 0}.poll-row>span{font-size:11px}.poll-row button{grid-column:2/4;width:100%}.poll-row b{font-size:10px}.poll-row .poll-track{height:20px}.sankey-diagram{padding:5px 0}.sankey-diagram svg{height:235px}.conservation{display:block;font-size:10px;line-height:2}.radar-chart svg{height:255px}.data-list{grid-template-columns:1fr}.heat-grid{gap:4px}.heat-cell{min-height:45px;padding:6px}.heat-colnames{gap:4px;font-size:8px}.heat-info{grid-template-columns:1fr}.heat-info .stat-number{font-size:30px}.step-workspace{gap:20px}.step-anchor{padding:19px}.step-visual{height:75px}.step-scroll{height:210px}.step-scroll section{height:210px;padding:15px 0}.step-copy{padding:0}.sticker-layout{gap:12px}.sticker-object{height:295px;margin:5px}.sticker-help{padding:10px 8px}.pixel-screen{grid-template-columns:1fr 65px;padding:25px 19px;gap:14px}.pixel-screen h4{font-size:23px}.pixel-screen p{font-size:10px}.pixel-art{gap:2px}.canvas-frame{height:320px}.canvas-key{font-size:9px}.canvas-info{align-items:flex-start}.canvas-info p{font-size:11px}.canvas-fallback{padding:20px}.canvas-fallback h4{font-size:21px}.title-scene{min-height:380px;padding:5px 0}.title-kicker{font-size:9px}.title-lines{margin-top:52px}.title-line{font-size:37px;line-height:1.2}.title-caption{display:block}.title-caption p{font-size:12px}.title-index{margin-top:18px}[data-skin=dark-tech] .title-line{font-size:34px}}
+.order-row{position:relative}.order-row:has(.order-drag){grid-template-columns:44px 36px 1fr auto}.order-drag{width:44px;height:44px;min-height:44px;padding:0;font:18px var(--mono);touch-action:none;cursor:grab;background:var(--plate);color:var(--muted)}.order-drag:active{cursor:grabbing}.order-row.is-dragging{opacity:.55}.order-placeholder{border:1px dashed var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:var(--r);min-height:44px}.bulk-summary{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 16px;border:1px solid var(--line);background:var(--surface);margin-bottom:12px}.bulk-summary strong{font:13px var(--mono)}.bulk-list{display:grid;gap:8px}.bulk-row{display:grid;grid-template-columns:25px 1fr 28px;gap:12px;align-items:center;min-height:62px;padding:11px 14px;background:var(--surface);border:1px solid var(--line);cursor:pointer}.bulk-row input{margin:0}.bulk-copy strong,.bulk-copy small{display:block}.bulk-copy small{color:var(--muted);font-size:11px;margin-top:3px}.bulk-mark{display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--line);color:var(--accent2);font-style:normal;opacity:0;transform:scale(.7);transition:opacity .18s,transform .18s}.bulk-mark.show{opacity:1;transform:scale(1)}.bulk-boundary,.disclosure-boundary{margin-top:15px}.disclosure-copy{display:grid;gap:8px}.disclosure-trigger{display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:52px;padding:13px 16px;background:var(--surface)}.disclosure-trigger span{font:20px var(--mono);color:var(--accent)}.disclosure-trigger.active span{transform:rotate(45deg)}.disclosure-panel{margin-top:9px;padding:16px 18px;border-left:3px solid var(--accent2);background:var(--surface);will-change:height;overflow:hidden}.disclosure-panel[hidden]{display:block;height:0;padding-top:0;padding-bottom:0;border-left-color:transparent}.disclosure-panel p{font-size:13px;line-height:1.8;margin-top:8px}.spring-stepper{padding-top:5px}.spring-track{height:5px;background:var(--line);margin:20px 8px 0;overflow:hidden}.spring-step-fill{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left center;will-change:transform}.spring-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:9px}.spring-step{display:grid;grid-template-columns:40px 1fr;gap:9px;align-items:center;text-align:left;padding:8px 0;background:none;border:0;min-height:52px}.spring-step span{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);font:11px var(--mono)}.spring-step.active span{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}.spring-step.done span{border-color:var(--accent2);color:var(--accent2)}.spring-step strong{font-size:12px}.spring-detail{margin-top:20px;padding:20px;background:var(--surface);border:1px solid var(--line);min-height:130px}.spring-detail h4{font:650 21px var(--display);margin:9px 0 6px}.spring-detail p{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:12px}.static-mode .bulk-mark{opacity:1;transform:none}.static-mode .disclosure-panel[hidden]{display:none}.static-mode .spring-step-fill{transition:none!important}.stage.is-paused .order-placeholder{animation:none}@media(max-width:580px){.order-row:has(.order-drag){grid-template-columns:44px 25px 1fr auto}}
+.disclosure-panel{padding:0}.disclosure-panel [data-disclosure-inner]{padding:16px 18px}.disclosure-panel[hidden]{display:none}.bulk-summary{flex-wrap:wrap}.bulk-summary [data-bulk-result]{flex-basis:100%}.order-ghost{border:1px solid var(--accent);background:var(--surface)}
+.spring-step.active{background:transparent;color:var(--ink)}.bulk-select-all{display:inline-flex;align-items:center;gap:8px;min-height:44px}
+/* LOCAL_PRIMITIVES_CSS_START */
+
+.text-entry-host{position:relative;display:block;isolation:isolate}
+.text-entry-source{display:block}
+.text-entry-visual{position:absolute;inset:0;display:block;pointer-events:none;user-select:none;white-space:inherit;color:inherit}
+.text-entry-piece{display:inline-block;white-space:pre}
+.text-entry-controls{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}
+.text-entry-controls button{min-height:44px}
+.text-entry-lab{padding:26px;border:1px solid var(--line);background:var(--surface);min-height:220px}
+.text-entry-lab h4{font:650 32px/1.4 var(--display);margin:15px 0}
+.text-entry-note{font-size:12px;color:var(--muted);line-height:1.8}
+
+
+.peel-fix-root .peel-fix-object{position:relative;isolation:isolate;touch-action:none;user-select:none;height:302px;margin:5px 12px;overflow:visible;cursor:grab}
+.peel-fix-root .peel-fix-object.dragging{cursor:grabbing}
+.peel-fix-root .peel-fix-under{position:absolute;inset:9px;background:var(--surface);border:1px solid var(--line);padding:25px;display:flex;flex-direction:column;justify-content:center;transform:rotate(-2deg);overflow:hidden}
+.peel-fix-root .peel-fix-under h4{font:650 24px var(--display);margin:12px 0}
+.peel-fix-root .peel-fix-under p{font-size:12px;color:var(--muted);line-height:1.8}
+.peel-fix-root .peel-fix-paper{position:absolute;inset:0;background:#f1c959;color:#3e3321;box-shadow:4px 10px 15px #352b2025;padding:26px;z-index:2;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.peel-fix-root .peel-fix-paper:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#6a52120a 0px,#6a52120a 1px,transparent 1px,transparent 5px)}
+.peel-fix-root .peel-fix-paper .paper-stamp{font:10px var(--mono);border:1px solid #5c4b2c;padding:5px 8px;display:inline-block;transform:rotate(-5deg)}
+.peel-fix-root .peel-fix-paper h4{font:650 33px/1.2 var(--display);letter-spacing:-.04em;margin:32px 0 18px}
+.peel-fix-root .peel-fix-paper p{font-size:12px;line-height:1.8;color:#6c593a;max-width:220px}
+.peel-fix-root .peel-fix-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:4}
+.peel-fix-root .peel-fix-reveal{fill:none;opacity:0}
+.peel-fix-root .peel-fix-fold{fill:url(#peel-fix-fold-gradient);filter:drop-shadow(3px 7px 5px #352b2035);opacity:0;transform-origin:100% 100%}
+.peel-fix-root .peel-fix-crease{stroke:#8d7021aa;stroke-width:1.5;stroke-dasharray:4 3;opacity:0}
+.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-reveal,.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-fold,.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-crease{opacity:1}
+.peel-fix-root .peel-fix-help h4{font:650 22px var(--display);margin:12px 0}
+.peel-fix-root .peel-fix-help p{font-size:12px;color:var(--muted);line-height:1.9}
+@media(max-width:1120px){.peel-fix-root .peel-fix-object{margin:5px 8px}.peel-fix-root .peel-fix-paper h4{font-size:28px}}
+@media(max-width:580px){.peel-fix-root .peel-fix-object{height:295px;margin:5px}.peel-fix-root .peel-fix-help{padding:10px 8px}.peel-fix-root .peel-fix-paper h4{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.peel-fix-root .peel-fix-fold{filter:none}}
+
+
+.scroll-stack-demo{width:100%;max-width:1080px;min-height:405px;color:var(--ink)}
+.scroll-stack-layout{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.28fr);gap:22px;align-items:start}
+.scroll-stack-intro{padding:20px;background:var(--surface);border:1px solid var(--line)}
+.scroll-stack-intro .eyebrow{margin-bottom:9px}
+.scroll-stack-intro h3{font:650 25px/1.2 var(--display);margin:8px 0 10px;letter-spacing:-.04em}
+.scroll-stack-intro p{font-size:12px;line-height:1.8;color:var(--muted)}
+.scroll-stack-stage-list{display:grid;gap:5px;margin-top:20px}
+.scroll-stack-stage{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;min-height:48px;padding:7px 9px;text-align:left;background:none;border:1px solid transparent;border-radius:var(--r);color:var(--muted)}
+.scroll-stack-stage:hover{background:var(--surface);border-color:var(--line)}
+.scroll-stack-stage[aria-current=step]{background:var(--surface);border-color:var(--accent);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.scroll-stack-stage span{font:10px var(--mono);color:var(--accent)}
+.scroll-stack-stage strong{font-size:12px}
+.scroll-stack-local-scroll{position:relative;max-height:min(67vh,570px);height:570px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:14px 12px 110px 4px;border-left:1px solid var(--line);outline-offset:-4px}
+.scroll-stack-anchor{height:1px;scroll-margin-top:28px;pointer-events:none}
+.scroll-stack-card{position:sticky;top:calc(14px + var(--stack-index) * 18px);z-index:calc(20 + var(--stack-index));display:flex;flex-direction:column;justify-content:space-between;min-height:205px;margin:0 0 18px;padding:22px 22px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);transform:translateY(calc(var(--stack-index) * 1px));transition:border-color .2s,transform .2s}
+.scroll-stack-card[aria-current=step]{border-color:var(--accent);transform:translateY(0)}
+.scroll-stack-card .scroll-stack-kicker{font:10px var(--mono);letter-spacing:.1em;color:var(--accent2)}
+.scroll-stack-card h4{font:650 24px/1.2 var(--display);letter-spacing:-.04em;margin:14px 0 8px}
+.scroll-stack-card p{font-size:13px;line-height:1.85;color:var(--muted);max-width:480px}
+.scroll-stack-card .scroll-stack-note{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);font:10px var(--mono);color:var(--accent2)}
+.scroll-stack-tail{height:570px;pointer-events:none}
+.scroll-stack-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:16px}
+.scroll-stack-controls button{min-height:44px}
+.scroll-stack-status{margin-left:auto;font:11px var(--mono);color:var(--muted)}
+.scroll-stack-demo[data-motion=reduce] .scroll-stack-card{position:relative;top:auto;transform:none;margin-bottom:12px;transition:none}
+.scroll-stack-demo.is-static .scroll-stack-local-scroll{height:auto;max-height:none;overflow:visible;padding-bottom:0;border-left:0}
+.scroll-stack-demo.is-static .scroll-stack-card{position:relative;top:auto;transform:none;margin-bottom:12px}
+@media(max-width:680px){.scroll-stack-layout{grid-template-columns:1fr;gap:14px}.scroll-stack-intro{padding:16px}.scroll-stack-stage-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px}.scroll-stack-stage{display:block;text-align:center;min-height:44px;padding:7px 4px}.scroll-stack-stage strong{display:block;font-size:10px;margin-top:3px}.scroll-stack-local-scroll{height:500px;max-height:62vh;border-left:0;border-top:1px solid var(--line);padding:12px 5px 90px}.scroll-stack-card{min-height:205px;padding:19px 17px 16px}.scroll-stack-card h4{font-size:21px}.scroll-stack-status{width:100%;margin-left:0}}
+@media(max-width:390px){.scroll-stack-intro h3{font-size:22px}.scroll-stack-stage-list{grid-template-columns:repeat(2,minmax(0,1fr))}.scroll-stack-card{min-height:225px}.scroll-stack-controls{display:grid;grid-template-columns:1fr 1fr}.scroll-stack-controls button{width:100%}.scroll-stack-controls .scroll-stack-status{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.scroll-stack-card{transition:none}.scroll-stack-local-scroll{scroll-behavior:auto}}
+
+/* LOCAL_PRIMITIVES_CSS_END */
+</style>
+</head>
+<body data-skin="swiss"><header class="mast"><div class="brand-mark" aria-hidden="true"></div><div><h1>交互机制实验室</h1><div class="brand-sub">COMPONENT MUSEUM · 4.3</div></div><div class="mast-note">先明确解释用途，再观察交互结果。<br>29 个机制 · 原创实现 · 离线可用</div><div class="skins" aria-label="演示皮肤"><span class="skins-label">演示皮肤</span><button data-skin-choice="swiss" class="active" aria-pressed="true">Swiss</button><button data-skin-choice="collage" aria-pressed="false">Collage</button><button data-skin-choice="dark-tech" aria-pressed="false">Dark Tech</button></div></header>
+<div class="layout"><aside class="sidebar" id="sidebar"><div class="catalog-label" id="catalogToggle" role="button" tabindex="0" aria-expanded="false">用途目录 <span id="count">29 个机制</span></div><div class="search-wrap"><span aria-hidden="true">⌕</span><label class="sr-only" for="search">搜索机制或用途</label><input id="search" type="search" placeholder="搜索名称、用途…"></div><nav class="catalog-scroll" id="catalog" aria-label="按用途浏览机制"></nav><div class="sidebar-foot">单个舞台按需运行<br>模拟内容会明确标注；无 CDN 依赖</div></aside><main class="main"><div class="selected-head"><div><p class="eyebrow" id="category"></p><h2 id="selectedTitle" tabindex="-1"></h2><p class="intro" id="intro"></p></div><div class="previous-next"><button id="previous" aria-label="上一个机制">←</button><button id="next" aria-label="下一个机制">→</button></div></div><section class="bench" aria-label="当前机制实验舞台"><div class="bench-top"><div class="specimen-name"><i class="status-dot"></i><span id="specimenLabel">交互演示</span></div><div class="runbar"><button id="replay" aria-label="重新开始当前演示">↻ 重放</button><button id="pause" aria-pressed="false">Ⅱ 暂停</button><label><input type="checkbox" id="reduceMotion">减弱动效</label><label><input type="checkbox" id="staticMode">静态展示</label></div></div><div class="stage" id="stage" tabindex="-1"></div><div class="result-row"><div class="result-label">CURRENT RESULT</div><p id="result" role="status" aria-live="polite"></p></div></section><div class="guide"><section><h3>怎么操作 / WHAT TO TRY</h3><p id="how"></p></section><section><h3>何时使用 / WHEN IT HELPS</h3><p id="usage"></p></section></div><details class="source-details"><summary>查看实现、来源与使用边界</summary><dl class="meta-grid" id="meta"></dl></details><footer class="page-foot"><span>皮肤只演示同一机制的材质与排版差异，实际项目继承已确认的视觉约定。</span><span>网页响应式 · PPT 按父流程指定固定舞台 · 模拟素材</span></footer></main></div>
+<script>
+"use strict";
+/* LOCAL_PRIMITIVES_JS_START */
+/* Original bounded text-entry primitive. No React Bits code or dependency.
+ * mount(element, text, {mode, duration, scope, isReduced}) -> finish/cancel.
+ * scope supplies schedule(ms, fn), cleanup(fn), clock(), and optionally on().
+ * The true text is always in accessible DOM; visuals are aria-hidden overlays.
+ */
+(function(root){
+ const running=new WeakMap();
+ const glyphs=text=>typeof Intl.Segmenter==='function'?[...new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(String(text))].map(x=>x.segment):Array.from(String(text));
+ const alphabet=Array.from('01アイウエオカキクケコ<>/{}');
+ function frame(text,progress,tick=0){
+  const chars=glyphs(text),reveal=Math.floor(Math.max(0,Math.min(1,progress))*chars.length);
+  return chars.map((ch,i)=>i<reveal||/\s|[()[\]{}.,;:'"=><+*/-]/u.test(ch)?ch:alphabet[(i*17+tick*7)%alphabet.length]).join('');
+ }
+ const css=`
+.text-entry-host{position:relative;display:block;isolation:isolate}
+.text-entry-source{display:block}
+.text-entry-visual{position:absolute;inset:0;display:block;pointer-events:none;user-select:none;white-space:inherit;color:inherit}
+.text-entry-piece{display:inline-block;white-space:pre}
+.text-entry-controls{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}
+.text-entry-controls button{min-height:44px}
+.text-entry-lab{padding:26px;border:1px solid var(--line);background:var(--surface);min-height:220px}
+.text-entry-lab h4{font:650 32px/1.4 var(--display);margin:15px 0}
+.text-entry-note{font-size:12px;color:var(--muted);line-height:1.8}
+`;
+ function mount(element,text,options={}){
+  if(!element)return()=>{};running.get(element)?.();
+  const scope=options.scope,isReduced=options.isReduced||(()=>matchMedia('(prefers-reduced-motion:reduce)').matches);
+  let mode=options.mode||'fade';const source=String(text);const chars=glyphs(source);
+  if(chars.length>140)mode='fade';
+  if(!scope?.schedule||mode==='none'||isReduced()){element.textContent=source;element.dataset.textEntryState='complete';return()=>{}}
+  element.classList.add('text-entry-host');element.textContent='';
+  const real=document.createElement('span'),visual=document.createElement('span');
+  real.className='text-entry-source';real.textContent=source;real.style.opacity='0';
+  visual.className='text-entry-visual';visual.setAttribute('aria-hidden','true');element.append(real,visual);
+  let done=false,cancelJob=null;const duration=Math.max(80,Math.min(1800,Number(options.duration)||420)),start=scope.clock();
+  const finish=()=>{if(done)return;done=true;cancelJob?.();real.style.opacity='';visual.remove();element.dataset.textEntryState='complete';if(running.get(element)===finish)running.delete(element)};
+  running.set(element,finish);scope.cleanup(finish);element.dataset.textEntryState='running';
+  const pieces=[];
+  if(mode==='words'){
+   const tokens=typeof Intl.Segmenter==='function'?[...new Intl.Segmenter(undefined,{granularity:'word'}).segment(source)].map(x=>x.segment):source.split(/(\s+)/);
+   for(const word of tokens){const span=document.createElement('span');span.className='text-entry-piece';span.textContent=word;visual.append(span);pieces.push(span)}
+  }else visual.textContent=source;
+  const draw=()=>{
+   if(done)return;if(isReduced()){finish();return}
+   const t=Math.max(0,Math.min(1,(scope.clock()-start)/duration));
+   if(mode==='decode')visual.textContent=frame(source,t,Math.floor(t*28));
+   else if(mode==='type')visual.textContent=chars.map((ch,i)=>i<Math.ceil(t*chars.length)?ch:/\s/.test(ch)?ch:'\u2007').join('');
+   else if(mode==='words')pieces.forEach((span,i)=>{const local=Math.max(0,Math.min(1,(t-i/Math.max(1,pieces.length)*.55)/.45));span.style.opacity=local;span.style.transform='translateY('+((1-local)*7)+'px)'});
+   else{visual.style.opacity=t;visual.style.transform='translateY('+((1-t)*5)+'px)';if(mode==='blur')visual.style.filter='blur('+((1-t)*5)+'px)'}
+   if(t>=1)finish();else cancelJob=scope.schedule(32,draw);
+  };
+  if(scope.on)scope.on(document,'museum-motion',()=>{if(isReduced())finish()});
+  draw();return finish;
+ }
+ root.MuseumTextEntry={glyphs,frame,mount,css};
+ if(typeof module==='object'&&module.exports)module.exports=root.MuseumTextEntry;
+})(globalThis);
+
+/*
+ * Sticker Peel geometry repair.
+ *
+ * This is a project-owned helper. It does not copy the implementation of any
+ * external component. The museum can either require this file in a local test
+ * or copy the exported strings/object into its single-file runtime.
+ */
+(function factory(root, make) {
+  const api = make();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root) root.PEEL_FIX = api;
+})(typeof globalThis === 'object' ? globalThis : this, function makePeelFix() {
+  const EPSILON = 1e-7;
+
+  const clamp01 = (value) => Math.max(0, Math.min(1, Number(value) || 0));
+  const fmt = (value) => Number(value.toFixed(3));
+  const point = (x, y) => ({ x: fmt(x), y: fmt(y) });
+  const pointList = (points) => points.map((p) => `${p.x},${p.y}`).join(' ');
+
+  const samePoint = (a, b, tolerance = 0.001) => Math.abs(a.x - b.x) <= tolerance && Math.abs(a.y - b.y) <= tolerance;
+  const dedupe = (points) => points.filter((p, i) => i === 0 || !samePoint(p, points[i - 1]));
+
+  function clipPolygon(input, inside, intersection) {
+    if (!input.length) return [];
+    const output = [];
+    let previous = input[input.length - 1];
+    let previousInside = inside(previous);
+    for (const current of input) {
+      const currentInside = inside(current);
+      if (currentInside !== previousInside) output.push(intersection(previous, current));
+      if (currentInside) output.push(current);
+      previous = current;
+      previousInside = currentInside;
+    }
+    return dedupe(output.map((p) => point(p.x, p.y)));
+  }
+
+  function clipToRect(points, width, height) {
+    let result = points;
+    const edges = [
+      [(p) => p.x >= -EPSILON, (a, b) => point(0, a.y + ((0 - a.x) / (b.x - a.x)) * (b.y - a.y))],
+      [(p) => p.x <= width + EPSILON, (a, b) => point(width, a.y + ((width - a.x) / (b.x - a.x)) * (b.y - a.y))],
+      [(p) => p.y >= -EPSILON, (a, b) => point(a.x + ((0 - a.y) / (b.y - a.y)) * (b.x - a.x), 0)],
+      [(p) => p.y <= height + EPSILON, (a, b) => point(a.x + ((height - a.y) / (b.y - a.y)) * (b.x - a.x), height)],
+    ];
+    for (const [inside, intersection] of edges) {
+      result = clipPolygon(result, inside, (a, b) => {
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        // Axis-parallel edges can have a zero denominator only when both points
+        // are on the same boundary; such segments never cross this clip edge.
+        if (Math.abs(dx) < EPSILON && Math.abs(dy) < EPSILON) return a;
+        return intersection(a, b);
+      });
+    }
+    return result;
+  }
+
+  function polygonArea(points) {
+    if (points.length < 3) return 0;
+    let twice = 0;
+    for (let i = 0; i < points.length; i += 1) {
+      const a = points[i];
+      const b = points[(i + 1) % points.length];
+      twice += a.x * b.y - b.x * a.y;
+    }
+    return Math.abs(twice) / 2;
+  }
+
+  function creaseIntersections(width, height, t) {
+    const rectangle = [point(0, 0), point(width, 0), point(width, height), point(0, height)];
+    const hits = [];
+    for (let i = 0; i < rectangle.length; i += 1) {
+      const a = rectangle[i];
+      const b = rectangle[(i + 1) % rectangle.length];
+      const sa = a.x + a.y - t;
+      const sb = b.x + b.y - t;
+      if (Math.abs(sa) <= EPSILON) hits.push(a);
+      if (sa * sb < -EPSILON * EPSILON) {
+        const ratio = sa / (sa - sb);
+        hits.push(point(a.x + ratio * (b.x - a.x), a.y + ratio * (b.y - a.y)));
+      }
+    }
+    const unique = dedupe(hits.sort((a, b) => a.x - b.x || a.y - b.y));
+    if (unique.length === 1) return [unique[0], unique[0]];
+    return unique.slice(0, 2);
+  }
+
+  /**
+   * One diagonal crease controls every visible polygon.
+   *
+   * The remaining face is the rectangle half-plane x+y <= t. The lower-right
+   * area x+y >= t is reflected over x+y=t for the folded back. This makes the
+   * whole rectangle sweep from closed (t=w+h) to open (t=0), including wide
+   * hosts where a fixed min(width,height) triangle would be too small.
+   */
+  function geometry(width, height, progress) {
+    const w = Math.max(1, Number(width) || 1);
+    const h = Math.max(1, Number(height) || 1);
+    const p = clamp01(progress);
+    const t = (w + h) * (1 - p);
+    const rectangle = [point(0, 0), point(w, 0), point(w, h), point(0, h)];
+    const face = clipPolygon(
+      rectangle,
+      (q) => q.x + q.y <= t + EPSILON,
+      (a, b) => {
+        const ratio = (t - (a.x + a.y)) / ((b.x + b.y) - (a.x + a.y));
+        return point(a.x + ratio * (b.x - a.x), a.y + ratio * (b.y - a.y));
+      },
+    );
+    const removed = clipPolygon(
+      rectangle,
+      (q) => q.x + q.y >= t - EPSILON,
+      (a, b) => {
+        const ratio = (t - (a.x + a.y)) / ((b.x + b.y) - (a.x + a.y));
+        return point(a.x + ratio * (b.x - a.x), a.y + ratio * (b.y - a.y));
+      },
+    );
+    const reflectedRemoved = removed.map((q) => point(t - q.y, t - q.x));
+    const foldBack = clipToRect(reflectedRemoved, w, h);
+    const crease = creaseIntersections(w, h, t);
+    return {
+      width: fmt(w),
+      height: fmt(h),
+      progress: fmt(p),
+      sweep: fmt(t),
+      closed: p <= EPSILON,
+      crease,
+      face,
+      reveal: removed,
+      foldBack,
+      reflection: reflectedRemoved,
+    };
+  }
+
+  function cssPolygon(points, width, height) {
+    const safePoints = points.length ? points : [{ x: 0, y: 0 }];
+    return `polygon(${safePoints.map((p) => `${fmt((p.x / width) * 100)}% ${fmt((p.y / height) * 100)}%`).join(', ')})`;
+  }
+
+  // All selectors are prefixed so this repair can coexist with the museum's
+  // legacy .sticker-* specimen while the parent integrates the replacement.
+  const css = String.raw`
+.peel-fix-root .peel-fix-object{position:relative;isolation:isolate;touch-action:none;user-select:none;height:302px;margin:5px 12px;overflow:visible;cursor:grab}
+.peel-fix-root .peel-fix-object.dragging{cursor:grabbing}
+.peel-fix-root .peel-fix-under{position:absolute;inset:9px;background:var(--surface);border:1px solid var(--line);padding:25px;display:flex;flex-direction:column;justify-content:center;transform:rotate(-2deg);overflow:hidden}
+.peel-fix-root .peel-fix-under h4{font:650 24px var(--display);margin:12px 0}
+.peel-fix-root .peel-fix-under p{font-size:12px;color:var(--muted);line-height:1.8}
+.peel-fix-root .peel-fix-paper{position:absolute;inset:0;background:#f1c959;color:#3e3321;box-shadow:4px 10px 15px #352b2025;padding:26px;z-index:2;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.peel-fix-root .peel-fix-paper:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#6a52120a 0px,#6a52120a 1px,transparent 1px,transparent 5px)}
+.peel-fix-root .peel-fix-paper .paper-stamp{font:10px var(--mono);border:1px solid #5c4b2c;padding:5px 8px;display:inline-block;transform:rotate(-5deg)}
+.peel-fix-root .peel-fix-paper h4{font:650 33px/1.2 var(--display);letter-spacing:-.04em;margin:32px 0 18px}
+.peel-fix-root .peel-fix-paper p{font-size:12px;line-height:1.8;color:#6c593a;max-width:220px}
+.peel-fix-root .peel-fix-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:4}
+.peel-fix-root .peel-fix-reveal{fill:none;opacity:0}
+.peel-fix-root .peel-fix-fold{fill:url(#peel-fix-fold-gradient);filter:drop-shadow(3px 7px 5px #352b2035);opacity:0;transform-origin:100% 100%}
+.peel-fix-root .peel-fix-crease{stroke:#8d7021aa;stroke-width:1.5;stroke-dasharray:4 3;opacity:0}
+.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-reveal,.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-fold,.peel-fix-root .peel-fix-object[data-peel-open="true"] .peel-fix-crease{opacity:1}
+.peel-fix-root .peel-fix-help h4{font:650 22px var(--display);margin:12px 0}
+.peel-fix-root .peel-fix-help p{font-size:12px;color:var(--muted);line-height:1.9}
+@media(max-width:1120px){.peel-fix-root .peel-fix-object{margin:5px 8px}.peel-fix-root .peel-fix-paper h4{font-size:28px}}
+@media(max-width:580px){.peel-fix-root .peel-fix-object{height:295px;margin:5px}.peel-fix-root .peel-fix-help{padding:10px 8px}.peel-fix-root .peel-fix-paper h4{font-size:28px}}
+@media(prefers-reduced-motion:reduce){.peel-fix-root .peel-fix-fold{filter:none}}
+`;
+
+  const noteMarkup = () => `
+<div class="peel-fix-under"><span class="eyebrow">UNDER THE SURFACE</span><h4>保留一点<br>探索的余地。</h4><p>用于轻松叙事中的补充说明。<br>关键操作、风险和必读规则不应藏在贴纸后。</p></div>`;
+
+  function render(data, helpers) {
+    const d = data || { peel: 0 };
+    d.peel = Math.max(0, Math.min(100, Number(d.peel) || 0));
+    const button = helpers && helpers.button
+      ? helpers.button(d.peel > 50 ? '合上贴纸' : '剥离贴纸', 'peel', '', 'primary')
+      : '<button class="primary" data-peel>剥离贴纸</button>';
+    const actions = helpers && helpers.actions ? helpers.actions(button) : `<div class="demo-actions">${button}</div>`;
+    const fallbackHead = '<div class="demo-head"><div><div class="eyebrow">MATERIAL / OPTIONAL REVEAL</div><h3>有些注释，适合亲手揭开</h3><p>拖动纸张右下角，或点击剥离。重要任务信息应直接可见。</p></div><span class="tag">原创纸张实验</span></div>';
+    return `<div class="demo peel-fix-root">${helpers && helpers.head ? helpers.head('MATERIAL / OPTIONAL REVEAL', '有些注释，适合亲手揭开', '拖动纸张右下角，或点击剥离。重要任务信息应直接可见。', '原创纸张实验') : fallbackHead}<div class="sticker-layout"><div class="peel-fix-object" tabindex="0" role="button" aria-label="剥离或合上贴纸" aria-expanded="${d.peel > 50}" data-peel-open="${d.peel > 0}" data-peel-value="${d.peel}">${noteMarkup()}<div class="peel-fix-paper"><span class="paper-stamp">FIELD NOTE / 07</span><h4>有一条旁注，<br>等你发现。</h4><p>从右下角慢慢揭开<br>或使用下方按钮</p></div><svg class="peel-fix-svg" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none"><defs><linearGradient id="peel-fix-fold-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e1b340"/><stop offset=".47" stop-color="#fff0bb"/><stop offset=".5" stop-color="#8d702152"/><stop offset=".52" stop-color="#8d702100"/></linearGradient></defs><polygon class="peel-fix-reveal" data-peel-reveal/><polygon class="peel-fix-fold" data-peel-fold/><line class="peel-fix-crease" data-peel-crease/></svg></div><div class="peel-fix-help"><div class="eyebrow">DRAG / TAP / KEYBOARD</div><h4>纸张折角，<br>承接手势的进度。</h4><p>剥离比例跟随拖动距离。松手后保持当前状态，随时可以合上再看一次。</p>${actions}</div></div></div>`;
+  }
+
+  function setup(root, data, scope, options) {
+    const obj = root && root.querySelector('.peel-fix-object');
+    if (!obj || !scope) return;
+    const paper = obj.querySelector('.peel-fix-paper');
+    const svg = obj.querySelector('.peel-fix-svg');
+    const reveal = obj.querySelector('[data-peel-reveal]');
+    const fold = obj.querySelector('[data-peel-fold]');
+    const crease = obj.querySelector('[data-peel-crease]');
+    const button = root.querySelector('[data-peel]');
+    let drag = null;
+    let moved = false;
+    let lastGeometry = geometry(1, 1, data.peel / 100);
+    const announce = (text) => {
+      const report = options && options.report;
+      if (typeof report === 'function') report(text);
+      else if (typeof globalThis.report === 'function') globalThis.report(text);
+    };
+    const live = () => !root.closest('.static-mode') && obj.getAttribute('aria-disabled') !== 'true' && !root.classList.contains('is-paused') && !root.classList.contains('is-suspended');
+    const paint = (raw) => {
+      const rect = obj.getBoundingClientRect ? obj.getBoundingClientRect() : { width: 1, height: 1 };
+      const width = Math.max(1, rect.width || obj.clientWidth || 1);
+      const height = Math.max(1, rect.height || obj.clientHeight || 1);
+      const p = clamp01((Number(raw) || 0) / 100);
+      const g = geometry(width, height, p);
+      lastGeometry = g;
+      data.peel = Math.round(p * 100 * 100) / 100;
+      obj.dataset.peelValue = String(data.peel);
+      obj.dataset.peelOpen = String(p > EPSILON);
+      obj.setAttribute('aria-expanded', String(data.peel > 50));
+      if (paper) paper.style.clipPath = cssPolygon(g.face, g.width, g.height);
+      if (svg) svg.setAttribute('viewBox', `0 0 ${g.width} ${g.height}`);
+      if (reveal) reveal.setAttribute('points', pointList(g.reveal));
+      if (fold) fold.setAttribute('points', pointList(g.foldBack));
+      if (crease) {
+        crease.setAttribute('x1', String(g.crease[0].x));
+        crease.setAttribute('y1', String(g.crease[0].y));
+        crease.setAttribute('x2', String(g.crease[1].x));
+        crease.setAttribute('y2', String(g.crease[1].y));
+      }
+      if (button) button.textContent = data.peel > 50 ? '合上贴纸' : '剥离贴纸';
+    };
+    const set = (value, shouldAnnounce = true) => {
+      if (!live()) return;
+      const next = Math.max(0, Math.min(100, Number(value) || 0));
+      paint(next);
+      if (shouldAnnounce) announce(`贴纸已揭开 ${Math.round(next)}%。${next > 50 ? '底层旁注可见：重要信息不应藏在可选交互后。' : '拖动或点击可揭示补充内容。'}`);
+    };
+    let cancelTween = null, tweenTarget = null;
+    const stopTween = () => { cancelTween?.(); cancelTween = null; tweenTarget = null; };
+    const toggle = () => {
+      const target = tweenTarget === null ? (data.peel > 50 ? 0 : 100) : 100 - tweenTarget;
+      stopTween(); tweenTarget = target;
+      const reduced = options?.isReduced?.() || matchMedia('(prefers-reduced-motion:reduce)').matches;
+      if (reduced || !scope.clock) { set(target); return; }
+      const from = data.peel, start = scope.clock();
+      const advance = () => {
+        if (options?.isReduced?.()) { paint(target); stopTween(); return; }
+        const t = Math.min(1, (scope.clock() - start) / 420);
+        paint(from + (target - from) * (1 - Math.pow(1 - t, 3)));
+        if (t < 1) cancelTween = scope.schedule(24, advance);
+        else { stopTween(); set(target); }
+      };
+      cancelTween = scope.schedule(0, advance);
+    };
+    const onKey = (event) => {
+      if (!live()) return;
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); return; }
+      stopTween();
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); set(data.peel + 10); return; }
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); set(data.peel - 10); return; }
+      if (event.key === 'Home') { event.preventDefault(); set(0); return; }
+      if (event.key === 'End') { event.preventDefault(); set(100); }
+    };
+    const onDown = (event) => {
+      if (!live() || (event.button !== undefined && event.button !== 0)) return;
+      stopTween();
+      moved = false;
+      drag = { x: event.clientX, y: event.clientY, peel: data.peel };
+      obj.classList.add('dragging');
+      try { obj.setPointerCapture(event.pointerId); } catch (_) { /* Safari may omit capture for synthetic events. */ }
+    };
+    const onMove = (event) => {
+      if (!drag || !live()) return;
+      const dx = (drag.x - event.clientX) / Math.max(1, obj.clientWidth || lastGeometry.width);
+      const dy = (drag.y - event.clientY) / Math.max(1, obj.clientHeight || lastGeometry.height);
+      if (Math.abs(dx) + Math.abs(dy) > 0.025) moved = true;
+      // Equal normalized axes keep the gesture diagonal on both wide and tall boxes.
+      set(drag.peel + ((dx + dy) / 2) * 100, false);
+    };
+    const onEnd = () => { drag = null; obj.classList.remove('dragging'); };
+    scope.on(button, 'click', toggle);
+    scope.on(obj, 'click', () => { if (!moved) toggle(); moved = false; });
+    scope.on(obj, 'keydown', onKey);
+    scope.on(obj, 'pointerdown', onDown);
+    scope.on(obj, 'pointermove', onMove);
+    scope.on(obj, 'pointerup', onEnd);
+    scope.on(obj, 'pointercancel', onEnd);
+    scope.on(obj, 'lostpointercapture', onEnd);
+    scope.on(window, 'resize', () => paint(data.peel));
+    scope.on(document, 'museum-theme', () => paint(data.peel));
+    scope.on(document, 'museum-motion', () => paint(data.peel));
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(() => paint(data.peel)) : null;
+    observer && observer.observe(obj);
+    scope.cleanup(() => { stopTween(); drag = null; obj.classList.remove('dragging'); observer && observer.disconnect(); });
+    paint(data.peel);
+  }
+
+  const registry = {
+    id: 'sticker-peel',
+    type: 'sticker',
+    initial: () => ({ peel: 0 }),
+    render: (data, helpers) => render(data, helpers),
+    setup,
+  };
+
+  function assert(condition, message) {
+    if (!condition) throw new Error(`peel geometry invariant failed: ${message}`);
+  }
+  function runGeometryTests() {
+    const sizes = [[480, 302], [302, 480], [302, 302]];
+    const progresses = [0, 0.1, 0.5, 0.9, 1];
+    let count = 0;
+    for (const [w, h] of sizes) for (const p of progresses) {
+      const g = geometry(w, h, p);
+      const all = [...g.face, ...g.reveal, ...g.foldBack, ...g.crease];
+      all.forEach((q) => assert(q.x >= -EPSILON && q.x <= w + EPSILON && q.y >= -EPSILON && q.y <= h + EPSILON, `${w}x${h} p=${p} point ${q.x},${q.y} out of bounds`));
+      const has = (points, target) => points.some((q) => samePoint(q, target, 0.01));
+      g.crease.forEach((q) => {
+        assert(has(g.face, q), `${w}x${h} p=${p} face misses crease point`);
+        assert(has(g.reveal, q), `${w}x${h} p=${p} reveal misses crease point`);
+        assert(has(g.foldBack, q), `${w}x${h} p=${p} fold misses crease point`);
+      });
+      const faceArea = polygonArea(g.face);
+      const revealArea = polygonArea(g.reveal);
+      assert(Math.abs(faceArea + revealArea - w * h) < Math.max(0.1, w * h * 0.00002), `${w}x${h} p=${p} face/reveal area mismatch`);
+      if (p === 0) assert(g.closed && revealArea === 0 && polygonArea(g.foldBack) === 0, 'closed fold must be degenerate');
+      if (p === 1) assert(faceArea === 0 && Math.abs(revealArea - w * h) < 0.1, 'full open must reveal the whole host');
+      count += 1;
+    }
+    return { passed: count, sizes, progresses };
+  }
+
+  return { EPSILON, clamp01, geometry, css, render, setup, registry, polygonArea, runGeometryTests };
+});
+
+// Plain Node verification: node design-stack-v4/research/peel-fix.js
+if (typeof module === 'object' && module.exports && require.main === module) {
+  const result = module.exports.runGeometryTests();
+  console.log(`peel geometry invariants: ${result.passed} cases passed`);
+}
+
+/*
+ * Scroll Stack / local research specimen
+ *
+ * Project-owned native HTML/CSS. The consuming museum can merge
+ * SCROLL_STACK_RECORD into C, SCROLL_STACK_CSS into its stylesheet, and
+ * SCROLL_STACK_REGISTRY into REGISTRY. It intentionally has no external
+ * runtime, body-scroll capture, idle loop, or copied third-party source.
+ */
+
+const DEFAULT_SCROLL_STACK_STAGES = Object.freeze([
+  {
+    id: 'orient',
+    kicker: '01 / ORIENT',
+    title: '先把任务说清楚',
+    body: '从用户要完成的动作开始，写下判断完成的条件。没有清楚的任务，后续进度只能制造错觉。',
+    note: '任务范围 · 结束条件 · 未知项',
+  },
+  {
+    id: 'sample',
+    kicker: '02 / SAMPLE',
+    title: '用代表性内容验证',
+    body: '选择能暴露主流程、异常和边界的样本。卡片叠放保留前一步的依据，当前阶段仍然可以回看。',
+    note: '代表性内容 · 正常路径 · 异常出口',
+  },
+  {
+    id: 'observe',
+    kicker: '03 / OBSERVE',
+    title: '让状态变化可见',
+    body: '操作、等待、完成和恢复都应有对应反馈。进度位置只表达浏览位置，不替代真实完成状态。',
+    note: '进行中 · 结果 · 可恢复错误',
+  },
+  {
+    id: 'handoff',
+    kicker: '04 / HANDOFF',
+    title: '留下可以交接的证据',
+    body: '记录入口、依赖、验收结果和仍未验证的部分。交接完成后，使用者仍能沿着这条路径复核。',
+    note: '入口 · 验收证据 · 限制说明',
+  },
+]);
+
+function createScrollStack(stages = DEFAULT_SCROLL_STACK_STAGES) {
+if (!Array.isArray(stages) || stages.length === 0) throw new Error('Scroll Stack needs at least one stage');
+if (new Set(stages.map(stage=>stage.id)).size !== stages.length || stages.some(stage=>!/^[-\w]+$/.test(stage.id))) throw new Error('Stage IDs must be unique safe identifiers');
+const SCROLL_STACK_STAGES = Object.freeze(stages.map(stage=>Object.freeze({...stage})));
+const SCROLL_STACK_RECORD = Object.freeze({
+  id: 'scroll-stack',
+  name: 'Scroll Stack',
+  group: '时间与顺序',
+  task: '阶段叙事 / 局部滚动',
+  fit: 'Editorial、Swiss、Collage',
+  avoid: '需要精确时间比例或自动播放的流程',
+  feedback: '局部滚动、按钮和键盘共同更新当前阶段；卡片按自然顺序渐进叠放',
+  deps: '原生 HTML/CSS/DOM',
+  source: '原创本地滚动机制；无外部运行时代码',
+  quality: 'experimental',
+  type: 'scrollStack',
+  intro: '用一个局部滚动容器承载有依据的阶段，叠放帮助回看，不把滚动位置伪装成完成度。',
+  how: '滚动右侧局部容器，或使用上/下一阶段、Home/End、方向键浏览。当前阶段会同步到可访问状态。',
+  date: '2026-09-09',
+});
+
+const SCROLL_STACK_CSS = `
+.scroll-stack-demo{width:100%;max-width:1080px;min-height:405px;color:var(--ink)}
+.scroll-stack-layout{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.28fr);gap:22px;align-items:start}
+.scroll-stack-intro{padding:20px;background:var(--surface);border:1px solid var(--line)}
+.scroll-stack-intro .eyebrow{margin-bottom:9px}
+.scroll-stack-intro h3{font:650 25px/1.2 var(--display);margin:8px 0 10px;letter-spacing:-.04em}
+.scroll-stack-intro p{font-size:12px;line-height:1.8;color:var(--muted)}
+.scroll-stack-stage-list{display:grid;gap:5px;margin-top:20px}
+.scroll-stack-stage{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;min-height:48px;padding:7px 9px;text-align:left;background:none;border:1px solid transparent;border-radius:var(--r);color:var(--muted)}
+.scroll-stack-stage:hover{background:var(--surface);border-color:var(--line)}
+.scroll-stack-stage[aria-current=step]{background:var(--surface);border-color:var(--accent);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.scroll-stack-stage span{font:10px var(--mono);color:var(--accent)}
+.scroll-stack-stage strong{font-size:12px}
+.scroll-stack-local-scroll{position:relative;max-height:min(67vh,570px);height:570px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:14px 12px 110px 4px;border-left:1px solid var(--line);outline-offset:-4px}
+.scroll-stack-anchor{height:1px;scroll-margin-top:28px;pointer-events:none}
+.scroll-stack-card{position:sticky;top:calc(14px + var(--stack-index) * 18px);z-index:calc(20 + var(--stack-index));display:flex;flex-direction:column;justify-content:space-between;min-height:205px;margin:0 0 18px;padding:22px 22px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);transform:translateY(calc(var(--stack-index) * 1px));transition:border-color .2s,transform .2s}
+.scroll-stack-card[aria-current=step]{border-color:var(--accent);transform:translateY(0)}
+.scroll-stack-card .scroll-stack-kicker{font:10px var(--mono);letter-spacing:.1em;color:var(--accent2)}
+.scroll-stack-card h4{font:650 24px/1.2 var(--display);letter-spacing:-.04em;margin:14px 0 8px}
+.scroll-stack-card p{font-size:13px;line-height:1.85;color:var(--muted);max-width:480px}
+.scroll-stack-card .scroll-stack-note{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);font:10px var(--mono);color:var(--accent2)}
+.scroll-stack-tail{height:570px;pointer-events:none}
+.scroll-stack-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:16px}
+.scroll-stack-controls button{min-height:44px}
+.scroll-stack-status{margin-left:auto;font:11px var(--mono);color:var(--muted)}
+.scroll-stack-demo[data-motion=reduce] .scroll-stack-card{position:relative;top:auto;transform:none;margin-bottom:12px;transition:none}
+.scroll-stack-demo.is-static .scroll-stack-local-scroll{height:auto;max-height:none;overflow:visible;padding-bottom:0;border-left:0}
+.scroll-stack-demo.is-static .scroll-stack-card{position:relative;top:auto;transform:none;margin-bottom:12px}
+@media(max-width:680px){.scroll-stack-layout{grid-template-columns:1fr;gap:14px}.scroll-stack-intro{padding:16px}.scroll-stack-stage-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px}.scroll-stack-stage{display:block;text-align:center;min-height:44px;padding:7px 4px}.scroll-stack-stage strong{display:block;font-size:10px;margin-top:3px}.scroll-stack-local-scroll{height:500px;max-height:62vh;border-left:0;border-top:1px solid var(--line);padding:12px 5px 90px}.scroll-stack-card{min-height:205px;padding:19px 17px 16px}.scroll-stack-card h4{font-size:21px}.scroll-stack-status{width:100%;margin-left:0}}
+@media(max-width:390px){.scroll-stack-intro h3{font-size:22px}.scroll-stack-stage-list{grid-template-columns:repeat(2,minmax(0,1fr))}.scroll-stack-card{min-height:225px}.scroll-stack-controls{display:grid;grid-template-columns:1fr 1fr}.scroll-stack-controls button{width:100%}.scroll-stack-controls .scroll-stack-status{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.scroll-stack-card{transition:none}.scroll-stack-local-scroll{scroll-behavior:auto}}
+`;
+
+const clampScrollStackIndex = value => Math.max(0, Math.min(SCROLL_STACK_STAGES.length - 1, Number.isFinite(+value) ? Math.round(+value) : 0));
+const readMuseumState = () => (typeof S === 'object' && S ? S : { static: false, paused: false, reduced: false });
+const readEsc = value => (typeof esc === 'function' ? esc(value) : String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char])));
+
+function scrollStackInitial() {
+  return { index: 0, scrollTop: 0 };
+}
+
+function scrollStackRender(data = {}, options = {}) {
+  const museum = readMuseumState();
+  const staticMode = options.static === undefined ? Boolean(museum.static) : Boolean(options.static);
+  const index = clampScrollStackIndex(data.index);
+  return `<div class="demo scroll-stack-demo${staticMode ? ' is-static' : ''}" data-scroll-stack data-current-stage="${index}" data-motion="${museum.reduced ? 'reduce' : 'normal'}">
+    <div class="scroll-stack-layout">
+      <section class="scroll-stack-intro" aria-label="Scroll Stack 说明">
+        <div class="eyebrow">LOCAL SCROLL / ${SCROLL_STACK_STAGES.length} STAGES</div>
+        <h3>回看每一步，<br>明确当前位置。</h3>
+        <p>卡片在局部容器中自然顺序叠放。滚动表达浏览位置，阶段按钮和键盘提供等价入口。</p>
+        <nav class="scroll-stack-stage-list" aria-label="Scroll Stack 阶段">
+          ${SCROLL_STACK_STAGES.map((stage, i) => `<button class="scroll-stack-stage" data-scroll-stack-stage="${i}" aria-controls="scroll-stack-card-${stage.id}" aria-current="${i === index ? 'step' : 'false'}"><span>0${i + 1}</span><strong>${readEsc(stage.title)}</strong></button>`).join('')}
+        </nav>
+      </section>
+      <div class="scroll-stack-local-scroll" data-scroll-stack-scroll tabindex="0" aria-label="滚动浏览 ${SCROLL_STACK_STAGES.length} 个阶段">
+        ${SCROLL_STACK_STAGES.map((stage, i) => `<div class="scroll-stack-anchor" data-scroll-stack-anchor="${i}" aria-hidden="true"></div><article class="scroll-stack-card" id="scroll-stack-card-${stage.id}" data-scroll-stack-card="${i}" style="--stack-index:${i}" tabindex="-1" role="group" aria-labelledby="scroll-stack-title-${stage.id}" aria-current="${i === index ? 'step' : 'false'}"><div><div class="scroll-stack-kicker">${readEsc(stage.kicker)}</div><h4 id="scroll-stack-title-${stage.id}">${readEsc(stage.title)}</h4><p>${readEsc(stage.body)}</p></div><div class="scroll-stack-note">${readEsc(stage.note)}</div></article>`).join('')}<div class="scroll-stack-tail" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="scroll-stack-controls" data-scroll-stack-controls>
+      <button data-scroll-stack-prev aria-label="上一个阶段">← 上一阶段</button>
+      <button data-scroll-stack-next class="primary" aria-label="下一个阶段">下一阶段 →</button>
+      <button data-scroll-stack-reset aria-label="回到第一个阶段">重置</button>
+      <span class="scroll-stack-status" data-scroll-stack-status aria-live="polite">第 ${index + 1} / ${SCROLL_STACK_STAGES.length} 阶段</span>
+    </div>
+  </div>`;
+}
+
+function scrollStackSetup(root, data, scope, options = {}) {
+  if (!root || !scope) return;
+  const host = typeof root.matches === 'function' && root.matches('[data-scroll-stack]') ? root : root.querySelector('[data-scroll-stack]') || root;
+  const viewport = host.querySelector('[data-scroll-stack-scroll]');
+  const cards = [...host.querySelectorAll('[data-scroll-stack-card]')];
+  const anchors = [...host.querySelectorAll('[data-scroll-stack-anchor]')];
+  const stageButtons = [...host.querySelectorAll('[data-scroll-stack-stage]')];
+  const previous = host.querySelector('[data-scroll-stack-prev]');
+  const next = host.querySelector('[data-scroll-stack-next]');
+  const reset = host.querySelector('[data-scroll-stack-reset]');
+  const museum = () => {
+    const baseMuseum = readMuseumState();
+    return {
+    ...baseMuseum,
+    ...(options.state || {}),
+    static: options.static === undefined ? Boolean((options.state || {}).static ?? baseMuseum.static) : Boolean(options.static),
+    paused: options.paused === undefined ? Boolean((options.state || {}).paused ?? baseMuseum.paused) : Boolean(options.paused),
+    reduced: options.reduced === undefined ? Boolean((options.state || {}).reduced ?? baseMuseum.reduced) : Boolean(options.reduced),
+    };
+  };
+  if (!viewport || cards.length !== SCROLL_STACK_STAGES.length || anchors.length !== cards.length) return;
+
+  let disposed = false;
+  const blocked = () => disposed || museum().static || museum().paused;
+  const reduced = () => Boolean(museum().reduced || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion:reduce)').matches));
+
+  const paint = index => {
+    const current = clampScrollStackIndex(index);
+    data.index = current;
+    data.scrollTop = viewport.scrollTop;
+    host.dataset.currentStage = String(current);
+    stageButtons.forEach((button, i) => {
+      button.setAttribute('aria-current', i === current ? 'step' : 'false');
+    });
+    cards.forEach((card, i) => {
+      card.setAttribute('aria-current', i === current ? 'step' : 'false');
+    });
+    if (previous) previous.disabled = current === 0 || blocked();
+    if (next) next.disabled = current === cards.length - 1 || blocked();
+    if (reset) reset.disabled = current === 0 || blocked();
+    const status = host.querySelector('[data-scroll-stack-status]');
+    if (status) status.textContent = `第 ${current + 1} / ${cards.length} 阶段：${SCROLL_STACK_STAGES[current].title}`;
+  };
+
+  const nearestStage = () => {
+    const anchor = viewport.getBoundingClientRect().top + 28;
+    return anchors.reduce((best, marker, i) => {
+      const distance = Math.abs(marker.getBoundingClientRect().top - anchor);
+      return distance < best.distance ? { index: i, distance } : best;
+    }, { index: clampScrollStackIndex(data.index), distance: Infinity }).index;
+  };
+
+  const goTo = (index, focus = false) => {
+    if (blocked()) return;
+    const current = clampScrollStackIndex(index);
+    const card = cards[current];
+    const marker = anchors[current];
+    paint(current);
+    const target = Math.max(0, marker.offsetTop - 14);
+    if (typeof viewport.scrollTo === 'function') viewport.scrollTo({ top: target, behavior: 'auto' });
+    else viewport.scrollTop = target;
+    data.scrollTop = target;
+    if (focus) card.focus({ preventScroll: true });
+  };
+
+  const onScroll = () => {
+    if (disposed) return;
+    if (museum().static || museum().paused) {
+      if (!museum().static && Number.isFinite(+data.scrollTop)) viewport.scrollTop = +data.scrollTop;
+      return;
+    }
+    data.scrollTop = viewport.scrollTop;
+    paint(nearestStage());
+  };
+  const onKey = event => {
+    if (blocked()) return;
+    if (event.key === 'ArrowDown' || event.key === 'PageDown') { event.preventDefault(); goTo(data.index + 1); }
+    if (event.key === 'ArrowUp' || event.key === 'PageUp') { event.preventDefault(); goTo(data.index - 1); }
+    if (event.key === 'Home') { event.preventDefault(); goTo(0); }
+    if (event.key === 'End') { event.preventDefault(); goTo(cards.length - 1); }
+  };
+  const bindStageButton = (button, event) => { if (event.defaultPrevented) return; goTo(+button.dataset.scrollStackStage, true); };
+  const refresh = () => {
+    host.dataset.motion = reduced() ? 'reduce' : 'normal';
+    if (!museum().static && Number.isFinite(+data.scrollTop)) viewport.scrollTop = Math.max(0, +data.scrollTop);
+    paint(data.index);
+  };
+
+  scope.on(viewport, 'scroll', onScroll, { passive: true });
+  scope.on(viewport, 'keydown', onKey);
+  stageButtons.forEach(button => scope.on(button, 'click', event => bindStageButton(button, event)));
+  scope.on(previous, 'click', () => goTo(data.index - 1, true));
+  scope.on(next, 'click', () => goTo(data.index + 1, true));
+  scope.on(reset, 'click', () => goTo(0, true));
+  if (typeof window !== 'undefined') scope.on(window, 'resize', refresh);
+  if (typeof document !== 'undefined') scope.on(document, 'museum-motion', refresh);
+  scope.cleanup(() => { disposed = true; });
+
+  refresh();
+}
+
+const SCROLL_STACK_REGISTRY = Object.freeze({
+  initial: scrollStackInitial,
+  render: scrollStackRender,
+  setup: scrollStackSetup,
+});
+
+return Object.freeze({
+  SCROLL_STACK_STAGES,
+  SCROLL_STACK_RECORD,
+  SCROLL_STACK_CSS,
+  SCROLL_STACK_REGISTRY,
+  scrollStackInitial,
+  scrollStackRender,
+  scrollStackSetup,
+});
+}
+const SCROLL_STACK_API = Object.freeze({...createScrollStack(), createScrollStack});
+if (typeof module !== 'undefined' && module.exports) module.exports = SCROLL_STACK_API;
+if (typeof globalThis !== 'undefined') Object.assign(globalThis, SCROLL_STACK_API);
+
+/* LOCAL_PRIMITIVES_JS_END */
+const C=[
+  {
+    "id": "kinetic-title",
+    "name": "Kinetic Title Engine",
+    "group": "内容聚焦",
+    "task": "强调主张 / 章节开场",
+    "fit": "Swiss、Editorial、Motion-first",
+    "avoid": "密集表格、长句说明",
+    "feedback": "按语义分为语境、主张和解释三拍，最后保留完整内容",
+    "deps": "原生 CSS",
+    "source": "原创机制；参考 React Bits Text Loop 的用途研究",
+    "quality": "implemented",
+    "type": "title",
+    "intro": "让标题按语义层级出现，而不是只做循环字距动画。",
+    "how": "自动依次呈现语境、主张和解释；可点击“逐步播放”或“直接看完整主张”，顶部重放会重新开始。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "metric-pulse",
+    "name": "Metric Pulse Card",
+    "group": "证据与数据",
+    "task": "KPI / 分段比较",
+    "fit": "Swiss、Dark Tech、功能主义",
+    "avoid": "没有定义的数据、纯装饰",
+    "feedback": "切换固定分组，柱高和解释同步变化",
+    "deps": "原生 CSS",
+    "source": "原创机制；不依赖 ECharts",
+    "quality": "implemented",
+    "type": "metric",
+    "intro": "用命名分组解释指标变化，避免随机换值伪装成业务数据。",
+    "how": "切换访客、转化、留存。观察纵轴单位、柱高、数据标签和当前最高分段同步变化。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "token-field",
+    "name": "3D Token Field",
+    "group": "空间与生成",
+    "task": "能力生态 / 关系空间",
+    "fit": "3D / Immersive、Dark Tech",
+    "avoid": "普通列表、无关系的架构图",
+    "feedback": "拖动旋转空间，点击节点显示关系标签",
+    "deps": "原生 Canvas 2D 投影",
+    "source": "原创低依赖空间实验；未打包 Three.js",
+    "quality": "experimental",
+    "type": "token",
+    "intro": "按需加载的空间关系实验，不默认配给 Agent 架构。",
+    "how": "拖动画布或用方向键旋转；点选实际投影节点，或 Enter / 下一个节点查看相邻关系。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "particle-thesis",
+    "name": "Generative Particle Thesis",
+    "group": "空间与生成",
+    "task": "趋势形成 / 不确定性",
+    "fit": "Motion-first、Dark Tech、Maximalism",
+    "avoid": "把粒子当真实统计图",
+    "feedback": "点击加入输入信号，粒子群显示扰动计数",
+    "deps": "原生 Canvas 2D",
+    "source": "原创生成实验；输入边界与业务结论分离",
+    "quality": "experimental",
+    "type": "particle",
+    "intro": "保留生成艺术，但明确输入改变的是实验状态，不是业务趋势。",
+    "how": "点击画布或 Enter 加入信号。计数表示输入次数；25 个粒子只是生成艺术，不能当成统计图。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "physics-priority",
+    "name": "Physics Priority Map",
+    "group": "空间与生成",
+    "task": "冲突 / 资源沙盘",
+    "fit": "Skeuomorphism、Motion-first",
+    "avoid": "把物理位置当优先级排序",
+    "feedback": "新增带标签事项并碰撞，侧边结果说明约束",
+    "deps": "原生 Canvas 物理积分",
+    "source": "原创轻量物理实验；不依赖 Matter.js",
+    "quality": "experimental",
+    "type": "physics",
+    "intro": "用真实碰撞表达负载和冲突，优先级仍需明确规则判断。",
+    "how": "点击画布、加入事项按钮或 Enter 添加，达到 8 项后停止接纳；重放恢复初始 3 项。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "timeline-rail",
+    "name": "Narrative Timeline Rail",
+    "group": "时间与顺序",
+    "task": "路线图 / 发布阶段",
+    "fit": "Swiss、Editorial、Retro Web",
+    "avoid": "无阶段关系的装饰节点",
+    "feedback": "点击阶段展开详情，并保留当前进度",
+    "deps": "原生 HTML/CSS",
+    "source": "原创时间轴机制",
+    "quality": "implemented",
+    "type": "timeline",
+    "intro": "时间节点必须能回看阶段内容，不再只做循环发光。",
+    "how": "点击研究/构建/发布阶段，查看当前阶段详情。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "flow-path",
+    "name": "Morphing Flow Path",
+    "group": "流程与依赖",
+    "task": "用户旅程 / 执行链路",
+    "fit": "Swiss、Hand-drawn、Dark Tech",
+    "avoid": "没有失败出口的线性流程",
+    "feedback": "选择失败分支后显示重试路径和当前状态",
+    "deps": "原生 SVG",
+    "source": "原创 SVG 路径；不移植外部实现",
+    "quality": "implemented",
+    "type": "flow",
+    "intro": "路径变形由步骤状态驱动，并把失败、重试和完成放在同一条解释里。",
+    "how": "演示成功或失败路径；失败后点击重试，原输入被保留并重新进入校验。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "decision-stack",
+    "name": "Decision Stack",
+    "group": "排序与比较",
+    "task": "权衡 / 方案排序",
+    "fit": "Swiss、Brutalism、功能主义",
+    "avoid": "没有依据的随机排序",
+    "feedback": "提升具体选项，说明排序依据与前后变化",
+    "deps": "原生 HTML/CSS",
+    "source": "原创排序机制",
+    "quality": "implemented",
+    "type": "stack",
+    "intro": "排序必须对应具体项目取舍，而不是条形宽度来回移动。",
+    "how": "把一个选项提升到首位，其余选项保持相对顺序。排序由你的选择决定，演示不自动推算优先级。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "before-after",
+    "name": "Before After Scanner",
+    "group": "排序与比较",
+    "task": "改版对照 / 优化证明",
+    "fit": "Minimalism、Editorial、Collage",
+    "avoid": "两边不是同一对象",
+    "feedback": "拖动或用键盘调整同一对象的前后版本",
+    "deps": "原生 CSS clip-path",
+    "source": "原创比较机制",
+    "quality": "implemented",
+    "type": "compare",
+    "intro": "固定为同一份“任务卡”的旧版与新版，避免虚构前后关系。",
+    "how": "拖动舞台内分界线，或用滑杆及左右方向键调整比例；0% 看完整新版，100% 看完整旧版。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "quote-theater",
+    "name": "Quote Theater",
+    "group": "内容聚焦",
+    "task": "用户声音 / 研究证据",
+    "fit": "Editorial、Collage、Hand-drawn",
+    "avoid": "无来源的金句",
+    "feedback": "切换引文，同时更新来源与上下文",
+    "deps": "原生 HTML/CSS",
+    "source": "原创证据切换机制",
+    "quality": "implemented",
+    "type": "quote",
+    "intro": "引文是演示素材，必须显示来源和场景，不能只靠旋转文字制造重量。",
+    "how": "切换等待反馈、比较变化、失败恢复三段模拟引文，观察语境与设计含义同时变化。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "code-spotlight",
+    "name": "Code Spotlight",
+    "group": "内容聚焦",
+    "task": "技术方案 / 规则解释",
+    "fit": "Retro Web、Dark Tech、Swiss",
+    "avoid": "只闪光标不解释代码",
+    "feedback": "点击代码行，聚焦行与解释文字同步改变",
+    "deps": "原生 HTML/CSS",
+    "source": "原创逐行解释机制；不打包外部组件",
+    "quality": "implemented",
+    "type": "code",
+    "intro": "逐行聚焦必须真的改变解释内容，作为技术计划和规则说明使用。",
+    "how": "逐行点击代码，查看规则的输入、作用与用户可感知的输出。全部按钮支持键盘 Tab + Enter。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "route-map",
+    "name": "Spatial Route Map",
+    "group": "流程与依赖",
+    "task": "系统 / 城市 / 渠道关系",
+    "fit": "Swiss、Retro Futurism、Dark Tech",
+    "avoid": "没有节点语义的流动虚线",
+    "feedback": "点击节点显示上下游关系与来源标记",
+    "deps": "原生 SVG",
+    "source": "原创关系地图机制",
+    "quality": "implemented",
+    "type": "route",
+    "intro": "节点需要能回答“它和谁有关系”，流动线只是辅助。",
+    "how": "点击或键盘选中拓扑节点，查看相邻关系；与当前节点无关的边保持普通状态。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "prompt-board",
+    "name": "Interaction Prompt Board",
+    "group": "输入与反馈",
+    "task": "工作坊 / 引导选择",
+    "fit": "Neomorphism、Neo-Brutalism、Hand-drawn",
+    "avoid": "无后续结果的选项",
+    "feedback": "选项产生选中态和下一步建议",
+    "deps": "原生 HTML",
+    "source": "原创本地选择机制",
+    "quality": "implemented",
+    "type": "prompt",
+    "intro": "停止自动漂移，让控件语义和反馈结果承担解释任务。",
+    "how": "选择解释过程、比较版本或呈现证据，再点击“打开机制”进入对应的实际演示。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "tension-matrix",
+    "name": "Tension Matrix",
+    "group": "排序与比较",
+    "task": "价值 / 成本 / 确定性",
+    "fit": "Swiss、Data narrative、Brutalism",
+    "avoid": "坐标持续漂移",
+    "feedback": "调整两个参数，点位和结论对应变化",
+    "deps": "原生 CSS",
+    "source": "原创参数-位置机制",
+    "quality": "implemented",
+    "type": "matrix",
+    "intro": "坐标来自可解释的参数，点位只在用户调整时移动。",
+    "how": "调整价值和确定性两个 0–100 滑杆。大于 60 为高区，等于 60 仍不满足优先验证条件。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "live-poll",
+    "name": "Live Poll Simulator",
+    "group": "输入与反馈",
+    "task": "本地投票 / 共识校准",
+    "fit": "功能主义、Neo-Brutalism、Motion-first",
+    "avoid": "宣称是真实多人实时结果",
+    "feedback": "每次投票固定增加一票，分布可复核",
+    "deps": "原生 HTML/CSS",
+    "source": "原创本地模拟；明确非实时服务",
+    "quality": "implemented",
+    "type": "poll",
+    "intro": "演示输入如何改变分布，但明确这是本地模拟，不代表线上用户。",
+    "how": "为任一选项 +1；票数、总量和条宽同步更新。顶部重放恢复 42 / 31 / 27 初始样本。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "sankey-story",
+    "name": "Sankey Story Strip",
+    "group": "证据与数据",
+    "task": "流量 / 资源去向",
+    "fit": "Data narrative、Swiss、Dark Tech",
+    "avoid": "关系总量无法对账",
+    "feedback": "点击流向聚焦路径，保持固定总量口径",
+    "deps": "原生 SVG",
+    "source": "原创关系带；不依赖 ECharts",
+    "quality": "implemented",
+    "type": "sankey",
+    "intro": "固定“试用→激活→留存”演示流量，点击只聚焦，不随机改总量。",
+    "how": "点击流线或下方按钮聚焦一个分支。聚焦只改变透明度，线宽与固定人数保持同比。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "radar-compass",
+    "name": "Radar Capability Compass",
+    "group": "证据与数据",
+    "task": "能力比较 / 基准",
+    "fit": "Swiss、Dark Tech、Data narrative",
+    "avoid": "无对象名称的雷达图",
+    "feedback": "切换明确对象，维度值和解读同步",
+    "deps": "原生 SVG",
+    "source": "原创 SVG 比较机制；必要时可换条形图",
+    "quality": "implemented",
+    "type": "radar",
+    "intro": "对象、维度和演示边界明确，避免随机换维度伪装成评测。",
+    "how": "切换 Alpha / Beta。雷达节点、逐维分数和右侧数据条同步变化；所有维度均为 0–100。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "risk-heat",
+    "name": "Risk Heat Tile",
+    "group": "证据与数据",
+    "task": "风险定位 / 测试覆盖",
+    "fit": "功能主义、Swiss、Dark Tech",
+    "avoid": "未知被显示成零风险",
+    "feedback": "点击单元格进入原因、来源和状态",
+    "deps": "原生 CSS Grid",
+    "source": "原创风险定位机制",
+    "quality": "implemented",
+    "type": "heat",
+    "intro": "热区只表达演示中的状态；未知、低风险和高风险有不同标签。",
+    "how": "点击风险格子查看名称、等级和模拟来源。问号与斜线明确表示未知，不能解释成风险为零。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "shared-detail",
+    "name": "Shared Element Detail",
+    "group": "内容聚焦",
+    "task": "列表到详情连续性",
+    "fit": "Minimalism、Editorial、Dark Tech",
+    "avoid": "详情与列表无上下文",
+    "feedback": "整张卡片连续展开为完整详情，并返回同一个来源对象",
+    "deps": "原生 CSS transition",
+    "source": "机制参考 Motion Layout / Shared Element；实现为原创 CSS",
+    "quality": "experimental",
+    "type": "shared",
+    "intro": "共享元素让“从哪里来”保持可见，适合列表、详情和内容展开。",
+    "how": "点击任一笔记，整张卡片连续展开为完整详情；点击“返回笔记”，回到原卡片并恢复焦点。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "list-reorder",
+    "name": "List Reorder",
+    "group": "排序与比较",
+    "task": "偏好排序 / 方案调整",
+    "fit": "Swiss、Neo-Brutalism、功能主义",
+    "avoid": "无排序依据的动画",
+    "feedback": "上移/下移或拖动后显示顺序变化与变更原因；取消拖动恢复原顺序",
+    "deps": "原生 HTML/CSS",
+    "source": "机制参考 Motion Layout；实现为原创 DOM 重排",
+    "quality": "experimental",
+    "type": "reorder",
+    "intro": "把重排作为用户决策反馈，而不是循环位移动画。",
+    "how": "点击条目右侧 ↑ / ↓，或用键盘、鼠标/触摸拖动手柄操作。拖动时显示占位和实时顺序，取消会恢复原顺序。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "sticky-steps",
+    "name": "Sticky Step Reveal",
+    "group": "时间与顺序",
+    "task": "步骤 / 滚动同步叙事",
+    "fit": "Editorial、Motion-first、Collage",
+    "avoid": "只吸顶不改变内容",
+    "feedback": "调整步骤进度，标题、正文和进度条同步",
+    "deps": "原生 input/CSS",
+    "source": "机制参考 Aceternity Sticky Scroll Reveal；实现为原创",
+    "quality": "experimental",
+    "type": "steps",
+    "intro": "把滚动叙事压缩成可点击/键盘的步骤输入，适合 PPT 和网页双路径。",
+    "how": "使用“演示步进”按钮推进，或切换“网页滚动”并滚动右侧局部区域；左侧重点与进度同步。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "spring-stepper-progress",
+    "name": "Spring Stepper Progress",
+    "group": "时间与顺序",
+    "task": "步骤导航 / 完成确认",
+    "fit": "Swiss、Editorial、Dark Tech",
+    "avoid": "把导航动画当作任务完成",
+    "feedback": "上一步/下一步只移动当前位置；到末步后显式完成才进入完成态，重置恢复初始状态",
+    "deps": "原生 HTML/CSS/Web Animations",
+    "source": "原创步骤状态机制；弹性只用于位置反馈",
+    "quality": "implemented",
+    "type": "spring",
+    "intro": "将当前导航位置与真正完成拆开，避免进度动画代替事实状态。",
+    "how": "使用上一步/下一步浏览三个步骤；到最后一步后点击“完成步骤”才标记完成。上一步会清除完成态，重置回到第一步。",
+    "date": "2026-09-09"
+  },
+  {
+    "id": "sticker-peel",
+    "name": "Sticker Peel",
+    "group": "内容聚焦",
+    "task": "拼贴揭示 / 局部说明",
+    "fit": "Collage、Hand-drawn、Maximalism",
+    "avoid": "严肃密集数据、无意义揭示",
+    "feedback": "点击或拖动后贴纸剥离，底层说明可读",
+    "deps": "原生 clip-path",
+    "source": "机制参考 React Bits Sticker Peel；原创材质与交互",
+    "quality": "experimental",
+    "type": "sticker",
+    "intro": "用于轻松品牌和拼贴叙事的局部揭示，不泛化成全站转场。",
+    "how": "按住纸张向左上拖动以揭开，反向拖动可合上；也可使用按钮、Enter、空格或左右方向键。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "animated-text-disclosure",
+    "name": "Animated Text Disclosure",
+    "group": "内容聚焦",
+    "task": "分段解释 / 注意力聚焦",
+    "fit": "Editorial、Swiss、Collage",
+    "avoid": "藏起关键规则或大量正文",
+    "feedback": "选择句段后显示对应解释；面板按实际内容高度展开，反向选择可从当前高度收起",
+    "deps": "原生 HTML/CSS/Web Animations",
+    "source": "原创内容聚焦机制；动态高度使用项目自有 Web Animations",
+    "quality": "implemented",
+    "type": "disclosure",
+    "intro": "把补充解释绑定到具体句段，保持主叙事可读并让上下文可回看。",
+    "how": "点击或用键盘选择任一句段。解释面板从实际内容高度展开；在动效中切换会从当前可见高度反向过渡。",
+    "date": "2026-09-09"
+  },
+  {
+    "id": "pixel-transition",
+    "name": "Pixel Transition",
+    "group": "输入与反馈",
+    "task": "像素风转场 / 状态切换",
+    "fit": "Pixel、Retro Web、Y2K",
+    "avoid": "非像素主题默认使用",
+    "feedback": "像素遮罩覆盖后切换完整内容，揭开并保留目标状态",
+    "deps": "原生 CSS/JS",
+    "source": "机制参考 React Bits Pixel Transition；原创网格实现",
+    "quality": "experimental",
+    "type": "pixel",
+    "intro": "像素只是特定风格下的转场机制，完成后保留可读最终态。",
+    "how": "点击“归档笔记”触发遮罩覆盖、内容替换与揭开三段过程；完成后可返回待归档状态。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "state-button",
+    "name": "State Button",
+    "group": "输入与反馈",
+    "task": "异步状态 / 错误恢复",
+    "fit": "功能主义、Swiss、Dark Tech",
+    "avoid": "没有成功/失败语义的装饰按钮",
+    "feedback": "idle → running → success / error；错误可保留输入并重试",
+    "deps": "原生 HTML/CSS",
+    "source": "原创状态机演示",
+    "quality": "experimental",
+    "type": "state",
+    "intro": "把状态、反馈和恢复做成可点击的真实路径，适合工具产品。",
+    "how": "选择本次成功或超时后开始同步。运行中禁用重复提交；失败保留资料，切换结果后可重试。",
+    "date": "2026-09-07"
+  },
+  {
+    "id": "staggered-bulk-selection",
+    "name": "Staggered Bulk Selection",
+    "group": "输入与反馈",
+    "task": "批量选择 / 反馈组织",
+    "fit": "功能主义、Swiss、Neo-Brutalism",
+    "avoid": "需要远端确认或不可逆提交的选择",
+    "feedback": "选中集合和计数立即更新；短暂错峰标记只表达视觉层级，不延迟选择结果",
+    "deps": "原生 HTML/CSS",
+    "source": "原创批量输入机制；错峰标记为本地装饰反馈",
+    "quality": "implemented",
+    "type": "bulk",
+    "intro": "批量输入首先保证集合状态可信，再用有限错峰标记帮助扫读，不伪造异步处理。",
+    "how": "勾选或取消任意条目，已选数量和结果立即变化；错峰标记最多延迟约 280ms，仅用于视觉反馈。",
+    "date": "2026-09-09"
+  }
+];
+const GROUPS=['内容聚焦','证据与数据','空间与生成','时间与顺序','流程与依赖','排序与比较','输入与反馈'];
+C.push(SCROLL_STACK_RECORD, {id:'text-entry-lab',name:'Text Entry Studio',group:'内容聚焦',task:'文字入场 / 短句切换',fit:'继承项目风格；解码适合有依据的技术表达',avoid:'数值、关键状态和长正文延迟可读',feedback:'同一短句比较淡入、分词、解码、模糊和打字；可完成、重放与切换文案',deps:'原创原生 JS / CSS',source:'原创 Text Entry primitive；行为参考 React Bits 文字类预览',quality:'implemented',type:'textEntry',intro:'将重复的文字入场做成可复用基础能力，正文与状态始终有正确原文。',how:'选择一种文字效果，再重放或切换短句；立即完成用于跳过。减弱动效和静态模式直接显示原文。',date:'2026-09-09'});
+const LOGIC={
+  metric:name=>({访客:[54,76,42],转化:[31,62,48],留存:[72,55,41]})[name]||[0,0,0],
+  metricLabels:name=>({访客:['新客','回访','深度'],转化:['首屏','表单','完成'],留存:['D1','D7','D30']})[name],
+  matrix:(value,certainty)=>value>60&&certainty>60?'优先验证':value>60?'高价值待验证':'先收集证据',
+  vote:(totals,key)=>Object.hasOwn(totals,key)?({...totals,[key]:totals[key]+1}):({...totals}),
+  reorder:(items,id,direction)=>{const next=[...items],i=next.indexOf(id),j=i+direction;if(i<0||j<0||j>=next.length)return next;[next[i],next[j]]=[next[j],next[i]];return next},
+  promote:(items,id)=>items.includes(id)?[id,...items.filter(x=>x!==id)]:[...items],
+  radarValues:name=>({Alpha:[72,81,66,74,58],Beta:[51,92,80,56,71]})[name],
+  radarPoint:(value,i,r=50,center=[150,75])=>{const a=-Math.PI/2+i*Math.PI*2/5;return [center[0]+Math.cos(a)*r*value/100,center[1]+Math.sin(a)*r*value/100]},
+  flow:[{id:'激活',value:600,path:'M80 115C170 115 215 91 310 91'},{id:'未激活',value:400,path:'M80 165C170 165 220 230 310 230'},{id:'留存',value:420,path:'M320 82C430 82 480 64 655 64'},{id:'未留存',value:180,path:'M320 112C430 112 485 159 655 159'}],
+  flowWidth:value=>value*.1,
+  capacity:8,
+  addBall:balls=>balls.length>=8?[...balls]:[...balls,{x:.18+(balls.length%4)*.2,y:.18,vx:balls.length%2?.003:-.003,vy:0,label:'事项'+(balls.length+1)}],
+  state:(current,event)=>{const transitions={idle:{START:'running'},running:{RESOLVE:'success',REJECT:'error'},success:{RESET:'idle'},error:{RETRY:'running',RESET:'idle'}};return transitions[current]?.[event]||current},
+  toggleBulk:(selected,id)=>selected.includes(id)?selected.filter(x=>x!==id):[...selected,id],
+  staggerDelays:(count,step=45,max=280)=>Array.from({length:count},(_,i)=>Math.min(max,i*step)),
+  disclosureTransition:(from,to)=>({from:Math.max(0,Number.isFinite(from)?from:0),to:Math.max(0,Number.isFinite(to)?to:0)}),
+  stepper:(current,event,last=2)=>{const next={step:current.step,completed:!!current.completed};if(event==='RESET')return {step:0,completed:false};if(event==='PREV'){next.step=Math.max(0,next.step-1);next.completed=false;return next}if(event==='NEXT'){next.step=Math.min(last,next.step+1);return next}if(event==='COMPLETE'&&next.step===last){next.completed=true;return next}return next},
+  pixelOrder:count=>Array.from({length:count},(_,i)=>i).sort((a,b)=>((a%16)+Math.floor(a/16)*1.25)-((b%16)+Math.floor(b/16)*1.25)||a-b),
+  restore:(cache,id,initial)=>cache[id]||(cache[id]=initial()),
+  project:(node,rotation,width,height)=>{const cy=Math.cos(rotation.y),sy=Math.sin(rotation.y),cx=Math.cos(rotation.x),sx=Math.sin(rotation.x);const x=node.x*cy-node.z*sy,z0=node.x*sy+node.z*cy,y=node.y*cx-z0*sx,z=z0*cx+node.y*sx;const scale=Math.min(width*.3,height*.37)*4.2/(4.8+z);return{x:width/2+x*scale,y:height*.5-y*scale,z,scale}},
+  hit:(points,x,y,r=32)=>points.map(p=>({...p,d:Math.hypot(p.x-x,p.y-y)})).filter(p=>p.d<=r).sort((a,b)=>a.d-b.d)[0]?.i??-1,
+  collide:(balls,width,height,r)=>{let pairs=0;for(let i=0;i<balls.length;i++)for(let j=i+1;j<balls.length;j++){const a=balls[i],b=balls[j],dx=(b.x-a.x)*width,dy=(b.y-a.y)*height,d=Math.hypot(dx,dy);if(d>=r*2)continue;const nx=d?dx/d:1,ny=d?dy/d:0,overlap=r*2-d;a.x-=nx*overlap/2/width;a.y-=ny*overlap/2/height;b.x+=nx*overlap/2/width;b.y+=ny*overlap/2/height;const rel=(b.vx-a.vx)*width*nx+(b.vy-a.vy)*height*ny;if(rel<0){const impulse=rel*.85;a.vx+=impulse*nx/width;b.vx-=impulse*nx/width;a.vy+=impulse*ny/height;b.vy-=impulse*ny/height}pairs++}return pairs}
+};
+// PURE_END — tests evaluate the exact shipped functions above without a DOM.
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const S={selected:'before-after',skin:'swiss',query:'',paused:false,static:false,reduced:false,states:{}};
+const media=matchMedia('(prefers-reduced-motion:reduce)');let scope=null;
+function report(text){$('#result').textContent=text}
+function head(kicker,title,copy='',badge='模拟内容'){return `<div class="demo-head"><div><div class="eyebrow">${kicker}</div><h3>${title}</h3>${copy?`<p>${copy}</p>`:''}</div><span class="tag">${badge}</span></div>`}
+function actions(items){return `<div class="demo-actions">${items}</div>`}
+function button(label,key,value='',cls=''){return `<button class="${cls}" data-${key}="${value}">${label}</button>`}
+function tabs(labels,key,active){return `<div class="segmented">${labels.map(x=>button(x,key,x,x===active?'active':'')).join('')}</div>`}
+function active(root,key,value){$$(`[data-${key}]`,root).forEach(b=>{const yes=b.getAttribute(`data-${key}`)===String(value);b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes))})}
+function createScope(root){
+ const abort=new AbortController(),jobs=new Set(),animations=new Set(),disposals=[];let raf=0,last=0,clock=0,disposed=false,visible=true,loop=null;
+ const allowed=()=>!disposed&&!S.static&&!document.hidden&&visible&&!S.paused;
+ const needs=()=>jobs.size>0||(!S.reduced&&!!loop);
+ function stop(){if(raf)cancelAnimationFrame(raf);raf=0;last=0}
+ function tick(now){raf=0;if(!allowed())return;const dt=last?Math.min(now-last,48):16.667;last=now;clock+=dt;for(const job of [...jobs])if(clock>=job.at){jobs.delete(job);job.fn()}if(loop&&!S.reduced)loop(dt,clock);if(needs()&&allowed())raf=requestAnimationFrame(tick)}
+ function resume(){root.classList?.toggle('is-suspended',!allowed());for(const a of animations)S.paused||document.hidden||!visible?a.pause():a.play();if(allowed()&&needs()&&!raf)raf=requestAnimationFrame(tick);if(!allowed()||!needs())stop()}
+ function schedule(ms,fn,essential=false){if(disposed)return()=>{};if((S.reduced||S.static)&&!essential){fn();return()=>{}}const job={at:clock+ms,fn,essential};jobs.add(job);resume();return()=>jobs.delete(job)}
+ const api={root,on:(el,event,fn,opts={})=>el?.addEventListener(event,fn,{...opts,signal:abort.signal}),bind:(selector,event,fn)=>$$(selector,root).forEach(el=>el.addEventListener(event,e=>fn(el,e),{signal:abort.signal})),schedule,loop:fn=>{loop=fn;resume()},animate:(el,frames,options={})=>{if(!el?.animate||S.reduced||S.static)return null;const a=el.animate(frames,{duration:500,easing:'cubic-bezier(.2,.8,.2,1)',...options});animations.add(a);a.finished.then(()=>animations.delete(a),()=>animations.delete(a));if(!allowed())a.pause();return a},cleanup:fn=>disposals.push(fn),resume,clock:()=>clock,motion:()=>{if(S.reduced){for(const a of [...animations])a.finish();for(const job of [...jobs])if(!job.essential){jobs.delete(job);job.fn()}}resume()},dispose:()=>{disposed=true;stop();abort.abort();jobs.clear();for(const a of animations)a.cancel();animations.clear();disposals.forEach(fn=>fn())},stats:()=>({raf:!!raf,jobs:jobs.size,animations:animations.size,disposed})};
+ api.on(document,'visibilitychange',resume);const obs=window.IntersectionObserver?new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;resume()}):null;obs?.observe(root);disposals.push(()=>obs?.disconnect());return api;
+}
+const ART=(i)=>`<div class="art"><span class="art-index">FIELD NOTE / 0${i+1}</span><svg viewBox="0 0 240 160" aria-hidden="true">${i===0?'<path d="M35 120V90H80V65H135V37H201" fill="none" stroke="var(--accent)" stroke-width="18"/><circle cx="201" cy="37" r="8" fill="var(--accent2)"/><path d="M34 138H210" stroke="var(--ink)" stroke-width="2"/>':i===1?'<g fill="none" stroke="var(--accent2)" stroke-width="2"><circle cx="120" cy="82" r="52"/><circle cx="120" cy="82" r="32"/><path d="M40 82H200M120 15V148"/></g><path d="M120 30L163 100L78 111Z" fill="var(--accent)" opacity=".8"/>':'<rect x="50" y="32" width="120" height="90" fill="var(--surface)" stroke="var(--ink)"/><rect x="67" y="47" width="120" height="90" fill="var(--accent2)"/><path d="M91 91L111 111L158 67" fill="none" stroke="var(--surface)" stroke-width="9"/>'}</svg></div>`;
+const NOTES=[{name:'从想法到可用',kind:'路线图',sub:'三个阶段，一条可回看的验证路径。',info:'把取证、样板和交接连接起来。每个阶段都有可检查的产物，进入下一步前保留决策依据。',items:['取证：明确用户任务和未知。','样板：用代表性内容验证机制。','交接：保存状态与失败出口。'],foot:'3 个阶段 · 项目笔记'}, {name:'证据如何汇合',kind:'评测报告',sub:'让结果、样本与限制处于同一语境。',info:'一条结论需要能回到对应样本。该模拟报告将结果与适用条件并置，帮助评审识别已知和未知。',items:['结论：保留完整结果与样本。','差异：说明口径与比较条件。','限制：明确缺失与未验证项。'],foot:'5 个维度 · 评审草稿'}, {name:'一次完整发布',kind:'发布记录',sub:'从执行结果回到每一个验收动作。',info:'这份演示记录用于说明完成态应包含什么。产物可访问只是其中一项，实际结果仍要验证。',items:['资源：检查页面与静态文件。','行为：检查关键输入与反馈。','恢复：保留回滚和异常说明。'],foot:'3 项验收 · 模拟记录'}];
+const TITLES={title:'标题编排',metric:'指标脉冲',token:'空间关系场',particle:'生成粒子场',physics:'物理约束沙盘',timeline:'叙事时间轴',flow:'执行路径变形',stack:'决策优先序',compare:'前后对比扫描',quote:'引文剧场',code:'代码聚焦',route:'关系路径图',prompt:'引导选择板',matrix:'权衡矩阵',poll:'现场投票模拟',sankey:'流量故事',radar:'能力雷达',heat:'风险热力格',shared:'卡片连续展开',reorder:'列表重排',steps:'分步叙事',spring:'弹性步骤进度',sticker:'贴纸剥离',disclosure:'文字展开聚焦',pixel:'像素转场',state:'状态按钮',bulk:'错峰批量选择'};
+const REGISTRY={};
+TITLES.scrollStack='滚动堆叠';TITLES.textEntry='文字入场实验';
+const TEXT_ENTRY_POLICY={title:'existing',metric:'none',token:'fade',particle:'fade',physics:'fade',timeline:'words',flow:'fade',stack:'none',compare:'none',quote:'words',code:'existing',route:'fade',prompt:'words',matrix:'none',poll:'none',sankey:'none',radar:'none',heat:'none',shared:'existing',reorder:'none',steps:'existing',spring:'none',sticker:'none',disclosure:'none',pixel:'existing',state:'none',bulk:'none',scrollStack:'existing',textEntry:'existing'};
+function enterSceneText(root,type,c){const mode=TEXT_ENTRY_POLICY[type];if(!mode||mode==='none'||mode==='existing')return;const title=$('.demo-head h3',root);if(title)MuseumTextEntry.mount(title,title.textContent,{mode,duration:320,scope:c,isReduced:()=>S.reduced||S.static})}
+REGISTRY.title={
+ initial:()=>({phase:0}),
+ render:d=>`<div class="demo title-scene" data-phase="${S.static?3:d.phase}"><div class="title-kicker"><span>DESIGN REVIEW / 01</span><span>主张 → 重点 → 依据</span></div><div class="title-lines"><div class="title-line"><span data-reveal>让每一次操作，</span></div><div class="title-line emphasis"><span data-reveal>都有看得见的回应。</span></div></div><div class="title-rule" data-reveal></div><div class="title-caption" data-reveal><p>点击、等待、完成与恢复。<br>交互的节奏，来自真实状态的变化。</p><div class="title-index">INTERACTION / 2026<br>01 — 03</div></div>${actions(button('逐步播放','title-next')+button('直接看完整主张','title-end'))}</div>`,
+ setup:(r,d,c)=>{const paint=()=>{r.querySelector('.title-scene').dataset.phase=d.phase;report(['等待开场：点击逐步播放，或观察自动入场。','第一拍：先提出操作语境。','第二拍：强调“看得见的回应”，再引入解释。','完整主张已呈现：操作必须具有可感知的反馈。'][d.phase])};const step=()=>{if(d.phase>=3)return;d.phase++;paint();c.animate($('.title-line:nth-child('+Math.min(d.phase,2)+') span',r),[{opacity:0,transform:'translateY(35px)'},{opacity:1,transform:'translateY(0)'}],{duration:650})};c.bind('[data-title-next]','click',step);c.bind('[data-title-end]','click',()=>{d.phase=3;paint()});paint();if(d.phase===0){c.schedule(220,step);c.schedule(980,step);c.schedule(1820,step)}}
+};
+REGISTRY.metric={initial:()=>({set:'访客'}),render:d=>`<div class="demo">${head('PRODUCT METRICS / Q2','分段结果，使用同一条标尺','切换确定性样本；千人和百分比不会混用。')}${tabs(['访客','转化','留存'],'metric',d.set)}<div class="metric-layout" style="margin-top:36px"><div class="metric-summary"><div><div class="eyebrow" data-metric-unit>${d.set==='访客'?'千人 / k':'比例 / %'}</div><div class="stat-number" data-metric-max>${Math.max(...LOGIC.metric(d.set))}<small>${d.set==='访客'?'k':'%'}</small></div></div><p data-metric-summary>当前分段最高值<br>${LOGIC.metricLabels(d.set)[LOGIC.metric(d.set).indexOf(Math.max(...LOGIC.metric(d.set)))]}</p></div><div class="bar-chart" role="img" aria-label="固定指标柱形图"><div class="grid-lines">${[100,75,50,25,0].map(x=>`<i><span>${x}</span></i>`).join('')}</div><div class="bars">${LOGIC.metric(d.set).map((v,i)=>`<div class="bar" style="--v:${v}%"><b>${v}${d.set==='访客'?'k':'%'}</b><span>${LOGIC.metricLabels(d.set)[i]}</span></div>`).join('')}</div></div></div><div class="chart-foot">固定模拟样本 · 纵轴 0–100 ${d.set==='访客'?'千人':'%'} · 各组独立，不可直接解释为漏斗</div></div>`,setup:(r,d,c)=>{const update=()=>{const v=LOGIC.metric(d.set),labels=LOGIC.metricLabels(d.set),unit=d.set==='访客'?'k':'%';$$('.bar',r).forEach((b,i)=>{b.style.setProperty('--v',v[i]+'%');$('b',b).textContent=v[i]+unit;$('span',b).textContent=labels[i]});$('[data-metric-unit]',r).textContent=d.set==='访客'?'千人 / k':'比例 / %';$('[data-metric-max]',r).innerHTML=Math.max(...v)+`<small>${unit}</small>`;$('[data-metric-summary]',r).textContent='当前分段最高值：'+labels[v.indexOf(Math.max(...v))];$('.chart-foot',r).textContent=`固定模拟样本 · 纵轴 0–100 ${d.set==='访客'?'千人':'%'} · 各组独立，不可直接解释为漏斗`;active(r,'metric',d.set);report(`${d.set}：${labels.map((x,i)=>x+' '+v[i]+unit).join('；')}。柱高与数值按 0–100 同比映射。`)};c.bind('[data-metric]','click',b=>{d.set=b.dataset.metric;update()});update()}};
+function appMarkup(version){return `<div class="miniapp"><div class="miniapp-sidebar"><b>FIELD / 工作台</b><span>概览</span><span class="chosen">任务中心</span><span>资料库</span><span>设置</span></div><div class="miniapp-main"><div class="appcrumb"><span>工作区 / 发布准备</span><span>模拟任务 T-014</span></div><div class="app-heading"><div class="app-title">九月功能上线准备</div>${version==='after'?'<span class="pill">待你确认</span>':'<span class="muted small">处理中</span>'}</div><p class="app-sub">产品协作 · 当前处理：体验验收</p>${version==='after'?'<div class="app-summary"><strong>验收完成，剩 1 项待确认</strong><p>移动端操作区已调整，等待确认后进入发布准备。</p><div class="app-progress"><i></i></div><span class="small muted">已完成 3 / 4 项 · 仅演示任务状态</span></div><div class="app-task-row"><span>✓ 主流程、异常恢复、资源检查</span><span class="pill">已完成</span></div><div class="app-task-row"><span><b>下一步</b> · 确认移动端触达区</span><span class="fake-btn solid">查看并确认 →</span></div>':'<div class="app-data">状态：处理中　优先级：普通　类型：迭代<br>已完成项：3　总任务数：4　负责人：产品组<br>主流程检查：完成　异常恢复：完成　资源检查：完成<br>移动端触达区：待确认　说明：操作区已调整</div><p class="small muted" style="margin-bottom:20px">附件：任务说明　修改记录　体验验收　发布记录</p><div class="app-legacy-actions"><span class="fake-btn">详情</span><span class="fake-btn">修改</span><span class="fake-btn">更多</span></div>'}</div></div>`}
+REGISTRY.compare={initial:()=>({split:50}),render:d=>`<div class="demo">${head('SAME OBJECT / TWO VERSIONS','同一项任务，下一步更清楚','拖动分界线或使用下方滑杆；两版内容对应同一个模拟任务。')}<div class="compare-labels"><span>BEFORE / 字段平铺</span><span>AFTER / 结果与行动相邻</span></div><div class="compare-shell" style="--split:${d.split}%"><div class="compare-layer before">${appMarkup('before')}</div><div class="compare-layer after">${appMarkup('after')}</div><div class="compare-handle" aria-hidden="true"></div></div><label class="range-control"><input type="range" min="0" max="100" value="${d.split}" data-compare aria-label="旧版显示比例"><output>${d.split}% 旧版</output></label></div>`,setup:(r,d,c)=>{const shell=$('.compare-shell',r),input=$('[data-compare]',r);const set=v=>{d.split=Math.max(0,Math.min(100,Math.round(v)));shell.style.setProperty('--split',d.split+'%');input.value=d.split;$('output',r).textContent=d.split+'% 旧版';report(`当前旧版 ${d.split}% / 新版 ${100-d.split}%。同一任务的状态、验收项和下一步，在新版中被重新组织。此演示不证明实际效率提升。`)};c.on(input,'input',()=>set(+input.value));let drag=false;c.on(shell,'pointerdown',e=>{drag=true;shell.setPointerCapture(e.pointerId);const b=shell.getBoundingClientRect();set((e.clientX-b.left)/b.width*100)});c.on(shell,'pointermove',e=>{if(drag){const b=shell.getBoundingClientRect();set((e.clientX-b.left)/b.width*100)}});c.on(shell,'pointerup',()=>drag=false);c.on(shell,'pointercancel',()=>drag=false);set(d.split)}};
+REGISTRY.shared={initial:()=>({open:null}),render:d=>`<div class="demo">${head('LIST → DETAIL / SAME OBJECT','从一个线索，连续进入详情','卡片的位置、图形与标题共同过渡；返回后仍能找到原来的对象。')}<div class="shared-board"><div class="shared-cards">${NOTES.map((x,i)=>`<button class="shared-card" data-open="${i}" aria-expanded="${d.open===i}">${ART(i)}<div class="shared-card-body"><span class="eyebrow">${x.kind}</span><h4>${x.name}</h4><p>${x.sub}</p><div class="card-bottom"><span>${x.foot}</span><span>↗</span></div></div></button>`).join('')}</div><div class="shared-detail" ${d.open===null?'hidden':''}></div></div></div>`,setup:(r,d,c)=>{const detail=$('.shared-detail',r),board=$('.shared-board',r),cards=$('.shared-cards',r);let busy=false;const fill=i=>{const n=NOTES[i];detail.innerHTML=`${ART(i)}<div class="shared-content"><button class="shared-back" data-back>← 返回笔记</button><h4>${n.name}</h4><p>${n.info}</p><ul>${n.items.map(x=>`<li>${x}</li>`).join('')}</ul><span class="tag">${n.foot} · 模拟素材</span></div>`;c.on($('[data-back]',detail),'click',close)};const animateRect=(from,to,el,closing=false)=>c.animate(el,[{transform:`translate(${from.left-to.left}px,${from.top-to.top}px) scale(${from.width/to.width},${from.height/to.height})`,opacity:closing?.5:1},{transform:'translate(0,0) scale(1,1)',opacity:1}],{duration:520});const open=i=>{if(busy||d.open!==null)return;busy=true;const source=$(`[data-open="${i}"]`,r),from=source.getBoundingClientRect();d.open=i;fill(i);detail.hidden=false;const to=detail.getBoundingClientRect();cards.inert=true;cards.style.visibility='hidden';animateRect(from,to,detail);c.animate($('.shared-content',detail),[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:340,delay:220});source.setAttribute('aria-expanded','true');c.schedule(550,()=>{busy=false;$('[data-back]',detail).focus({preventScroll:true})});report('已展开「'+NOTES[i].name+'」：同一张卡片进入完整笔记，包含说明与三项检查。')};function close(){if(busy||d.open===null)return;busy=true;const i=d.open,source=$(`[data-open="${i}"]`,r),from=detail.getBoundingClientRect();cards.inert=false;cards.style.visibility='';const to=source.getBoundingClientRect();source.style.visibility='hidden';const a=c.animate(detail,[{transform:'translate(0,0) scale(1,1)',opacity:1},{transform:`translate(${to.left-from.left}px,${to.top-from.top}px) scale(${to.width/from.width},${to.height/from.height})`,opacity:.3}],{duration:420});c.schedule(430,()=>{detail.hidden=true;detail.style.transform='';source.style.visibility='';d.open=null;busy=false;source.setAttribute('aria-expanded','false');source.focus({preventScroll:true});report('已返回笔记列表，焦点恢复到「'+NOTES[i].name+'」。')})}c.bind('[data-open]','click',b=>open(+b.dataset.open));if(d.open!==null){fill(d.open);detail.hidden=false;cards.inert=true;cards.style.visibility='hidden';report('恢复已展开的笔记：「'+NOTES[d.open].name+'」。')}else report('选择任意笔记。整张卡片会连续展开，标题、图形与上下文都保留。')}};
+const PHASES=[{name:'研究',date:'第 1 周',title:'先确认要解决的问题',desc:'在画页面之前，记录任务、约束和缺失证据。结束条件是能说明：用户如何判断完成，以及还不知道什么。',checks:['任务与验收','代表性内容','未知清单']},{name:'构建',date:'第 2–3 周',title:'让关键路径实际可用',desc:'用同一份内容做可操作样板。主流程、加载与失败恢复一起验证，不把仅有动画当成机制完成。',checks:['可点击样板','异常路径','真实渲染']},{name:'发布',date:'第 4 周',title:'把可用结果交给使用者',desc:'记录已验证的行为与限制，保留入口和恢复方式。检查产物在目标环境中能否完成实际任务。',checks:['入口与依赖','验收证据','回滚说明']}];
+REGISTRY.timeline={initial:()=>({index:0}),render:d=>`<div class="demo">${head('PROJECT TIMELINE / FOUR WEEKS','阶段不是一条发光的线','每个节点都能回看内容、产物与结束条件。')}<div class="timeline-track">${PHASES.map((p,i)=>`<button class="timeline-node ${d.index===i?'active':''}" data-time="${i}"><span class="dot">0${i+1}</span><strong>${p.name}</strong><small>${p.date}</small></button>`).join('')}</div><div class="timeline-detail"></div></div>`,setup:(r,d,c)=>{const set=i=>{d.index=i;const p=PHASES[i];$('.timeline-detail',r).innerHTML=`<div class="timeline-big">0${i+1}</div><div><div class="eyebrow">${p.date} / ${p.name}</div><h3 style="margin-top:7px">${p.title}</h3><p>${p.desc}</p><div class="checklist">${p.checks.map(x=>`<span>✓ ${x}</span>`).join('')}</div></div>`;active(r,'time',i);c.animate($('.timeline-detail',r),[{opacity:.3,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:350});report(`当前阶段：${p.name}（${p.date}）。产物：${p.checks.join('、')}。`)};c.bind('[data-time]','click',b=>set(+b.dataset.time));set(d.index)}};
+REGISTRY.flow={initial:()=>({mode:'idle',step:0}),render:()=>`<div class="demo">${head('EXECUTION / RECOVERY','一次任务，也包括失败出口','执行模拟，不连接真实服务。失败后保留输入并允许重试。')}<svg class="flow-svg" viewBox="0 0 780 245" aria-label="输入经过校验后可输出结果或进入可重试错误"><path class="edge" data-edge="0" d="M138 121H295"/><path class="edge" data-edge="1" d="M415 121C460 121 463 56 515 56H634"/><path class="edge" data-edge="2" d="M415 121C460 121 466 193 515 193H634"/><path class="edge" data-edge="3" d="M642 216C642 242 355 243 355 147"/>${[["输入",25,95,0],["校验",295,95,1],["输出结果",634,30,2],["可重试错误",634,166,3]].map(([t,x,y,i])=>`<rect class="flow-box" data-node="${i}" x="${x}" y="${y}" width="120" height="52" rx="3"/><text x="${x+60}" y="${y+31}" text-anchor="middle" font-size="13">${t}</text>`).join('')}<text x="340" y="82" font-size="10">保留原始输入</text><text x="470" y="236" font-size="10">重试</text></svg><div class="flow-status"><strong data-flow-status>等待执行</strong><span class="muted" data-flow-detail>输入已准备，尚未调用。</span></div>${actions(button('演示成功路径','run-flow','success','primary')+button('演示失败路径','run-flow','error')+button('重试当前任务','retry-flow'))}</div>`,setup:(r,d,c)=>{let running=false;const paint=()=>{$$('.edge',r).forEach(p=>p.classList.toggle('active',d.step===1?p.dataset.edge==='0':d.step===2?(p.dataset.edge===(d.mode==='error'?'2':'1')||p.dataset.edge==='0'):d.step===3?p.dataset.edge==='3':false));$$('.flow-box',r).forEach(p=>p.classList.toggle('current',+p.dataset.node===(d.step===2?(d.mode==='error'?3:2):d.step===1?1:0)));$('[data-flow-status]',r).textContent=d.step===0?'等待执行':d.step===1?'正在校验输入':d.step===3?'保留输入，准备重试':d.mode==='error'?'服务超时，可重试':'结果已生成';$('[data-flow-detail]',r).textContent=d.step===2&&d.mode==='error'?'未产生结果；不清空输入。':d.step===2?'输入 → 校验 → 输出。':'模拟状态，不连接真实服务。';$('[data-retry-flow]',r).disabled=d.mode!=='error'||d.step!==2;report($('[data-flow-status]',r).textContent+'。'+$('[data-flow-detail]',r).textContent)};const run=mode=>{if(running)return;running=true;d.mode=mode;d.step=1;paint();c.schedule(850,()=>{d.step=2;running=false;paint()})};c.bind('[data-run-flow]','click',b=>run(b.dataset.runFlow));c.bind('[data-retry-flow]','click',()=>{if(running)return;d.step=3;paint();c.schedule(500,()=>run('success'))});if(d.step===1||d.step===3)d.step=0;paint()}};
+const ORDER_ITEMS={input:{name:'清楚的输入',desc:'明确任务对象、范围和完成条件。'},feedback:{name:'可解释的反馈',desc:'让状态、结果和异常可以被理解。'},motion:{name:'装饰性动效',desc:'在任务可用后，决定是否需要增强表现。'}};
+function orderMarkup(order,promote=false){return order.map((id,i)=>`<div class="order-row" data-order-id="${id}">${promote?'':`<button class="order-drag" data-drag-handle aria-label="拖动${ORDER_ITEMS[id].name}" title="拖动排序">⠿</button>`}<span class="order-rank">0${i+1}</span><div><strong>${ORDER_ITEMS[id].name}</strong><p>${ORDER_ITEMS[id].desc}</p></div><div class="order-controls">${promote?`<button data-promote="${id}" aria-label="把${ORDER_ITEMS[id].name}提到首位" ${i===0?'disabled':''} style="width:auto;padding:8px 11px;font-size:11px">提升</button>`:`<button data-dir="-1" aria-label="上移${ORDER_ITEMS[id].name}" ${i===0?'disabled':''}>↑</button><button data-dir="1" aria-label="下移${ORDER_ITEMS[id].name}" ${i===order.length-1?'disabled':''}>↓</button>`}</div></div>`).join('')}
+function wireOrder(r,d,c,promote){
+ const list=$('.ordered-list',r);let drag=null;
+ const status=()=>report((promote?'当前决策优先序：':'当前表达顺序：')+d.order.map(id=>ORDER_ITEMS[id].name).join(' → ')+'。这是人为选择，未自动计算业务优先级。');
+ const refresh=(next,focus=null,animate=true)=>{
+  const before=new Map($$('.order-row',list).map(el=>[el.dataset.orderId,el.getBoundingClientRect()]));
+  d.order=[...next];
+  d.order.forEach((key,i)=>{
+   const el=$('[data-order-id="'+key+'"]',list);list.append(el);$('.order-rank',el).textContent='0'+(i+1);
+   if(promote)$('button',el).disabled=i===0;
+   else{$('[data-dir="-1"]',el).disabled=i===0;$('[data-dir="1"]',el).disabled=i===d.order.length-1}
+  });
+  if(animate)for(const el of $$('.order-row',list)){const old=before.get(el.dataset.orderId),now=el.getBoundingClientRect();if(old)c.animate(el,[{transform:'translateY('+(old.top-now.top)+'px)'},{transform:'none'}],{duration:260})}
+  if(focus){const row=focus.closest('.order-row');(focus.disabled?$('button:not(:disabled)',row):focus)?.focus({preventScroll:true})}status();
+ };
+ c.on(list,'click',e=>{const b=e.target.closest(promote?'[data-promote]':'[data-dir]');if(!b||drag)return;const row=b.closest('.order-row');refresh(promote?LOGIC.promote(d.order,row.dataset.orderId):LOGIC.reorder(d.order,row.dataset.orderId,+b.dataset.dir),b)});
+ if(promote){status();return}
+ const scrollParent=()=>{let el=list;while(el&&el!==document.body){if(/auto|scroll/.test(getComputedStyle(el).overflowY)&&el.scrollHeight>el.clientHeight)return el;el=el.parentElement}return document.scrollingElement};
+ const place=()=>{
+  if(!drag)return;const rows=$$('.order-row',list).filter(row=>row!==drag.row);
+  const target=rows.find(row=>{const box=row.getBoundingClientRect();return drag.y<box.top+box.height/2});
+  if(target)list.insertBefore(drag.placeholder,target);else list.append(drag.placeholder);
+  const order=[...list.children].filter(el=>el===drag.placeholder||el.matches('.order-row')&&el!==drag.row).map(el=>el===drag.placeholder?drag.id:el.dataset.orderId);
+  drag.preview=order;rows.forEach(row=>$('.order-rank',row).textContent='0'+(order.indexOf(row.dataset.orderId)+1));$('.order-rank',drag.ghost).textContent='0'+(order.indexOf(drag.id)+1);report('拖动预览：'+order.map(id=>ORDER_ITEMS[id].name).join(' → ')+'。松手提交，Escape 取消。');
+ };
+ const end=(restore,focus=true)=>{
+  if(!drag)return;const old=drag;drag=null;
+  old.cancelScroll?.();old.ghost.remove();old.row.style.display='';old.placeholder.remove();
+  if(list.hasPointerCapture?.(old.pointerId))list.releasePointerCapture(old.pointerId);
+  refresh(restore?old.original:old.preview,focus?old.handle:null,!restore);
+  report(restore?'拖动已取消，已恢复原顺序。':'已完成拖动排序：'+d.order.map(id=>ORDER_ITEMS[id].name).join(' → ')+'。');
+ };
+ c.on(list,'pointerdown',e=>{
+  const handle=e.target.closest('[data-drag-handle]');if(!handle||e.button!==0||S.static||S.paused)return;
+  const row=handle.closest('.order-row'),box=row.getBoundingClientRect();e.preventDefault();handle.focus({preventScroll:true});
+  const placeholder=document.createElement('div');placeholder.className='order-placeholder';placeholder.style.height=box.height+'px';placeholder.setAttribute('aria-hidden','true');
+  const ghost=row.cloneNode(true);ghost.classList.add('order-ghost');ghost.removeAttribute('data-order-id');ghost.setAttribute('aria-hidden','true');ghost.inert=true;
+  ghost.style.cssText='position:fixed;z-index:10000;pointer-events:none;width:'+box.width+'px;height:'+box.height+'px;left:'+box.left+'px;top:'+box.top+'px;margin:0;opacity:.94;box-shadow:0 12px 30px #0003;';
+  r.append(ghost);row.before(placeholder);row.style.display='none';
+  drag={row,handle,ghost,placeholder,id:row.dataset.orderId,pointerId:e.pointerId,original:[...d.order],preview:[...d.order],x:e.clientX,y:e.clientY,dx:e.clientX-box.left,dy:e.clientY-box.top,scroller:scrollParent()};
+  list.setPointerCapture?.(e.pointerId);drag.cancelScroll=c.schedule(16,autoStep,true);
+ });
+ c.on(list,'pointermove',e=>{if(!drag||drag.pointerId!==e.pointerId)return;e.preventDefault();drag.x=e.clientX;drag.y=e.clientY;drag.ghost.style.top=(drag.y-drag.dy)+'px';place()});
+ c.on(list,'pointerup',()=>end(false));c.on(list,'pointercancel',()=>end(true));c.on(list,'lostpointercapture',()=>end(true));
+ c.on(document,'keydown',e=>{if(drag&&e.key==='Escape'){e.preventDefault();end(true)}});
+ c.on(document,'museum-motion',()=>{if(drag)end(true)});
+ c.on(document,'visibilitychange',()=>{if(document.hidden&&drag)end(true,false)});
+ function autoStep(){
+  if(!drag)return;const el=drag.scroller,isPage=el===document.scrollingElement;
+  const box=isPage?{top:0,bottom:innerHeight}:el.getBoundingClientRect(),edge=44;
+  let speed=drag.y<box.top+edge?-Math.min(14,(box.top+edge-drag.y)/4):drag.y>box.bottom-edge?Math.min(14,(drag.y-box.bottom+edge)/4):0;
+  if(speed){el.scrollTop+=speed;place()}
+  if(drag)drag.cancelScroll=c.schedule(16,autoStep,true);
+ }
+ c.on($('#pause'),'click',()=>{if(S.paused&&drag)end(true)});
+ c.cleanup(()=>end(true,false));status();
+}
+REGISTRY.stack={initial:()=>({order:['input','feedback','motion']}),render:d=>`<div class="demo">${head('DECISION / PRIORITY','让取舍顺序可以被讨论','提升一个选项，观察完整排序如何变化；排序依据需由人判断。')}<div class="ordered-list">${orderMarkup(d.order,true)}</div><div class="order-note"><span>讨论前提</span><strong>先确保任务可以完成，再考虑表达增强。</strong></div></div>`,setup:(r,d,c)=>wireOrder(r,d,c,true)};
+REGISTRY.reorder={initial:()=>({order:['input','feedback','motion']}),render:d=>`<div class="demo">${head('ORDER / VISIBLE CHANGE','调整顺序，保留位置感','使用上下按钮或 Tab + Enter，也可拖动手柄；移动后其余条目会让出位置。')}<div class="ordered-list draggable-list">${orderMarkup(d.order)}</div><div class="order-note"><span>↑ ↓ 或拖动手柄调整位置</span><span>首尾边界禁用 · 取消拖动恢复原顺序</span></div></div>`,setup:(r,d,c)=>wireOrder(r,d,c,false)};
+const QUOTES=[{text:'等待的时候，我更想知道进行到了哪一步，而不是只看到一个旋转图标。',who:'模拟访谈 A / 等待中的使用者',context:'任务提交后，结果需要一段处理时间。',implication:'将阶段、已完成步骤与恢复入口邻近显示。'}, {text:'如果我改了一个条件，希望能看出结果为什么跟着改变。',who:'模拟评审 B / 结果比较',context:'筛选条件或参数变化，导致结果更新。',implication:'把输入变化与结果差异放到同一视野。'}, {text:'失败之后，最好能接着做，不要让我重新输入一遍。',who:'模拟测试 C / 异常恢复',context:'执行中发生可恢复错误，原输入仍然有效。',implication:'保留输入和进度，明确重试将继续哪一步。'}];
+REGISTRY.quote={initial:()=>({i:0}),render:()=>`<div class="demo">${head('EVIDENCE / WITH CONTEXT','一句话，也需要它的语境','下列均为演示撰写的素材，不是真实用户访谈。')}<div class="quote-layout"><div class="quote-mark">“</div><div><blockquote class="quote-text" style="margin:0"></blockquote><div class="quote-context"></div></div></div>${tabs(['等待反馈','比较变化','失败恢复'],'quote','等待反馈')}</div>`,setup:(r,d,c)=>{const set=i=>{d.i=i;const q=QUOTES[i];$('.quote-text',r).textContent=q.text;$('.quote-context',r).innerHTML=`<div><strong>${q.who}</strong>${q.context}</div><div><strong>可讨论的设计含义</strong>${q.implication}</div>`;active(r,'quote',['等待反馈','比较变化','失败恢复'][i]);MuseumTextEntry.mount($('.quote-text',r),q.text,{mode:'words',duration:420,scope:c,isReduced:()=>S.reduced||S.static});report(q.who+'。这是模拟引文，只用于展示引用与上下文的组织方式。')};c.bind('[data-quote]','click',b=>set(['等待反馈','比较变化','失败恢复'].indexOf(b.dataset.quote)));set(d.i)}};
+const CODE=[{line:'const request = capture(input);',title:'01 / 保留用户输入',desc:'先保存输入对象，再执行后续步骤。发生错误时可以继续处理，避免要求用户重新填写。',example:'输入：{ task: "生成摘要", text: "…" }',result:'输出：结构化 request，保留原始内容。'},{line:'if (!request.text) return ask();',title:'02 / 检查必要条件',desc:'缺少正文时停止执行并说明需要补什么。空输入不会被继续传给能力层，也不伪装成成功。',example:'输入：request.text 为空',result:'反馈：请补充要摘要的正文。'},{line:'const route = choose(request);',title:'03 / 选择处理路径',desc:'依据明确任务选择能力。演示中“生成摘要”对应摘要能力，不根据随机值改变路径。',example:'输入：task = 生成摘要',result:'路由：summarize → 摘要能力。'},{line:'const result = await run(route);',title:'04 / 等待真实结果',desc:'进入 running 状态后执行所选能力。用户能看到进行中反馈；超时或错误进入恢复流程。',example:'状态：idle → running',result:'分支：成功结果 / 可重试错误。'},{line:'return explain(result, request);',title:'05 / 结果与依据一起返回',desc:'输出结果时保留任务上下文，说明完成了什么、依据是什么以及还存在什么限制。',example:'输入：result + 原始 request',result:'输出：摘要正文、处理范围和来源说明。'}];
+REGISTRY.code={
+ initial:()=>({line:0,entry:'decode'}),
+ render:d=>`<div class="demo">${head('CODE / EXPLAIN ONE RULE AT A TIME','把每一行，连接到用户能感知的结果','点击代码行可触发字符解码；真实代码与解释始终保留，动画不执行代码。')}<div class="text-entry-controls">${['decode','words','fade','none'].map((mode,i)=>button(['字符解码','分词入场','轻淡入','直接出现'][i],'code-entry',mode,d.entry===mode?'active':'')).join('')}</div><div class="code-layout"><div class="code-editor"><div class="code-filename">task-runner.js · 5 lines</div>${CODE.map((x,i)=>`<button class="code-line ${d.line===i?'active':''}" data-line="${i}"><span class="ln">${i+1}</span><span class="code-text">${esc(x.line)}</span></button>`).join('')}</div><div class="code-explanation"></div></div></div>`,
+ setup:(r,d,c)=>{let stopCode=()=>{},stopTitle=()=>{};const set=i=>{
+  stopCode();stopTitle();d.line=i;const x=CODE[i];active(r,'line',i);active(r,'code-entry',d.entry);
+  $('.code-explanation',r).innerHTML='<div class="eyebrow">LINE 0'+(i+1)+' / 05</div><h4>'+esc(x.title)+'</h4><p>'+esc(x.desc)+'</p><div class="code-example">'+esc(x.example)+'<br><b>'+esc(x.result)+'</b></div>';
+  stopCode=MuseumTextEntry.mount($('[data-line="'+i+'"] .code-text',r),x.line,{mode:d.entry,duration:640,scope:c,isReduced:()=>S.reduced||S.static});
+  stopTitle=MuseumTextEntry.mount($('.code-explanation h4',r),x.title,{mode:d.entry==='decode'?'fade':d.entry,scope:c,isReduced:()=>S.reduced||S.static});
+  report('当前聚焦第 '+(i+1)+' 行：'+x.result);
+ };c.bind('[data-line]','click',b=>set(+b.dataset.line));c.bind('[data-code-entry]','click',b=>{d.entry=b.dataset.codeEntry;set(d.line)});set(d.line)}
+};
+REGISTRY.scrollStack=SCROLL_STACK_REGISTRY;
+REGISTRY.textEntry={
+ initial:()=>({mode:'decode',index:0}),
+ render:d=>`<div class="demo">${head('TEXT ENTRY / ONE SOURCE','文字入场，不改变文字本身','同一份原文可以有不同的出现方式；动效只作为视觉层。')}<div class="text-entry-controls">${['decode','words','blur','type','fade','none'].map((mode,i)=>button(['字符解码','分词入场','模糊显现','逐字入场','轻淡入','直接出现'][i],'text-mode',mode,mode===d.mode?'active':'')).join('')}</div><div class="text-entry-lab"><div class="eyebrow">ONE SENTENCE / SAME MEANING</div><h4 data-text-target></h4><p class="text-entry-note">短标题可以逐步显现。指标、输入值、错误和最终结果直接可读，不套用字符乱序。</p></div>${actions(button('切换短句','text-next')+button('重新入场','text-replay','','primary')+button('立即完成','text-finish'))}</div>`,
+ setup:(r,d,c)=>{let finish=()=>{};const texts=['让变化有来处，让结果可理解。','先确认任务，再观察反馈。'];const show=()=>{finish();active(r,'text-mode',d.mode);finish=MuseumTextEntry.mount($('[data-text-target]',r),texts[d.index],{mode:d.mode,duration:800,scope:c,isReduced:()=>S.reduced||S.static});report('当前原文：'+texts[d.index]+' 入场方式：'+d.mode)};c.bind('[data-text-mode]','click',b=>{d.mode=b.dataset.textMode;show()});c.bind('[data-text-next]','click',()=>{d.index=(d.index+1)%texts.length;show()});c.bind('[data-text-replay]','click',show);c.bind('[data-text-finish]','click',()=>finish());show()}
+};
+const ROUTES=[{name:'输入',x:55,y:125,info:'用户输入原始任务和内容。路由依赖有效输入；缺少信息时回到补充。',linked:'输入 → 路由'},{name:'路由',x:190,y:125,info:'根据任务选择能力，同时保留证据关系。它连接输入、能力和证据三个节点。',linked:'输入 → 路由 → 能力；路由 → 证据'},{name:'能力',x:333,y:55,info:'执行明确任务，生成结果。能力与结果之间是处理关系，不表示组织级别。',linked:'路由 → 能力 → 结果'},{name:'证据',x:333,y:205,info:'记录来源、约束和中间依据。该关系用于解释，不表示所有任务都必须调用独立系统。',linked:'路由 → 证据 → 结果'},{name:'结果',x:475,y:125,info:'接收处理输出与依据，让使用者可以回看任务完成情况。',linked:'能力 → 结果；证据 → 结果'}];const ROUTE_EDGES=[[0,1],[1,2],[1,3],[2,4],[3,4]];
+REGISTRY.route={initial:()=>({node:1}),render:d=>`<div class="demo">${head('TOPOLOGY / FIXED RELATIONSHIPS','一张图，解释相邻关系','点选节点查看它连接了什么。位置用于阅读，不表示地理距离或优先级。')}<div class="route-layout"><div class="route-diagram"><svg viewBox="0 0 530 260" aria-label="输入、路由、能力、证据、结果的固定演示拓扑">${ROUTE_EDGES.map(([a,b],i)=>`<path data-route-edge="${i}" d="M${ROUTES[a].x} ${ROUTES[a].y}L${ROUTES[b].x} ${ROUTES[b].y}"/>`).join('')}${ROUTES.map((x,i)=>`<g class="route-node" data-route="${i}" tabindex="0" role="button" aria-label="查看${x.name}关系"><circle cx="${x.x}" cy="${x.y}" r="27"/><text x="${x.x}" y="${x.y+5}" text-anchor="middle">${x.name}</text></g>`).join('')}</svg></div><div class="panel"><div class="eyebrow">SELECTED RELATIONSHIP</div><h3 data-route-name></h3><p data-route-info style="margin-top:15px"></p><div class="rule"></div><p data-route-path style="color:var(--accent2)"></p></div></div></div>`,setup:(r,d,c)=>{const set=i=>{d.node=i;active(r,'route',i);$$('[data-route-edge]',r).forEach(p=>p.classList.toggle('focus',ROUTE_EDGES[+p.dataset.routeEdge].includes(i)));$('[data-route-name]',r).textContent=ROUTES[i].name;$('[data-route-info]',r).textContent=ROUTES[i].info;$('[data-route-path]',r).textContent=ROUTES[i].linked;report(ROUTES[i].linked+'。来源：固定演示拓扑。')};c.bind('[data-route]','click',b=>set(+b.dataset.route));c.bind('[data-route]','keydown',(b,e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();set(+b.dataset.route)}});set(d.node)}};
+const PROMPTS=[{label:'解释过程',desc:'让观众知道进展到了哪里，失败后如何继续。',next:'优先尝试执行路径变形',why:'阶段、分支和恢复可以同时被看到。',id:'flow-path'}, {label:'比较两个版本',desc:'把同一个对象的差异放在同一张画面中。',next:'优先尝试前后对比扫描',why:'内容对齐后再看结构差异，避免比较对象变化。',id:'before-after'}, {label:'呈现一组证据',desc:'让数值、口径和形状保持一一对应。',next:'优先尝试指标脉冲',why:'固定标尺有助于区分真实差异与视觉夸张。',id:'metric-pulse'}];
+REGISTRY.prompt={initial:()=>({choice:0}),render:d=>`<div class="demo">${head('GUIDED CHOICE / NEXT STEP','这次，你需要解释什么？','选择表达任务，得到可直接打开的机制建议。')}<div class="prompt-options">${PROMPTS.map((p,i)=>`<button class="prompt-option ${d.choice===i?'active':''}" data-prompt="${i}"><span class="option-num">0${i+1}</span><strong>${p.label}</strong><p>${p.desc}</p></button>`).join('')}</div><div class="prompt-answer"><div><strong data-prompt-title></strong><p data-prompt-copy></p></div><button class="primary" data-prompt-open>打开机制 →</button></div></div>`,setup:(r,d,c)=>{const set=i=>{d.choice=i;active(r,'prompt',i);$('[data-prompt-title]',r).textContent=PROMPTS[i].next;$('[data-prompt-copy]',r).textContent=PROMPTS[i].why;report('已选择「'+PROMPTS[i].label+'」。'+PROMPTS[i].next+'；可点击按钮进入实际演示。')};c.bind('[data-prompt]','click',b=>set(+b.dataset.prompt));c.bind('[data-prompt-open]','click',()=>select(PROMPTS[d.choice].id,true));set(d.choice)}};
+REGISTRY.matrix={initial:()=>({value:65,certainty:67}),render:d=>`<div class="demo">${head('TRADE-OFF / TWO EXPLICIT INPUTS','高价值，也可能还缺证据','阈值固定为 60；滑杆只驱动演示规则，不替代真实决策。')}<div class="matrix-layout"><div class="matrix-field"><span class="quadrant q1">优先验证</span><span class="quadrant q2">先收集证据</span><span class="quadrant q3">先收集证据</span><span class="quadrant q4">高价值待验证</span><i class="matrix-point"></i><span class="axis-x">价值评分 → 100</span><span class="axis-y">确定性评分 → 100</span><span class="axis-zero">0</span></div><div><div class="matrix-result"></div><p class="muted small">输入来自你的模拟判断。右上区要求两个数值均大于 60。</p><label class="slider-label" for="matrixValue">价值评分 <b data-value></b></label><input type="range" id="matrixValue" min="0" max="100" value="${d.value}"><label class="slider-label" for="matrixCertainty">确定性评分 <b data-certainty></b></label><input type="range" id="matrixCertainty" min="0" max="100" value="${d.certainty}"></div></div></div>`,setup:(r,d,c)=>{const set=()=>{d.value=+$('#matrixValue',r).value;d.certainty=+$('#matrixCertainty',r).value;$('.matrix-point',r).style.cssText=`left:${d.value}%;bottom:${d.certainty}%`;$('[data-value]',r).textContent=d.value+' / 100';$('[data-certainty]',r).textContent=d.certainty+' / 100';const verdict=LOGIC.matrix(d.value,d.certainty);$('.matrix-result',r).textContent=verdict;report(`价值 ${d.value}，确定性 ${d.certainty} → ${verdict}。规则：价值 > 60 且确定性 > 60 才进入“优先验证”。`)};c.on($('#matrixValue',r),'input',set);c.on($('#matrixCertainty',r),'input',set);set()}};
+REGISTRY.poll={initial:()=>({totals:{A:42,B:31,C:27},local:0}),render:d=>`<div class="demo">${head('LOCAL POLL / NOT CONNECTED','你会怎样组织任务入口？','每次点击只为本地样本增加 1 票；没有真实观众或远端投票服务。')}<div class="poll-list">${[['A','直达'],['B','分步'],['C','混合']].map(([k,l])=>`<div class="poll-row"><span>${k} · ${l}</span><div class="poll-track"><i data-poll-bar="${k}"></i></div><b data-poll-value="${k}"></b><button data-vote="${k}">投 ${k} +1</button></div>`).join('')}</div><div class="poll-total"><span data-poll-total></span><span data-poll-local></span></div><div class="chart-foot">条宽 = 选项票数 ÷ 总票数；初始样本为 42 / 31 / 27。</div></div>`,setup:(r,d,c)=>{const set=()=>{const total=Object.values(d.totals).reduce((a,b)=>a+b,0);for(const [k,v] of Object.entries(d.totals)){$(`[data-poll-bar="${k}"]`,r).style.width=v/total*100+'%';$(`[data-poll-value="${k}"]`,r).textContent=v+' 票'}$('[data-poll-total]',r).textContent='总样本 '+total+' 票';$('[data-poll-local]',r).textContent='本地新增 '+d.local+' 票';report(`本地模拟分布：A ${d.totals.A}、B ${d.totals.B}、C ${d.totals.C}，共 ${total} 票。没有联网提交。`)};c.bind('[data-vote]','click',b=>{d.totals=LOGIC.vote(d.totals,b.dataset.vote);d.local++;set()});set()}};
+REGISTRY.sankey={initial:()=>({edge:'激活'}),render:d=>`<div class="demo">${head('FLOW VOLUME / PEOPLE','每一条分支，都能对回总量','线宽严格按人数映射；点击聚焦只改变透明度，不改变流量比例。')}<div class="sankey-diagram"><svg viewBox="0 0 750 280" role="img" aria-label="1000人分为600激活和400未激活；600激活者分为420留存和180未留存">${LOGIC.flow.map(x=>`<path class="sankey-edge" data-sankey="${x.id}" d="${x.path}" stroke-width="${LOGIC.flowWidth(x.value)}" tabindex="0" role="button" aria-label="${x.id} ${x.value} 人"/>`).join('')}<g fill="var(--ink)"><rect x="68" y="85" width="12" height="100"/><rect x="310" y="61" width="10" height="60"/><rect x="310" y="210" width="10" height="40"/><rect x="655" y="43" width="10" height="42"/><rect x="655" y="150" width="10" height="18"/></g><g font-size="12"><text x="15" y="61">总量 1,000 人</text><text x="275" y="38">激活 600</text><text x="260" y="273">未激活 400</text><text x="593" y="22">留存 420</text><text x="585" y="194">未留存 180</text></g></svg></div>${tabs(LOGIC.flow.map(x=>x.id),'flow-choice',d.edge)}<div class="conservation"><span>1,000 = 600 + 400</span><span>600 = 420 + 180</span><span>单位：人 · 固定模拟数据</span></div></div>`,setup:(r,d,c)=>{const set=id=>{d.edge=id;$$('[data-sankey]',r).forEach(p=>{p.classList.toggle('active',p.dataset.sankey===id);p.classList.toggle('dim',p.dataset.sankey!==id)});active(r,'flow-choice',id);const x=LOGIC.flow.find(x=>x.id===id);report(`${id}：${x.value} 人。总量守恒：1,000 = 600 + 400；600 = 420 + 180。聚焦不修改线宽。`)};c.bind('[data-flow-choice]','click',b=>set(b.dataset.flowChoice));c.bind('[data-sankey]','click',p=>set(p.dataset.sankey));c.bind('[data-sankey]','keydown',(p,e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();set(p.dataset.sankey)}});set(d.edge)}};
+const RADAR_LABELS=['覆盖','准确','稳定','可解释','延展'];
+function radarMarkup(name){const pt=(v,i)=>LOGIC.radarPoint(v,i,101,[190,145]);return `<svg viewBox="0 0 380 290" role="img" aria-label="${name} 五维百分制雷达图">${[25,50,75,100].map(v=>`<polygon points="${RADAR_LABELS.map((_,i)=>pt(v,i).join(',')).join(' ')}" fill="none" stroke="var(--line)" stroke-width="1"/>`).join('')}${RADAR_LABELS.map((x,i)=>{const p=pt(100,i),l=pt(127,i);return `<line x1="190" y1="145" x2="${p[0]}" y2="${p[1]}" stroke="var(--line)"/><text x="${l[0]}" y="${l[1]+4}" text-anchor="middle" font-size="12">${x}</text>`}).join('')}<text x="197" y="142" font-size="9">0</text><text x="197" y="93" font-size="9">50</text><text x="197" y="46" font-size="9">100</text><polygon data-radar-shape points="${LOGIC.radarValues(name).map((v,i)=>pt(v,i).join(',')).join(' ')}" fill="var(--accent)" fill-opacity=".18" stroke="var(--accent)" stroke-width="2"/>${LOGIC.radarValues(name).map((v,i)=>{const p=pt(v,i);return `<circle data-radar-dot="${i}" cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--accent)"/>`}).join('')}</svg>`}
+REGISTRY.radar={initial:()=>({name:'Alpha'}),render:d=>`<div class="demo">${head('CAPABILITY / FIXED SCALE','能力轮廓，逐维对照','同一中心、同一比例、同一组维度。样本不对应真实产品。')}<div class="radar-layout"><div class="radar-chart">${radarMarkup(d.name)}</div><div><div class="eyebrow" style="margin-bottom:18px">SCORE / 100</div><div class="data-list">${RADAR_LABELS.map((x,i)=>`<div class="data-row"><span>${x}</span><div class="data-track"><i style="width:${LOGIC.radarValues(d.name)[i]}%"></i></div><b>${LOGIC.radarValues(d.name)[i]}</b></div>`).join('')}</div>${actions(tabs(['Alpha','Beta'],'radar',d.name))}</div></div></div>`,setup:(r,d,c)=>{const set=name=>{d.name=name;const values=LOGIC.radarValues(name),points=values.map((v,i)=>LOGIC.radarPoint(v,i,101,[190,145]));$('[data-radar-shape]',r).setAttribute('points',points.map(p=>p.join(',')).join(' '));$$('[data-radar-dot]',r).forEach((p,i)=>{p.setAttribute('cx',points[i][0]);p.setAttribute('cy',points[i][1])});$('.radar-chart svg',r).setAttribute('aria-label',name+' 五维百分制雷达图');$$('.data-row',r).forEach((el,i)=>{$('i',el).style.width=values[i]+'%';$('b',el).textContent=values[i]});active(r,'radar',name);report('模拟 '+name+'：'+RADAR_LABELS.map((x,i)=>x+' '+values[i]).join(' / ')+'。半径严格对应 0–100 分。')};c.bind('[data-radar]','click',b=>set(b.dataset.radar));set(d.name)}};
+const HEAT=[['路由未知',0,'来源未确认'],['超时重试',7,'日志样本'],['权限边界',5,'规则样本'],['空输入',1,'表单样本'],['数据漂移',8,'回归样本'],['低覆盖',3,'评测样本'],['依赖缺失',4,'构建样本'],['高延迟',9,'性能样本'],['文案歧义',6,'审阅样本'],['设备差异',2,'兼容样本'],['结果不一致',4,'对照样本'],['失败未回退',7,'流程样本'],['未知来源',0,'来源未确认'],['低置信',5,'置信样本'],['边界未测',3,'测试样本'],['数据泄漏',8,'安全样本'],['服务抖动',6,'运行样本'],['提示缺失',2,'交互样本']];
+REGISTRY.heat={initial:()=>({cell:0}),render:d=>`<div class="demo">${head('RISK REGISTER / UNKNOWN IS VISIBLE','看见风险，也看见未知','深色表示较高演示等级；斜线代表尚无证据，绝不视作低风险。')}<div class="heat-layout"><div><div class="heat-colnames">${['A','B','C','D','E','F'].map(x=>`<span>位置 ${x}</span>`).join('')}</div><div class="heat-grid">${HEAT.map((x,i)=>`<button class="heat-cell ${x[1]===0?'unknown':''}" style="--level:${x[1]}" data-heat="${i}" aria-label="${x[0]}，${x[1]===0?'未知':x[1]+'级'}">${x[1]===0?'?':x[1]}</button>`).join('')}</div><div class="heat-legend"><span>低 1 → 9 高</span><span>斜线 ? = 未验证</span><span>仅模拟风险登记</span></div></div><div class="panel heat-info"></div></div></div>`,setup:(r,d,c)=>{const set=i=>{d.cell=i;const [name,level,source]=HEAT[i];active(r,'heat',i);$('.heat-info',r).innerHTML=`<div><div class="eyebrow">ITEM ${String(i+1).padStart(2,'0')}</div><h4>${name}</h4><div class="stat-number">${level||'?'} <small>${level?'/ 9':'未知'}</small></div></div><div><div class="rule"></div><p><strong>依据：</strong>${source}（模拟）</p><p style="margin-top:10px">${level?'等级用于展示已记录的风险，不代表真实系统审计结果。':'来源尚未确认。需要补充证据后才能判断，不能将此单元格视作安全。'}</p></div>`;report(`${name}：${level?'演示等级 '+level+' / 9':'未知，尚无确认依据'}。来源：${source}（模拟）。`)};c.bind('[data-heat]','click',b=>set(+b.dataset.heat));set(d.cell)}};
+const STEPS=[{title:'取证',desc:'先确认任务、内容与硬约束。',body:'确定用户如何判断任务完成，收集代表性内容，记录尚未确认的事实。',checks:['任务目标','真实素材','未知边界']},{title:'样板',desc:'用同一内容验证方向与密度。',body:'将真实信息放进可操作的样板，检查输入、反馈和失败恢复；用渲染结果评审。',checks:['可点击路径','加载与错误','视觉检验']},{title:'交接',desc:'锁定约定，再扩展与验收。',body:'保留已确认的设计约定、入口和依赖，说明什么已经验证，什么仍受运行环境限制。',checks:['确认约定','验证记录','恢复方式']}];
+REGISTRY.steps={initial:()=>({i:0,mode:'step'}),render:d=>`<div class="demo">${head('NARRATIVE / MATCH THE TRIGGER','同一段叙事，两种推进方式','网页用局部滚动；演示用按钮步进。左侧重点随步骤同步。')}${tabs(['演示步进','网页滚动'],'step-mode',d.mode==='step'?'演示步进':'网页滚动')}<div class="step-workspace" style="margin-top:20px"><div class="step-anchor"><div class="step-progress"><i></i></div><div class="eyebrow" data-step-index></div><h4 data-step-title></h4><p data-step-desc></p><div class="step-visual" aria-hidden="true">${STEPS.map((x,i)=>`<i data-step-icon="${i}">0${i+1}</i>`).join('')}</div></div><div><div class="step-copy"></div><div class="step-scroll" tabindex="0" aria-label="滚动浏览取证、样板和交接三个步骤">${STEPS.map((x,i)=>`<section><div class="eyebrow">STEP 0${i+1}</div><h4>${x.title}</h4><p>${x.body}</p><div class="checklist">${x.checks.map(t=>`<span>✓ ${t}</span>`).join('')}</div></section>`).join('')}</div></div></div><div class="demo-actions" data-step-actions>${button('← 上一步','step-prev')}${button('下一步 →','step-next','','primary')}</div></div>`,setup:(r,d,c)=>{const scroll=$('.step-scroll',r);const set=i=>{d.i=Math.max(0,Math.min(2,i));const x=STEPS[d.i];$('.step-progress i',r).style.width=(d.i+1)/3*100+'%';$('[data-step-index]',r).textContent='STEP 0'+(d.i+1)+' / 03';$('[data-step-title]',r).textContent=x.title;$('[data-step-desc]',r).textContent=x.desc;$$('[data-step-icon]',r).forEach(el=>el.classList.toggle('active',+el.dataset.stepIcon<=d.i));$('.step-copy',r).innerHTML=`<div class="eyebrow">FOCUS / 0${d.i+1}</div><h4>${x.title}</h4><p>${x.body}</p><div class="checklist">${x.checks.map(t=>`<span>✓ ${t}</span>`).join('<br>')}</div>`;$('[data-step-prev]',r).disabled=d.i===0;$('[data-step-next]',r).disabled=d.i===2;report(`第 ${d.i+1} / 3 步：${x.title}。${x.body}`)};const mode=v=>{d.mode=v;scroll.hidden=v!=='scroll';$('.step-copy',r).hidden=v==='scroll';$('[data-step-actions]',r).hidden=v==='scroll';active(r,'step-mode',v==='step'?'演示步进':'网页滚动');if(v==='scroll')scroll.scrollTop=d.i*scroll.clientHeight};c.bind('[data-step-mode]','click',b=>mode(b.dataset.stepMode==='网页滚动'?'scroll':'step'));c.bind('[data-step-prev]','click',()=>set(d.i-1));c.bind('[data-step-next]','click',()=>set(d.i+1));c.on(scroll,'scroll',()=>set(Math.round(scroll.scrollTop/Math.max(1,scroll.clientHeight))),{passive:true});set(d.i);mode(d.mode)}};
+const SPRING_STEPS=[{title:'确认任务',body:'明确要解释的任务与结束条件。',check:'范围已写下'},{title:'验证路径',body:'用代表性内容走通主路径和异常出口。',check:'关键交互可操作'},{title:'交接结果',body:'留下入口、证据和已知限制。',check:'验收信息可回看'}];
+REGISTRY.spring={initial:()=>({step:0,completed:false}),render:d=>`<div class="demo">${head('SEQUENCE / NAVIGATION ≠ COMPLETION','进度到哪一步，不等于任务已完成','上一步和下一步只导航当前位置；到最后一步后再明确确认完成。')}<div class="spring-stepper"><div class="spring-track" aria-hidden="true"><i class="spring-step-fill" style="transform:scaleX(${d.step/2})"></i></div><div class="spring-steps">${SPRING_STEPS.map((x,i)=>`<button class="spring-step ${d.step===i?'active':''} ${d.completed&&i<d.step?'done':''}" data-spring-step="${i}" aria-label="第${i+1}步：${x.title}"><span>0${i+1}</span><strong>${x.title}</strong></button>`).join('')}</div><div class="spring-detail"><div class="eyebrow" data-spring-index>STEP 01 / 03</div><h4 data-spring-title></h4><p data-spring-body></p><span class="tag" data-spring-status>尚未完成</span></div>${actions(button('← 上一步','spring-prev')+button('下一步 →','spring-next','','primary')+button('完成步骤','spring-complete')+button('重置','spring-reset'))}</div></div>`,setup:(r,d,c)=>{let movement=null;const paint=(animate=true)=>{const current=d.step,info=SPRING_STEPS[current],fill=$('.spring-step-fill',r),from=fill?getComputedStyle(fill).transform:'none';movement?.cancel();movement=null;$('[data-spring-index]',r).textContent=`STEP 0${current+1} / 03`;$('[data-spring-title]',r).textContent=info.title;$('[data-spring-body]',r).textContent=info.body;$('[data-spring-status]',r).textContent=d.completed?'已完成：明确完成态':'导航中：尚未完成';$$('[data-spring-step]',r).forEach((el,i)=>{el.classList.toggle('active',i===current);el.classList.toggle('done',d.completed&&i<current);el.setAttribute('aria-current',i===current?'step':'false')});$('[data-spring-prev]',r).disabled=current===0;$('[data-spring-next]',r).disabled=current===2;$('[data-spring-complete]',r).disabled=current!==2||d.completed;if(fill){const target=`scaleX(${current/2})`;if(animate)movement=c.animate(fill,[{transform:from},{transform:target}],{duration:520,easing:'cubic-bezier(.16,1.3,.3,1)'});fill.style.transform=target}report(d.completed?`已完成第 ${current+1} / 3 步：${info.title}。完成态来自明确确认。`:`当前第 ${current+1} / 3 步：${info.title}。导航位置已更新，但任务尚未完成。`)};const move=event=>{const next=LOGIC.stepper(d,event);d.step=next.step;d.completed=next.completed;paint()};c.bind('[data-spring-prev]','click',()=>move('PREV'));c.bind('[data-spring-next]','click',()=>move('NEXT'));c.bind('[data-spring-complete]','click',()=>move('COMPLETE'));c.bind('[data-spring-reset]','click',()=>{const next=LOGIC.stepper(d,'RESET');d.step=next.step;d.completed=next.completed;paint(false)});c.bind('[data-spring-step]','click',b=>{d.step=+b.dataset.springStep;d.completed=false;paint()});paint(false)}};
+const DISCLOSURES=[{label:'先确认任务',body:'先把用户要完成的动作和判断完成的条件写清楚。补充解释服务于主句，不替代主句。'},{label:'再观察反馈',body:'操作后要能看到状态变化、结果或恢复入口。等待中的状态也应说明当前做到哪一步。'},{label:'最后保留边界',body:'说明数据来源、适用范围和未知项。可选展开帮助回看，但关键限制保持直接可见。'}];
+REGISTRY.disclosure={
+ initial:()=>({open:null}),
+ render:d=>`<div class="demo">${head('CONTENT / MEASURED DISCLOSURE','让一句话，带着它的依据出现','点击主张查看补充说明；可在展开过程中切换、收起或改变窗口宽度。')}<div class="disclosure-copy">${DISCLOSURES.map((x,i)=>`<button class="disclosure-trigger" data-disclosure="${i}" aria-controls="disclosure-panel" aria-expanded="false">${x.label}<span aria-hidden="true">＋</span></button>`).join('')}</div><div class="disclosure-panel" id="disclosure-panel" data-disclosure-panel hidden aria-hidden="true"><div data-disclosure-inner></div></div><p class="small muted disclosure-boundary">补充解释是可选层；任务规则和风险不依赖隐藏内容。</p></div>`,
+ setup:(r,d,c)=>{
+  const panel=$('[data-disclosure-panel]',r),inner=$('[data-disclosure-inner]',r);let animation=null,generation=0,lastWidth=0;
+  const settle=()=>{panel.hidden=d.open===null;panel.inert=d.open===null;panel.setAttribute('aria-hidden',String(d.open===null));panel.style.height=d.open===null?'0px':'auto'};
+  const show=(next,instant=false)=>{
+   const from=panel.hidden?0:panel.getBoundingClientRect().height;generation++;const token=generation;
+   animation?.cancel();animation=null;
+   if(next===null&&panel.contains(document.activeElement))$('[data-disclosure="'+d.open+'"]',r)?.focus();
+   d.open=next;
+   $$('[data-disclosure]',r).forEach((b,i)=>{b.classList.toggle('active',i===next);b.setAttribute('aria-expanded',String(i===next))});
+   panel.inert=next===null;panel.setAttribute('aria-hidden',String(next===null));
+   if(next!==null){panel.hidden=false;inner.innerHTML='<div class="eyebrow">EXPLANATION / 0'+(next+1)+'</div><p>'+DISCLOSURES[next].body+'</p>';panel.style.height='auto'}
+   const target=next===null?0:panel.getBoundingClientRect().height;lastWidth=inner.getBoundingClientRect().width;
+   const range=LOGIC.disclosureTransition(from,target);panel.style.height=range.from+'px';
+   if(!instant)animation=c.animate(panel,[{height:range.from+'px'},{height:range.to+'px'}],{duration:360});
+   if(animation)animation.finished.then(()=>{if(token===generation){animation=null;settle()}},()=>{});else settle();
+   report(next===null?'已收起补充说明；主句仍然完整可读。':'已展开「'+DISCLOSURES[next].label+'」：补充依据可回看。');
+  };
+  c.bind('[data-disclosure]','click',b=>show(d.open===+b.dataset.disclosure?null:+b.dataset.disclosure));
+  const observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>{
+   const width=inner.getBoundingClientRect().width;if(d.open!==null&&Math.abs(width-lastWidth)>.5){lastWidth=width;generation++;animation?.cancel();animation=null;settle()}
+  }):null;
+  observer?.observe(inner);c.cleanup(()=>{generation++;animation?.cancel();observer?.disconnect()});
+  if(d.open!==null)show(d.open,true);else settle();
+ }
+};
+const BULK_ITEMS=[{id:'scope',name:'任务范围',desc:'目标、边界和完成条件',available:true},{id:'evidence',name:'证据样本',desc:'代表性内容与未知项',available:true},{id:'recovery',name:'恢复路径',desc:'失败反馈和继续入口',available:true},{id:'handoff',name:'交接信息',desc:'入口、依赖和验收记录',available:true},{id:'legal',name:'法务确认',desc:'尚未接入当前演示范围',available:false}];
+REGISTRY.bulk={initial:()=>({selected:[]}),render:d=>`<div class="demo">${head('INPUT / BOUNDED FEEDBACK','一次选择多个准备项','集合状态先立即更新；错峰标记只帮助扫读，不模拟延迟提交。')}<div class="bulk-summary"><label class="bulk-select-all"><input type="checkbox" data-bulk-all aria-controls="bulk-list">全选当前可选项</label><strong data-bulk-count>已选 0 / ${BULK_ITEMS.filter(x=>x.available!==false).length}</strong><span class="muted" data-bulk-scope>范围：4 个可选项 / 5 个清单项</span><span class="muted" data-bulk-result>尚未选择准备项</span></div><div class="bulk-list" id="bulk-list">${BULK_ITEMS.map(x=>`<label class="bulk-row ${x.available===false?'is-unavailable':''}"><input type="checkbox" data-bulk="${x.id}" ${x.available===false?'disabled':''} ${d.selected.includes(x.id)?'checked':''}><span class="bulk-copy"><strong>${x.name}</strong><small>${x.desc}</small></span><i class="bulk-mark" data-bulk-mark="${x.id}" aria-hidden="true">✓</i></label>`).join('')}</div><p class="small muted bulk-boundary">逻辑选择和计数同步发生；最多 280ms 的错峰标记是装饰反馈，不会延迟结果。</p></div>`,setup:(r,d,c)=>{const eligible=BULK_ITEMS.filter(x=>x.available!==false);const eligibleIds=new Set(eligible.map(x=>x.id));d.selected=d.selected.filter(id=>eligibleIds.has(id));let sequence=0;const paint=(animate=true)=>{sequence++;const token=sequence;const selected=new Set(d.selected);$$('[data-bulk]',r).forEach(input=>{input.checked=selected.has(input.dataset.bulk)});$('[data-bulk-count]',r).textContent=`已选 ${d.selected.length} / ${eligible.length}`;$('[data-bulk-all]',r).checked=d.selected.length===eligible.length;$('[data-bulk-all]',r).indeterminate=d.selected.length>0&&d.selected.length<eligible.length;$('[data-bulk-result]',r).textContent=d.selected.length?`已准备：${d.selected.map(id=>eligible.find(x=>x.id===id)?.name||id).join('、')}`:'尚未选择准备项';const marks=$$('[data-bulk-mark]',r).filter(mark=>eligibleIds.has(mark.dataset.bulkMark));const delays=LOGIC.staggerDelays(marks.length);marks.forEach(mark=>{mark.classList.remove('show');mark.style.opacity='0'});delays.forEach((delay,i)=>c.schedule(animate?delay:0,()=>{if(token!==sequence)return;const mark=marks[i];if(selected.has(mark.dataset.bulkMark)){mark.classList.add('show');mark.style.opacity='1'}},false));report(d.selected.length?`已立即选中 ${d.selected.length} 项：${d.selected.map(id=>eligible.find(x=>x.id===id)?.name||id).join('、')}。错峰标记仅是视觉反馈。`:'当前没有选中准备项。选择结果会立即更新。')};c.bind('[data-bulk]','change',input=>{if(!eligibleIds.has(input.dataset.bulk))return;d.selected=LOGIC.toggleBulk(d.selected,input.dataset.bulk);paint()});c.bind('[data-bulk-all]','change',input=>{d.selected=input.checked?eligible.map(x=>x.id):[];paint()});paint(false)}};
+REGISTRY.sticker={initial:PEEL_FIX.registry.initial,render:d=>PEEL_FIX.render(d,{head,button,actions}),setup:(r,d,c)=>PEEL_FIX.setup(r,d,c,{report,isReduced:()=>S.reduced||S.static})};
+function pixelScreen(view){const done=view==='b',lit=done?[5,10,15,20,25,26,28,31]:[7,8,9,10,13,16,19,22,25,26,27,28];return `<div class="pixel-screen"><div><div class="eyebrow">LOCAL ARCHIVE / ${done?'READY':'DRAFT'}</div><h4>${done?'笔记已归档。':'把散落的笔记，<br>整理成一次记录。'}</h4><p>${done?'3 条笔记已进入「九月工作记录」。标题、来源与检查项仍然可以回看。':'本地演示中包含路线图、评测报告和发布记录。点击后查看完整归档状态。'}</p><div class="pixel-meta">${done?'ARCHIVE / SEP-01 · 3 NOTES · COMPLETE':'DRAFT / SEP-01 · 3 NOTES · WAITING'}</div></div><div class="pixel-art" aria-hidden="true">${Array.from({length:36},(_,i)=>`<i class="${lit.includes(i)?'on':''}"></i>`).join('')}</div></div>`}
+REGISTRY.pixel={initial:()=>({view:'a'}),render:d=>`<div class="demo">${head('PIXEL MASK / CONTENT TRANSITION','像素遮罩，连接两种完整内容','从待归档到已归档；遮罩覆盖后替换内容，再按波次揭开。','像素风局部实验')}<div class="pixel-viewport"><div data-pixel-content>${pixelScreen(d.view)}</div><div class="pixel-overlay" aria-hidden="true">${'<i></i>'.repeat(144)}</div></div><div class="pixel-progress" aria-hidden="true"><i></i></div>${actions(button(d.view==='a'?'归档笔记 →':'回到待归档','pixel','','primary')+'<span class="small muted" data-pixel-status>等待操作 · 16 × 9 遮罩</span>')}</div>`,setup:(r,d,c)=>{let busy=false;const b=$('[data-pixel]',r),cells=$$('.pixel-overlay i',r),order=LOGIC.pixelOrder(cells.length),status=$('[data-pixel-status]',r);c.on(b,'click',()=>{if(busy)return;busy=true;b.disabled=true;status.textContent='遮罩覆盖中…';report('像素遮罩正在覆盖原内容，完整覆盖后切换目标内容。');order.forEach((index,k)=>c.schedule(k*4,()=>{cells[index].style.opacity='1';$('.pixel-progress i',r).style.width=(k+1)/144*50+'%'}));c.schedule(620,()=>{d.view=d.view==='a'?'b':'a';$('[data-pixel-content]',r).innerHTML=pixelScreen(d.view);status.textContent='内容已切换，正在揭开…'});order.forEach((index,k)=>c.schedule(770+k*4,()=>{cells[index].style.opacity='0';$('.pixel-progress i',r).style.width=(50+(k+1)/144*50)+'%'}));c.schedule(1390,()=>{busy=false;b.disabled=false;b.textContent=d.view==='a'?'归档笔记 →':'回到待归档';status.textContent=d.view==='a'?'已恢复待归档状态':'已归档 · 3 条笔记可回看';report(d.view==='b'?'完成：三条模拟笔记已显示在归档完成态。像素网格只是转场遮罩，结果内容完整保留。':'已回到待归档状态，可再次播放像素转场。')})});report(d.view==='a'?'当前是待归档内容：3 条模拟笔记。点击归档将遮盖原内容并揭开完成态。':'当前是已归档内容：3 条模拟笔记已完成，可回到待归档。')}};
+REGISTRY.state={initial:()=>({state:'idle',outcome:'success',progress:0,attempt:0}),render:d=>`<div class="demo">${head('ASYNC STATE / RETRYABLE ERROR','按钮的状态，要和任务状态一致','选择本次模拟结果，再开始同步。失败会保留资料，重试可恢复。')}<div class="state-layout"><div class="sync-card"><div class="sync-icon" data-sync-icon>↥</div><div class="eyebrow">LOCAL DEMO / 3 NOTES</div><h4>同步项目笔记</h4><p>路线图、评测报告、发布记录<br>本地状态模拟，不发送任何资料。</p><div class="sync-progress"><i></i></div><button class="primary" data-state-action>开始同步</button><p data-sync-copy style="margin-top:12px"></p></div><div class="state-log"><div class="eyebrow">STATE TRANSITION</div><ol>${[['idle','等待输入'],['running','正在处理'],['success','完成，可回看'],['error','失败，可恢复']].map(([id,t])=>`<li data-log="${id}"><code>${id}</code>${t}</li>`).join('')}</ol><div class="state-explain" data-sync-explain></div><div class="state-outcome">${button('本次成功','outcome','success',d.outcome==='success'?'active':'')}${button('本次超时','outcome','error',d.outcome==='error'?'active':'')}</div></div></div></div>`,setup:(r,d,c)=>{let pending=false;const paint=()=>{const t={idle:['开始同步','等待输入，3 条笔记已准备。','选择模拟结果，然后开始。','↥'],running:['正在同步…','处理中，原始资料仍然保留。','按钮禁用以避免重复提交。','↻'],success:['重新演示','3 条笔记已完成同步（本地模拟）。','完成态提供明确结果；再次操作将回到初始状态。','✓'],error:['重试同步',d.interrupted?'演示曾被切换中断，资料仍保留。':'模拟超时，未丢失任何笔记。','错误可以恢复。将本次结果设为成功，再点击重试。','!']}[d.state];$('[data-state-action]',r).textContent=t[0];$('[data-state-action]',r).disabled=d.state==='running';$('[data-sync-copy]',r).textContent=t[1];$('[data-sync-explain]',r).textContent=t[2];$('[data-sync-icon]',r).textContent=t[3];$('.sync-progress i',r).style.width=d.progress+'%';$$('[data-log]',r).forEach(li=>li.classList.toggle('current',li.dataset.log===d.state));$$('[data-outcome]',r).forEach(b=>b.disabled=d.state==='running');active(r,'outcome',d.outcome);report(`${d.state}：${t[1]} ${t[2]}`)};const execute=()=>{if(pending)return;pending=true;const chosen=d.outcome;d.interrupted=false;d.state=LOGIC.state(d.state,d.state==='error'?'RETRY':'START');d.attempt++;d.progress=12;paint();c.schedule(500,()=>{d.progress=47;paint()},true);c.schedule(1050,()=>{d.progress=76;paint()},true);c.schedule(1700,()=>{d.state=LOGIC.state(d.state,chosen==='success'?'RESOLVE':'REJECT');d.progress=chosen==='success'?100:76;pending=false;paint()},true)};c.bind('[data-outcome]','click',b=>{d.outcome=b.dataset.outcome;paint()});c.bind('[data-state-action]','click',()=>{if(d.state==='success'){d.state=LOGIC.state(d.state,'RESET');d.progress=0;paint()}else execute()});if(d.state==='running'&&!S.static){d.state='error';d.interrupted=true;d.progress=0}paint()}};
+const SPACE_NODES=[{label:'输入',x:-1.2,y:.25,z:.3},{label:'路由',x:0,y:.75,z:.8},{label:'能力',x:1.2,y:.05,z:.25},{label:'证据',x:.2,y:-.85,z:-.6}];const SPACE_EDGES=[[0,1],[1,2],[1,3]];
+function canvasInitial(){return {rotation:{x:-.18,y:.22},selected:1,signals:0,collisions:0,particles:Array.from({length:25},(_,i)=>({x:.08+(i*37%100)/100*.84,y:.12+(i*61%100)/100*.72,vx:((i*17%10)-5)*.0003,vy:((i*23%10)-5)*.0003})),balls:[{x:.26,y:.25,vx:.002,vy:0,label:'输入'},{x:.49,y:.2,vx:-.002,vy:0,label:'资源'},{x:.65,y:.28,vx:.001,vy:0,label:'冲突'}]}}
+const CANVAS_COPY={token:{kicker:'3D PROJECTION / RELATIONSHIP',title:'旋转视角，关系仍然成立',desc:'原生 Canvas 2D 绘制三维投影。拖动旋转，点选节点查看相邻关系。',stamp:'4 NODES / 3 EDGES',hint:'拖动旋转 · 点击选中 · 方向键 / Enter',button:'下一个节点',boundary:'这是固定拓扑的空间表达，不是业务能力评分。'},particle:{kicker:'GENERATIVE FIELD / INPUT SIGNAL',title:'一个输入，扰动整个场',desc:'25 个确定性初始粒子。点击或按 Enter 加入信号，观察轨迹变化。',stamp:'25 PARTICLES / GENERATIVE ART',hint:'点击加入信号 · Enter / Space',button:'加入一个信号',boundary:'这是生成艺术与扰动实验，不是统计趋势或业务结论。'},physics:{kicker:'PHYSICS / BOUNDED CAPACITY',title:'空间有限，事项会相互影响',desc:'圆形碰撞、重力与边界约束。每次加入一个带标签的事项，容量上限 8。',stamp:'CIRCLE COLLISION / CAPACITY 8',hint:'点击添加事项 · Enter / Space',button:'加入一个事项',boundary:'物理位置仅演示约束，不计算或暗示业务优先级。'}};
+function canvasFallback(kind,d){const x=CANVAS_COPY[kind];return `<div class="canvas-fallback"><div class="eyebrow">STATIC SNAPSHOT / NO CANVAS LOOP</div><h4>${kind==='token'?'空间关系静态图':kind==='particle'?'粒子场静态快照':'事项容量静态快照'}</h4><p>${kind==='token'?'输入 → 路由 → 能力；路由 → 证据。旋转只改变视角，不改变这些连接。':kind==='particle'?`25 个示意粒子；已加入 ${d.signals} 个信号。静态快照不推进轨迹。`:`当前 ${d.balls.length} / 8 个事项：${d.balls.map(b=>b.label).join('、')}。静态模式不执行碰撞。`}</p>${kind==='token'?'<svg viewBox="0 0 650 135" aria-label="输入连接路由，路由连接能力和证据"><path d="M80 45H320H565M320 45V108" fill="none" stroke="var(--line)" stroke-width="2"/><g fill="var(--accent)"><circle cx="80" cy="45" r="9"/><circle cx="320" cy="45" r="9"/><circle cx="565" cy="45" r="9"/><circle cx="320" cy="108" r="9"/></g><text x="63" y="23">输入</text><text x="303" y="23">路由</text><text x="548" y="23">能力</text><text x="337" y="114">证据</text></svg>':kind==='particle'?`<svg viewBox="0 0 650 135" aria-label="25个静态示意粒子">${d.particles.map(p=>`<circle cx="${p.x*650}" cy="${p.y*135}" r="3" fill="var(--accent)"/>`).join('')}</svg>`:`<svg viewBox="0 0 650 135" aria-label="当前${d.balls.length}个事项，容量上限8">${d.balls.map((b,i)=>`<circle cx="${40+i*78}" cy="60" r="24" fill="var(--tint)" stroke="var(--accent)"/><text x="${40+i*78}" y="105" text-anchor="middle">${b.label}</text>`).join('')}</svg>`}<p>${x.boundary}</p></div>`}
+function renderCanvas(kind,d){const x=CANVAS_COPY[kind];return `<div class="demo canvas-demo" data-canvas="${kind}">${head(x.kicker,x.title,x.desc,kind==='token'?'固定拓扑':'模拟实验')}<div class="canvas-frame">${S.static?canvasFallback(kind,d):`<canvas tabindex="0" aria-label="${x.title}。${x.hint}" data-kind="${kind}"></canvas><span class="canvas-stamp">${x.stamp}</span><span class="canvas-scale" data-canvas-scale></span><div class="canvas-key"><span>${x.hint}</span><span data-canvas-motion>LIVE</span></div>`}</div><div class="canvas-info"><p data-canvas-info>${x.boundary}</p><button data-canvas-add>${x.button}</button></div></div>`}
+function setupCanvas(kind,r,d,c){
+ const canvas=$('canvas',r),host=$('.canvas-frame',r),info=$('[data-canvas-info]',r),btn=$('[data-canvas-add]',r),x=CANVAS_COPY[kind];
+ const nodeText=()=>SPACE_NODES[d.selected].label+' ↔ '+SPACE_EDGES.filter(e=>e.includes(d.selected)).map(e=>SPACE_NODES[e.find(i=>i!==d.selected)].label).join('、');
+ const result=()=>{const message=kind==='token'?nodeText():kind==='particle'?`固定 25 个粒子，输入信号 ${d.signals} 个。`:`当前 ${d.balls.length} / 8 个事项。`;info.textContent=message+' '+x.boundary;report(message+' '+x.boundary);const count=$('[data-canvas-scale]',r);if(count)count.textContent=kind==='token'?'PERSPECTIVE / '+SPACE_NODES[d.selected].label:kind==='particle'?'SIGNALS / '+String(d.signals).padStart(2,'0'):'ITEMS / '+d.balls.length+' OF 8';btn.disabled=kind==='physics'&&d.balls.length>=8;if(btn.disabled)btn.textContent='容量已满 8 / 8'};
+ if(!canvas){result();return}let ctx;try{ctx=canvas.getContext('2d')}catch(_){ctx=null}if(!ctx){host.innerHTML=canvasFallback(kind,d);btn.disabled=true;result();report('Canvas 不可用，已自动显示可读静态快照。'+info.textContent);return}
+ let width=1,height=1,dpr=1,points=[],drag=null,moved=false,disposed=false;let signalRipple=null;
+ const colors=()=>{const css=getComputedStyle(document.body);return Object.fromEntries(['ink','accent','accent2','line','surface','tint','muted'].map(k=>[k,css.getPropertyValue('--'+k).trim()]))};
+ function paint(){if(disposed||!canvas.isConnected)return;const col=colors();ctx.clearRect(0,0,width,height);ctx.font='12px "Helvetica Neue", "PingFang SC", sans-serif';ctx.textAlign='left';ctx.lineWidth=1;
+  // A visible coordinate field belongs to the experiment, never a statistical axis.
+  ctx.strokeStyle=col.line;ctx.globalAlpha=.23;for(let gx=22;gx<width;gx+=35){for(let gy=45;gy<height-25;gy+=35){ctx.beginPath();ctx.moveTo(gx-2,gy);ctx.lineTo(gx+2,gy);ctx.moveTo(gx,gy-2);ctx.lineTo(gx,gy+2);ctx.stroke()}}ctx.globalAlpha=1;
+  if(kind==='token'){
+   const radius=Math.min(width*.27,height*.34);ctx.strokeStyle=col.line;ctx.globalAlpha=.65;ctx.beginPath();ctx.ellipse(width/2,height*.51,radius*1.5,radius*.55,0,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.ellipse(width/2,height*.51,radius*.7,radius,Math.sin(d.rotation.y)*.7,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
+   points=SPACE_NODES.map((n,i)=>({...LOGIC.project(n,d.rotation,width,height),i}));
+   for(const [a,b] of SPACE_EDGES){const p=points[a],q=points[b],selected=a===d.selected||b===d.selected;ctx.strokeStyle=selected?col.accent:col.line;ctx.lineWidth=selected?2.5:1.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();const mx=(p.x+q.x)/2,my=(p.y+q.y)/2;ctx.fillStyle=selected?col.accent:col.line;ctx.beginPath();ctx.arc(mx,my,3,0,Math.PI*2);ctx.fill()}
+   for(const p of [...points].sort((a,b)=>b.z-a.z)){const is=p.i===d.selected,rad=(is?17:12)*(1-p.z*.08);ctx.fillStyle=col.surface;ctx.beginPath();ctx.arc(p.x,p.y,rad+6,0,Math.PI*2);ctx.fill();ctx.fillStyle=is?col.accent:col.accent2;ctx.beginPath();ctx.arc(p.x,p.y,rad,0,Math.PI*2);ctx.fill();if(is){ctx.strokeStyle=col.accent;ctx.globalAlpha=.35;ctx.beginPath();ctx.arc(p.x,p.y,rad+8,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}ctx.fillStyle=col.ink;ctx.font=(is?'600 ':'')+'13px "PingFang SC", sans-serif';ctx.fillText(SPACE_NODES[p.i].label,p.x+rad+11,p.y+4);ctx.fillStyle=col.muted;ctx.font='9px monospace';ctx.fillText('0'+(p.i+1),p.x+rad+11,p.y+17)}
+  }else if(kind==='particle'){
+   for(let i=0;i<d.particles.length;i++)for(let j=i+1;j<d.particles.length;j++){const a=d.particles[i],b=d.particles[j],distance=Math.hypot((a.x-b.x)*width,(a.y-b.y)*height);if(distance<Math.min(width*.22,150)){ctx.strokeStyle=col.accent2;ctx.globalAlpha=(1-distance/Math.min(width*.22,150))*.3;ctx.beginPath();ctx.moveTo(a.x*width,a.y*height);ctx.lineTo(b.x*width,b.y*height);ctx.stroke()}}ctx.globalAlpha=1;
+   d.particles.forEach((p,i)=>{const px=p.x*width,py=p.y*height;ctx.fillStyle=i===d.signals%25&&d.signals?col.accent2:col.accent;ctx.globalAlpha=.09;ctx.beginPath();ctx.arc(px,py,12+(i%3)*3,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;ctx.beginPath();ctx.arc(px,py,3+(i%3),0,Math.PI*2);ctx.fill()});if(signalRipple){ctx.strokeStyle=col.accent;ctx.globalAlpha=Math.max(0,1-signalRipple.age/1100);ctx.lineWidth=2;ctx.beginPath();ctx.arc(signalRipple.x*width,signalRipple.y*height,15+signalRipple.age*.08,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
+  }else{
+   const radius=Math.min(24,width*.065),floor=height*.83;ctx.strokeStyle=col.ink;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(18,floor+radius);ctx.lineTo(width-18,floor+radius);ctx.stroke();ctx.fillStyle=col.muted;ctx.font='9px monospace';ctx.fillText('FLOOR / BOUNDED SPACE',22,floor+radius+16);
+   for(let i=0;i<d.balls.length;i++){const b=d.balls[i],px=b.x*width,py=b.y*height;ctx.fillStyle=col.ink;ctx.globalAlpha=.08;ctx.beginPath();ctx.ellipse(px,floor+radius,radius*.9,3,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;ctx.fillStyle=i===0?col.accent:col.tint;ctx.beginPath();ctx.arc(px,py,radius,0,Math.PI*2);ctx.fill();ctx.strokeStyle=i===0?col.accent:col.accent2;ctx.lineWidth=1.5;ctx.stroke();ctx.textAlign='center';ctx.fillStyle=i===0?col.surface:col.ink;ctx.font='11px "PingFang SC", sans-serif';ctx.fillText(b.label,px,py+4);ctx.textAlign='left'}
+  }
+  const motion=$('[data-canvas-motion]',r);if(motion)motion.textContent=S.reduced?'REDUCED / INPUT ONLY':S.paused?'PAUSED / INPUT AVAILABLE':'LIVE / LOCAL SIMULATION';
+ }
+ function resize(){const rect=host.getBoundingClientRect();if(rect.width<1||rect.height<1)return;width=rect.width;height=rect.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);paint()}
+ function advance(dt){const step=Math.min(dt/16.667,2);if(kind==='token'){if(!drag)d.rotation.y+=.003*step}else if(kind==='particle'){for(const p of d.particles){p.x+=p.vx*step;p.y+=p.vy*step;if(p.x<.04||p.x>.96){p.x=Math.max(.04,Math.min(.96,p.x));p.vx*=-1}if(p.y<.13||p.y>.87){p.y=Math.max(.13,Math.min(.87,p.y));p.vy*=-1}}if(signalRipple){signalRipple.age+=dt;if(signalRipple.age>1100)signalRipple=null}}else{const rad=Math.min(24,width*.065),left=(rad+18)/width,right=1-left;for(const b of d.balls){b.vy+=.0006*step;b.x+=b.vx*step;b.y+=b.vy*step;if(b.x<left||b.x>right){b.x=Math.max(left,Math.min(right,b.x));b.vx*=-.8}if(b.y>.83){b.y=.83;b.vy=-Math.abs(b.vy)*.62}}d.collisions+=LOGIC.collide(d.balls,width,height,rad);for(const b of d.balls){b.x=Math.max(left,Math.min(right,b.x));b.y=Math.max(.14,Math.min(.83,b.y))}}paint()}
+ function add(e){if(kind==='token'){d.selected=(d.selected+1)%4}else if(kind==='particle'){d.signals++;const p=d.particles[d.signals%25],rect=canvas.getBoundingClientRect(),px=e?.clientX===undefined?.5:(e.clientX-rect.left)/rect.width,py=e?.clientY===undefined?.5:(e.clientY-rect.top)/rect.height;p.x=Math.max(.04,Math.min(.96,px));p.y=Math.max(.13,Math.min(.87,py));p.vx+=(d.signals%2?.007:-.007);p.vy+=.005;signalRipple={x:p.x,y:p.y,age:S.reduced?500:0}}else{if(d.balls.length>=8){report('容量已满：8 / 8。本次不再添加；重放可恢复初始 3 个事项。');return}d.balls=LOGIC.addBall(d.balls)}result();paint()}
+ c.on(btn,'click',()=>add());c.on(canvas,'pointerdown',e=>{drag={x:e.clientX,y:e.clientY};moved=false;canvas.setPointerCapture(e.pointerId);if(kind!=='token')add(e)});c.on(canvas,'pointermove',e=>{if(kind!=='token'||!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;d.rotation.y+=dx*.012;d.rotation.x=Math.max(-1.2,Math.min(1.2,d.rotation.x+dy*.008));drag={x:e.clientX,y:e.clientY};paint()});c.on(canvas,'pointerup',e=>{if(kind==='token'&&!moved){const rect=canvas.getBoundingClientRect(),hit=LOGIC.hit(points,e.clientX-rect.left,e.clientY-rect.top);if(hit>=0){d.selected=hit;result();paint()}}drag=null});c.on(canvas,'pointercancel',()=>drag=null);
+ c.on(canvas,'keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter',' '].includes(e.key))return;e.preventDefault();if(e.key==='Enter'||e.key===' '){add();return}if(kind!=='token')return;if(e.key==='ArrowLeft')d.rotation.y-=.16;if(e.key==='ArrowRight')d.rotation.y+=.16;if(e.key==='ArrowUp')d.rotation.x-=.12;if(e.key==='ArrowDown')d.rotation.x+=.12;paint()});
+ const resizeObserver=window.ResizeObserver?new ResizeObserver(resize):null;resizeObserver?.observe(host);c.on(window,'resize',resize);c.on(document,'museum-theme',paint);c.on(document,'museum-motion',paint);c.cleanup(()=>{disposed=true;resizeObserver?.disconnect()});canvas._museumStats=()=>({kind,active:c.stats().raf&&!S.reduced&&!S.paused,signals:d.signals,items:d.balls.length,selected:SPACE_NODES[d.selected].label,projected:points.map(p=>({...p})),collisions:d.collisions});canvas._museumRedraw=paint;resize();result();c.loop(advance);
+}
+for(const kind of ['token','particle','physics'])REGISTRY[kind]={initial:canvasInitial,render:d=>renderCanvas(kind,d),setup:(r,d,c)=>setupCanvas(kind,r,d,c)};
+function renderCatalog(){const query=S.query.trim().toLowerCase(),list=C.filter(x=>!query||[x.name,TITLES[x.type],x.group,x.task,x.intro].join(' ').toLowerCase().includes(query));$('#count').textContent=list.length+' 个机制';$('#catalog').innerHTML=list.length?GROUPS.map(group=>{const items=list.filter(x=>x.group===group);return items.length?`<div class="nav-group">${group}<span>${String(items.length).padStart(2,'0')}</span></div>${items.map(x=>`<button class="nav-item ${x.id===S.selected?'active':''}" data-select="${x.id}" aria-current="${x.id===S.selected?'true':'false'}"><span class="nav-num">${String(C.indexOf(x)+1).padStart(2,'0')}</span><span class="nav-cn">${TITLES[x.type]}<span class="nav-en">${x.name}</span></span><span class="nav-arrow">↗</span></button>`).join('')}`:''}).join(''):'<p class="empty">没有匹配的机制。试试“流程”“数据”“贴纸”，或清空搜索。</p>'}
+function select(id,focus=false,replay=false){const record=C.find(x=>x.id===id);if(!record)return;const wasInside=$('#stage').contains(document.activeElement);scope?.dispose();S.selected=id;if(replay)delete S.states[id];const mechanism=REGISTRY[record.type],state=LOGIC.restore(S.states,id,mechanism.initial);$('#category').textContent=record.group+' / '+String(C.indexOf(record)+1).padStart(2,'0')+' OF '+C.length;$('#selectedTitle').innerHTML=TITLES[record.type]+`<span class="mechanism-en">${record.name}</span>`;$('#intro').textContent=record.intro;$('#how').textContent=record.how;$('#usage').textContent=record.task+'。'+record.feedback+'；避免用于'+record.avoid+'。';$('#specimenLabel').textContent=S.static?'静态快照 / 已暂停运行':'交互演示 / '+(S.paused?'已暂停':'可操作');$('#meta').innerHTML=[['实现',record.deps+' · 原创代码，无外部运行时'],['适用风格',record.fit],['不适用场景',record.avoid],['来源与参考',record.source],['组件成熟度',record.quality+'；与项目视觉方向审批无关'],['核验与降级',record.date+' · 点击“静态展示”查看可读快照']].map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');const stage=$('#stage');stage.classList.toggle('static-mode',S.static);stage.classList.toggle('is-paused',S.paused);stage.innerHTML=(S.static?'<div class="static-banner">静态展示：保留当前内容和数值，暂停交互与运行。关闭此开关可继续查看。</div>':'')+mechanism.render(state);scope=createScope(stage);mechanism.setup(stage,state,scope);enterSceneText(stage,record.type,scope);if(S.static){$$('button,input,[role="button"]',stage).forEach(el=>{if('disabled'in el)el.disabled=true;else{el.setAttribute('tabindex','-1');el.setAttribute('aria-disabled','true')}})}renderCatalog();$('#pause').disabled=S.static;$('#replay').disabled=S.static;if(focus||wasInside)$('#selectedTitle').focus({preventScroll:true});if(matchMedia('(max-width:850px)').matches&&focus){$('#sidebar').classList.remove('open');$('#catalogToggle').setAttribute('aria-expanded','false')}window.dispatchEvent(new CustomEvent('museum-selected',{detail:{id,type:record.type}}))}
+$('#catalog').addEventListener('click',e=>{const b=e.target.closest('[data-select]');if(b)select(b.dataset.select,true)});$('#search').addEventListener('input',e=>{S.query=e.target.value;$('#sidebar').classList.add('open');$('#catalogToggle').setAttribute('aria-expanded','true');renderCatalog()});const toggleCatalog=()=>{const open=$('#sidebar').classList.toggle('open');$('#catalogToggle').setAttribute('aria-expanded',String(open))};$('#catalogToggle').addEventListener('click',toggleCatalog);$('#catalogToggle').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleCatalog()}});$('#previous').addEventListener('click',()=>select(C[(C.findIndex(x=>x.id===S.selected)+C.length-1)%C.length].id,true));$('#next').addEventListener('click',()=>select(C[(C.findIndex(x=>x.id===S.selected)+1)%C.length].id,true));$('#replay').addEventListener('click',()=>{S.paused=false;$('#pause').textContent='Ⅱ 暂停';$('#pause').setAttribute('aria-pressed','false');select(S.selected,false,true)});$('#pause').addEventListener('click',()=>{S.paused=!S.paused;$('#pause').textContent=S.paused?'▷ 继续':'Ⅱ 暂停';$('#pause').setAttribute('aria-pressed',String(S.paused));$('#stage').classList.toggle('is-paused',S.paused);$('#specimenLabel').textContent='交互演示 / '+(S.paused?'已暂停':'可操作');scope?.resume();document.dispatchEvent(new Event('museum-motion'))});function updateMotion(){S.reduced=media.matches||$('#reduceMotion').checked;document.body.dataset.motion=S.reduced?'reduce':'normal';scope?.motion();document.dispatchEvent(new Event('museum-motion'))}media.addEventListener?.('change',updateMotion);$('#reduceMotion').addEventListener('change',updateMotion);$('#staticMode').addEventListener('change',e=>{S.static=e.target.checked;select(S.selected)});$$('[data-skin-choice]').forEach(b=>b.addEventListener('click',()=>{S.skin=b.dataset.skinChoice;document.body.dataset.skin=S.skin;$$('[data-skin-choice]').forEach(el=>{const yes=el===b;el.classList.toggle('active',yes);el.setAttribute('aria-pressed',String(yes))});document.dispatchEvent(new Event('museum-theme'))}));
+// Read-only inspection hooks help browser QA examine actual behavior and lifecycle.
+window.__museum={logic:LOGIC,records:C,registry:REGISTRY,select,stats:()=>({selected:S.selected,skin:S.skin,static:S.static,reduced:S.reduced,paused:S.paused,canvases:$$('canvas').length,scope:scope?.stats()}),state:()=>JSON.parse(JSON.stringify(S.states[S.selected]))};
+function requestedScene(){try{const id=decodeURIComponent(location.hash.slice(1));return C.some(record=>record.id===id)?id:null}catch{return null}}
+window.addEventListener('hashchange',()=>{const id=requestedScene();if(id&&id!==S.selected)select(id,true)});
+updateMotion();select(requestedScene()||S.selected);
+</script></body></html>

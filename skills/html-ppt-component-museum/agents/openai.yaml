@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML PPT Component Museum"
+  short_description: "Select task-fit HTML/PPT mechanisms with explainable interaction."
+  default_prompt: "Use HTML PPT Component Museum 4.3.0 to select a task-fit mechanism, inherit the confirmed visual skin, and verify visible feedback plus static fallback."

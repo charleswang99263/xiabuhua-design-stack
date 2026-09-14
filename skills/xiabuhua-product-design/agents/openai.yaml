@@ -1,0 +1,4 @@
+interface:
+  display_name: "Xiabuhua Product Design"
+  short_description: "Design complete, high-craft web and mobile products."
+  default_prompt: "Use $xiabuhua-product-design. First resolve the minimum brief and approved or inherited direction using the shared style workflow. For new direction, show content-real alternatives and obtain user selection before detailed execution. Pass the agreement to sub-skills and verify specimen fidelity with proportionate rendered QA."

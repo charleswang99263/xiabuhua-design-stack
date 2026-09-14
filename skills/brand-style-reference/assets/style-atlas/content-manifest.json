@@ -1,0 +1,402 @@
+{
+  "version": "4.3",
+  "styles": [
+    {
+      "id": "minimal",
+      "tier": "primary",
+      "name": "极简主义",
+      "en": "Minimalism",
+      "core": "通过删减、比例和留白集中注意力",
+      "criterion": "成立：少量关系都承担信息或交互作用"
+    },
+    {
+      "id": "swiss",
+      "tier": "primary",
+      "name": "瑞士国际主义",
+      "en": "Swiss / International Style",
+      "core": "用网格、非对称和字体节奏建立可复制秩序",
+      "criterion": "成立：标题、正文、图像、数据和控件对齐同一轨道"
+    },
+    {
+      "id": "editorial",
+      "tier": "primary",
+      "name": "杂志编辑",
+      "en": "Editorial",
+      "core": "标题、正文、图像、注释共同组织阅读节奏",
+      "criterion": "成立：长内容中持续存在章节密度和图文关系"
+    },
+    {
+      "id": "brutal",
+      "tier": "primary",
+      "name": "网页粗野",
+      "en": "Web Brutalism",
+      "core": "直接暴露网页结构、链接和内容边界",
+      "criterion": "成立：原生语义、明显动作和未经粉饰的层级"
+    },
+    {
+      "id": "neo",
+      "tier": "primary",
+      "name": "新粗野主义",
+      "en": "Neo-brutalism",
+      "core": "实色块、粗描边和硬偏移形成有意的图形张力",
+      "criterion": "成立：轮廓、深度、字体和选中状态形成连续系统"
+    },
+    {
+      "id": "maximal",
+      "tier": "primary",
+      "name": "极繁主义",
+      "en": "Maximalism",
+      "core": "让多种尺度、图案、图像和文字在明确焦点下共存",
+      "criterion": "成立：丰富层次有重复规则、静区和主次顺序"
+    },
+    {
+      "id": "hand",
+      "tier": "primary",
+      "name": "手绘插画",
+      "en": "Hand-drawn",
+      "core": "一致的笔触、轮廓和角色参与解释",
+      "criterion": "成立：图形字、图标、插画和标注属于同一只“手”"
+    },
+    {
+      "id": "organic",
+      "tier": "primary",
+      "name": "人文有机",
+      "en": "Humanist / Organic Modern",
+      "core": "人的尺度、自然形态和材料改变几何秩序",
+      "criterion": "成立：曲线、材质、影像与信息节奏共同体现亲和力"
+    },
+    {
+      "id": "geometric",
+      "tier": "primary",
+      "name": "几何现代",
+      "en": "Geometric Modern",
+      "core": "形状、比例和模块关系本身承担表达",
+      "criterion": "成立：选定少量几何原语并贯穿图像、状态和布局"
+    },
+    {
+      "id": "deco",
+      "tier": "primary",
+      "name": "装饰艺术",
+      "en": "Art Deco",
+      "core": "轴线、阶梯和精制装饰连接传统与机器时代",
+      "criterion": "成立：选择具体时代纹样并贯穿框架、标题和细节"
+    },
+    {
+      "id": "retroweb",
+      "tier": "primary",
+      "name": "复古互联网",
+      "en": "Retro Web",
+      "core": "重建一个明确时期的网页和操作系统语言",
+      "criterion": "成立：窗口、链接、位图和导航习惯来自同一年代"
+    },
+    {
+      "id": "y2k",
+      "tier": "primary",
+      "name": "千禧未来",
+      "en": "Y2K",
+      "core": "用转世纪数字乐观主义的合成材质与流线形态",
+      "criterion": "成立：虹彩、塑料、金属、液态形和显示字形成时代关系"
+    },
+    {
+      "id": "retrofuture",
+      "tier": "primary",
+      "name": "复古未来",
+      "en": "Retrofuturism",
+      "core": "从一个明确的过去时代重新想象未来",
+      "criterion": "成立：先选年代，再选择印刷、工业、几何与未来图像"
+    },
+    {
+      "id": "cyber",
+      "tier": "primary",
+      "name": "赛博朋克",
+      "en": "Cyberpunk",
+      "core": "通过技术密度、基础设施和黑色叙事建立世界",
+      "criterion": "成立：高技术/边缘生活关系贯穿图像、信息和空间"
+    },
+    {
+      "id": "pixel",
+      "tier": "primary",
+      "name": "像素语言",
+      "en": "Pixel",
+      "core": "用一致的离散画面单位和阶梯轮廓组织图形",
+      "criterion": "成立：原生像素网格、整数缩放、sprite 与反馈逻辑一致"
+    },
+    {
+      "id": "darktech",
+      "tier": "primary",
+      "name": "黑色科技",
+      "en": "Dark Tech",
+      "core": "深色层级与工程材料服务一个具体技术主题",
+      "criterion": "成立：技术图形、精确线条、状态和明暗层级共同成立"
+    },
+    {
+      "id": "collage",
+      "tier": "support",
+      "name": "拼贴",
+      "en": "Collage",
+      "core": "通过有来源的异质碎片、裁切和重叠产生意义",
+      "criterion": "成立：每块照片、纸片或文字有来源和并置理由"
+    },
+    {
+      "id": "glass",
+      "tier": "support",
+      "name": "玻璃拟态",
+      "en": "Glassmorphism",
+      "core": "透明前景让用户看见背景与空间层级",
+      "criterion": "成立：前后景、透光、边缘和不透明降级都清晰"
+    },
+    {
+      "id": "neumo",
+      "tier": "support",
+      "name": "新拟态",
+      "en": "Neumorphism",
+      "core": "凸起和凹陷像从同一表面塑形出来",
+      "criterion": "成立：统一光向、成对明暗阴影与可辨识状态"
+    },
+    {
+      "id": "skeuo",
+      "tier": "support",
+      "name": "拟物",
+      "en": "Skeuomorphism",
+      "core": "保留熟悉对象、材料或控制器的特征",
+      "criterion": "成立：外观线索与被暗示的行为保持可预期"
+    },
+    {
+      "id": "bento",
+      "tier": "support",
+      "name": "便当盒布局",
+      "en": "Bento Grid",
+      "core": "用共同网格中的不等尺寸表达内容优先级",
+      "criterion": "成立：模块跨度、相邻关系和重要性相互对应"
+    },
+    {
+      "id": "immersive",
+      "tier": "support",
+      "name": "三维沉浸",
+      "en": "3D / Immersive",
+      "core": "视点、遮挡和空间位置参与传递内容",
+      "criterion": "成立：有真实场景/资产、导航反馈和二维等价入口"
+    },
+    {
+      "id": "motion",
+      "tier": "support",
+      "name": "动效主导",
+      "en": "Motion-first",
+      "core": "状态变化通过时间连续性解释因果",
+      "criterion": "成立：触发、前态、变化、结果、中断和降级全部定义"
+    },
+    {
+      "id": "regional",
+      "tier": "support",
+      "name": "地域文化",
+      "en": "Regional / Cultural / Vernacular",
+      "core": "从具体社区、语言、时代与工艺证据形成方向",
+      "criterion": "成立：来源、含义、授权和语言规则可以被说明"
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "kinetic-title",
+      "name": "标题编排",
+      "en": "Kinetic Title Engine",
+      "group": "内容聚焦",
+      "help": "让标题按语义层级出现，而不是只做循环字距动画。"
+    },
+    {
+      "id": "quote-theater",
+      "name": "引文剧场",
+      "en": "Quote Theater",
+      "group": "内容聚焦",
+      "help": "引文是演示素材，必须显示来源和场景，不能只靠旋转文字制造重量。"
+    },
+    {
+      "id": "code-spotlight",
+      "name": "代码聚焦",
+      "en": "Code Spotlight",
+      "group": "内容聚焦",
+      "help": "逐行聚焦必须真的改变解释内容，作为技术计划和规则说明使用。"
+    },
+    {
+      "id": "shared-detail",
+      "name": "卡片连续展开",
+      "en": "Shared Element Detail",
+      "group": "内容聚焦",
+      "help": "共享元素让“从哪里来”保持可见，适合列表、详情和内容展开。"
+    },
+    {
+      "id": "sticker-peel",
+      "name": "贴纸剥离",
+      "en": "Sticker Peel",
+      "group": "内容聚焦",
+      "help": "用于轻松品牌和拼贴叙事的局部揭示，不泛化成全站转场。"
+    },
+    {
+      "id": "animated-text-disclosure",
+      "name": "文字展开聚焦",
+      "en": "Animated Text Disclosure",
+      "group": "内容聚焦",
+      "help": "把补充解释绑定到具体句段，保持主叙事可读并让上下文可回看。"
+    },
+    {
+      "id": "text-entry-lab",
+      "name": "文字入场实验",
+      "en": "Text Entry Studio",
+      "group": "内容聚焦",
+      "help": "将重复的文字入场做成可复用基础能力，正文与状态始终有正确原文。"
+    },
+    {
+      "id": "metric-pulse",
+      "name": "指标脉冲",
+      "en": "Metric Pulse Card",
+      "group": "证据与数据",
+      "help": "用命名分组解释指标变化，避免随机换值伪装成业务数据。"
+    },
+    {
+      "id": "sankey-story",
+      "name": "流量故事",
+      "en": "Sankey Story Strip",
+      "group": "证据与数据",
+      "help": "固定“试用→激活→留存”演示流量，点击只聚焦，不随机改总量。"
+    },
+    {
+      "id": "radar-compass",
+      "name": "能力雷达",
+      "en": "Radar Capability Compass",
+      "group": "证据与数据",
+      "help": "对象、维度和演示边界明确，避免随机换维度伪装成评测。"
+    },
+    {
+      "id": "risk-heat",
+      "name": "风险热力格",
+      "en": "Risk Heat Tile",
+      "group": "证据与数据",
+      "help": "热区只表达演示中的状态；未知、低风险和高风险有不同标签。"
+    },
+    {
+      "id": "token-field",
+      "name": "空间关系场",
+      "en": "3D Token Field",
+      "group": "空间与生成",
+      "help": "按需加载的空间关系实验，不默认配给 Agent 架构。"
+    },
+    {
+      "id": "particle-thesis",
+      "name": "生成粒子场",
+      "en": "Generative Particle Thesis",
+      "group": "空间与生成",
+      "help": "保留生成艺术，但明确输入改变的是实验状态，不是业务趋势。"
+    },
+    {
+      "id": "physics-priority",
+      "name": "物理约束沙盘",
+      "en": "Physics Priority Map",
+      "group": "空间与生成",
+      "help": "用真实碰撞表达负载和冲突，优先级仍需明确规则判断。"
+    },
+    {
+      "id": "timeline-rail",
+      "name": "叙事时间轴",
+      "en": "Narrative Timeline Rail",
+      "group": "时间与顺序",
+      "help": "时间节点必须能回看阶段内容，不再只做循环发光。"
+    },
+    {
+      "id": "sticky-steps",
+      "name": "分步叙事",
+      "en": "Sticky Step Reveal",
+      "group": "时间与顺序",
+      "help": "把滚动叙事压缩成可点击/键盘的步骤输入，适合 PPT 和网页双路径。"
+    },
+    {
+      "id": "spring-stepper-progress",
+      "name": "弹性步骤进度",
+      "en": "Spring Stepper Progress",
+      "group": "时间与顺序",
+      "help": "将当前导航位置与真正完成拆开，避免进度动画代替事实状态。"
+    },
+    {
+      "id": "scroll-stack",
+      "name": "滚动堆叠",
+      "en": "Scroll Stack",
+      "group": "时间与顺序",
+      "help": "用一个局部滚动容器承载有依据的阶段，叠放帮助回看，不把滚动位置伪装成完成度。"
+    },
+    {
+      "id": "flow-path",
+      "name": "执行路径变形",
+      "en": "Morphing Flow Path",
+      "group": "流程与依赖",
+      "help": "路径变形由步骤状态驱动，并把失败、重试和完成放在同一条解释里。"
+    },
+    {
+      "id": "route-map",
+      "name": "关系路径图",
+      "en": "Spatial Route Map",
+      "group": "流程与依赖",
+      "help": "节点需要能回答“它和谁有关系”，流动线只是辅助。"
+    },
+    {
+      "id": "decision-stack",
+      "name": "决策优先序",
+      "en": "Decision Stack",
+      "group": "排序与比较",
+      "help": "排序必须对应具体项目取舍，而不是条形宽度来回移动。"
+    },
+    {
+      "id": "before-after",
+      "name": "前后对比扫描",
+      "en": "Before After Scanner",
+      "group": "排序与比较",
+      "help": "固定为同一份“任务卡”的旧版与新版，避免虚构前后关系。"
+    },
+    {
+      "id": "tension-matrix",
+      "name": "权衡矩阵",
+      "en": "Tension Matrix",
+      "group": "排序与比较",
+      "help": "坐标来自可解释的参数，点位只在用户调整时移动。"
+    },
+    {
+      "id": "list-reorder",
+      "name": "列表重排",
+      "en": "List Reorder",
+      "group": "排序与比较",
+      "help": "把重排作为用户决策反馈，而不是循环位移动画。"
+    },
+    {
+      "id": "prompt-board",
+      "name": "引导选择板",
+      "en": "Interaction Prompt Board",
+      "group": "输入与反馈",
+      "help": "停止自动漂移，让控件语义和反馈结果承担解释任务。"
+    },
+    {
+      "id": "live-poll",
+      "name": "现场投票模拟",
+      "en": "Live Poll Simulator",
+      "group": "输入与反馈",
+      "help": "演示输入如何改变分布，但明确这是本地模拟，不代表线上用户。"
+    },
+    {
+      "id": "pixel-transition",
+      "name": "像素转场",
+      "en": "Pixel Transition",
+      "group": "输入与反馈",
+      "help": "像素只是特定风格下的转场机制，完成后保留可读最终态。"
+    },
+    {
+      "id": "state-button",
+      "name": "状态按钮",
+      "en": "State Button",
+      "group": "输入与反馈",
+      "help": "把状态、反馈和恢复做成可点击的真实路径，适合工具产品。"
+    },
+    {
+      "id": "staggered-bulk-selection",
+      "name": "错峰批量选择",
+      "en": "Staggered Bulk Selection",
+      "group": "输入与反馈",
+      "help": "批量输入首先保证集合状态可信，再用有限错峰标记帮助扫读，不伪造异步处理。"
+    }
+  ]
+}

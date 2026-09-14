@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" role="img" aria-labelledby="mobile-bottomnav-stack-title mobile-bottomnav-stack-desc" data-component-id="mobile-bottomnav-stack">
+  <title id="mobile-bottomnav-stack-title">底部导航 · 保留栈</title>
+  <desc id="mobile-bottomnav-stack-desc">任务列表与详情沿同一栈返回，保留上下文。</desc>
+  <rect width="360" height="520" rx="28" fill="#F4F9FC"/>
+  <circle cx="316" cy="52" r="72" fill="#DFF3F5" opacity=".82"/>
+  <circle cx="42" cy="468" r="78" fill="#E6EEFF" opacity=".72"/>
+  
+      <text x="24" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#087F8B" text-anchor="start">NAV / STACK</text>
+      <text x="24" y="62" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22px" font-weight="760" fill="#112C43" text-anchor="start">我的工作台</text>
+      <text x="24" y="84" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12px" font-weight="400" fill="#506A80" text-anchor="start">今天还有 3 个待确认任务</text>
+      <rect x="24" y="104" width="312" height="64" rx="16" fill="#FFFFFFD9" stroke="#FFFFFF" stroke-width="1"/>
+      <circle cx="52" cy="136" r="16" fill="#E6EEFF"/><path d="M45 139l5 5 9-12" fill="none" stroke="#176AF0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="78" y="132" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14px" font-weight="650" fill="#112C43" text-anchor="start">确认周会资料版本</text>
+      <text x="78" y="151" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">资料 · 截止今天 18:00</text>
+      <text x="311" y="141" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="23px" font-weight="400" fill="#176AF0" text-anchor="middle">›</text>
+      <text x="24" y="204" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15px" font-weight="700" fill="#112C43" text-anchor="start">最近任务</text>
+      <rect x="24" y="220" width="312" height="58" rx="14" fill="#FFFFFFD9" stroke="#FFFFFF" stroke-width="1"/>
+      <rect x="38" y="237" width="4" height="24" rx="2" fill="#087F8B"/>
+      <text x="56" y="246" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="600" fill="#112C43" text-anchor="start">整理 Q3 用户访谈</text>
+      <text x="56" y="264" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">产品研究 · 昨天更新</text>
+      <line x1="24" y1="302" x2="336" y2="302" stroke="#D8E5EE" stroke-width="1"/>
+      <text x="24" y="330" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10px" font-weight="700" fill="#506A80" text-anchor="start">组件契约</text>
+      <text x="24" y="353" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13px" font-weight="600" fill="#112C43" text-anchor="start">选中态 + 栈返回 + 滚动恢复</text>
+      <text x="24" y="375" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11px" font-weight="400" fill="#506A80" text-anchor="start">底部区域预留安全区，视觉高度可独立于触控区域。</text>
+      <rect x="16" y="426" width="328" height="78" rx="22" fill="#FFFFFFF2" stroke="#D8E5EE" stroke-width="1"/>
+      <line x1="16" y1="426" x2="344" y2="426" stroke="#D8E5EE" stroke-width="1"/>
+      <g fill="#506A80" stroke="none">
+        <circle cx="52" cy="454" r="8"/><circle cx="132" cy="454" r="8"/><circle cx="212" cy="454" r="8"/><circle cx="292" cy="454" r="8"/>
+      </g>
+      <rect x="28" y="468" width="48" height="26" rx="13" fill="#E6EEFF"/>
+      <circle cx="52" cy="481" r="8" fill="#176AF0"/>
+      <text x="52" y="501" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="700" fill="#176AF0" text-anchor="middle">任务</text>
+      <text x="132" y="501" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="600" fill="#506A80" text-anchor="middle">资料</text>
+      <text x="212" y="501" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="600" fill="#506A80" text-anchor="middle">通知</text>
+      <text x="292" y="501" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="10px" font-weight="600" fill="#506A80" text-anchor="middle">我的</text>
+    
+</svg>
