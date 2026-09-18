@@ -47,7 +47,7 @@ class InstallerTests(unittest.TestCase):
         self.assertIn("Installed 6 skills", self.install())
         manifest = json.loads((self.target / installer.MANIFEST_NAME).read_text())
         self.assertEqual(manifest.keys(), {"version", "skills", "files"})
-        self.assertEqual(manifest["version"], "5.1.0")
+        self.assertEqual(manifest["version"], "5.2.0")
         self.assertEqual(manifest["skills"], list(installer.RELEASE_SKILLS))
         self.assertEqual(installer.target_tree_manifest(self.target), manifest["files"])
         self.assertIn("Verified", installer.verify(self.target))
@@ -123,7 +123,18 @@ class InstallerTests(unittest.TestCase):
     @patch.object(installer.time, "time", return_value=1700000000)
     def test_upgrade_rollback_restores_prior_manifest_and_verify(self, frozen_clock):
         self.install()
-        prior_manifest = (self.target / installer.MANIFEST_NAME).read_bytes()
+        # Model a real 5.1.0 installation left in place before the 5.2.0
+        # package is applied. Keep the old tree and its hashes intact so this
+        # exercises the compatibility path in load_manifest().
+        for name in installer.RELEASE_SKILLS:
+            skill_file = self.target / name / "SKILL.md"
+            skill_file.write_text(skill_file.read_text().replace('version: "5.2.0"', 'version: "5.1.0"'))
+        prior_path = self.target / installer.MANIFEST_NAME
+        prior_data = json.loads(prior_path.read_text())
+        prior_data["version"] = "5.1.0"
+        prior_data["files"] = installer.target_tree_manifest(self.target)
+        prior_manifest = json.dumps(prior_data, sort_keys=True, indent=2).encode() + b"\n"
+        prior_path.write_bytes(prior_manifest)
         source_file = self.package / "skills" / "brand-style-reference" / "SKILL.md"
         source_file.write_text(source_file.read_text() + "upgrade\n")
         files = installer.validate_package(self.package / "skills")
@@ -134,6 +145,23 @@ class InstallerTests(unittest.TestCase):
         installer.rollback(self.target)
         self.assertEqual((self.target / installer.MANIFEST_NAME).read_bytes(), prior_manifest)
         self.assertIn("Verified", installer.verify(self.target))
+
+    def test_unknown_installed_manifest_version_is_rejected(self):
+        self.install()
+        path = self.target / installer.MANIFEST_NAME
+        data = json.loads(path.read_text())
+        before_tree = installer.target_tree_manifest(self.target)
+        for version in ("9.9.9", [], {}):
+            with self.subTest(version=version):
+                data["version"] = version
+                path.write_text(json.dumps(data))
+                before_manifest = path.read_bytes()
+                with self.assertRaisesRegex(installer.InstallError, "Unsupported or corrupt installation manifest"):
+                    installer.verify(self.target)
+                with self.assertRaisesRegex(installer.InstallError, "Existing installation manifest is invalid"):
+                    self.install()
+                self.assertEqual(path.read_bytes(), before_manifest)
+                self.assertEqual(installer.target_tree_manifest(self.target), before_tree)
 
     def test_upgrade_staging_failure_preserves_previous_manifest(self):
         self.install()

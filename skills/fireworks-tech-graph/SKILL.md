@@ -1,7 +1,7 @@
 ---
 name: fireworks-tech-graph
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 description: >-
   Use when the user wants a technical diagram such as architecture, data flow,
   flowchart, sequence, agent/memory, UML, network topology, or concept map,

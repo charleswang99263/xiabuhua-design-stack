@@ -1,10 +1,14 @@
-# 虾不滑设计栈
+# 虾不滑设计栈 5.2
 
 **让 Agent 从“生成一个页面”，走到“有明确风格、信息准确、交互可用的设计”。**
 
 一套可安装的设计 Skill：主控负责需求、风格确认和验收，五个专项 Skill 按需补齐视觉参考、图表报告、交互动效、演示稿和技术图。适用于产品界面、网站、移动原型、数据报告、HTML 演示与交互说明页。
 
+[下载 v5.2.0](https://github.com/charleswang99263/xiabuhua-design-stack/releases/tag/v5.2.0) · [本次更新](docs/icon-gsap-integration-2026-09-18.md)
+
 ![虾不滑设计栈预览](docs/preview.png)
+
+静态海报保留 5.1 的视觉展示；5.2 更新图标规范、GSAP 执行路由与跨版本升级，最新规则以随包 Skill 和更新说明为准。
 
 [查看完整长海报](docs/full-poster.png) · [安装与升级](INSTALL.md) · [能力和依赖边界](COMPATIBILITY.md)
 
@@ -59,6 +63,10 @@ Claude Code 使用 `--host claude`，Cursor 使用 `--host cursor`；其他宿�
 | `fireworks-tech-graph` | 技术图语义、拓扑、布局与导出 |
 
 主控先确认方向，再按任务调用必要的分支。静态页面不必加载动效库，已有风格的小改动不重新投票，单一组件不读取整套参考。数据含义与拓扑不能被视觉样式覆盖。
+
+## 图标与 GSAP 接入
+
+新建无既有约束的产品默认采用 Hugeicons Free Stroke Rounded；已有图标体系和用户指定优先。图标规范覆盖语义、层次、状态、授权与真实尺寸验收。GSAP 通过现有交互 Skill 的轻量执行规范按需接入，保留六成员结构；不全局安装八个 GSAP Skills，不捆绑运行时。具体选择与边界见 [接入决定](docs/icon-gsap-integration-2026-09-18.md)。
 
 ## 直接体验
 

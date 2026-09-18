@@ -1,7 +1,7 @@
 ---
 name: xiabuhua-product-design
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 description: >-
   Design and deliver distinctive, production-grade digital products, including
   complete React + Vite desktop web apps, full-featured mobile apps, multi-route
@@ -42,7 +42,7 @@ Choose one primary delivery method. Add conditional references only for an actua
 | Known single tactile mechanism / bounded control refinement | Museum selected tactile contract + required primitive | Inherit the parent direction; skip full motion-system and external exploration unless a coordination gap exists |
 | Cross-surface critique/method | [design-method](references/design-method.md) | Audit the user's actual scope; no automatic rebuild |
 
-For multiple screens, use [interaction-contract](references/interaction-contract.md) as the shared state/route source. For native design files, read [design-file-native-quality](references/design-file-native-quality.md); for artifact/editability claims read [design-artifact-pipeline](references/design-artifact-pipeline.md). Read [component geometry](references/component-geometry-and-system-truth.md) for changed component/icon systems, and [design QA](references/design-qa-checklist.md) for feature/product handoff. Do not require these for every tiny edit.
+For multiple screens, use [interaction-contract](references/interaction-contract.md) as the shared state/route source. For native design files, read [design-file-native-quality](references/design-file-native-quality.md); for artifact/editability claims read [design-artifact-pipeline](references/design-artifact-pipeline.md). Read [icon-system](references/icon-system.md) when selecting or changing icons (Hugeicons Free Stroke Rounded for new unconstrained products; preserve existing/user choices), [component geometry](references/component-geometry-and-system-truth.md) for changed component/icon systems, and [design QA](references/design-qa-checklist.md) for feature/product handoff. Do not require these for every tiny edit.
 
 ## Execute within one design contract
 
@@ -55,6 +55,7 @@ Map the task-critical path, branches, data, permissions, empty/loading/error/rec
 | Visual precedents / chosen profile details | brand-style-reference; read only selected entries |
 | Common local interactive mechanism / data or graphics lab | html-ppt-component-museum; use local index before external exploration |
 | New mechanism, handfeel diagnosis or gap beyond local sources | ui-interaction-reference; owns concrete interaction specification, not macro style |
+| Selected GSAP timeline, scroll, SVG or imperative choreography | ui-interaction-reference → [GSAP execution](../ui-interaction-reference/references/gsap-execution.md); read only relevant official topics; parent keeps motion intent and acceptance |
 | Fixed stage / paged deck export | html-deck-runtime; never for ordinary scrolling sites or reports |
 | Flow / sequence / state / architecture | fireworks-tech-graph with parent type/line/palette and truthful topology |
 | Data calculation / source validation / report production | Available Data Analytics workflow; preserve its evidence rules, adapt visual identity only |

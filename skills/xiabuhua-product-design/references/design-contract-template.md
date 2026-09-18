@@ -241,6 +241,7 @@ Implement only states that can occur.
 
 ## 9. Assets And Icons
 
+- Read [icon-system](icon-system.md) for the default family decision, package and license rules, and render checks.
 - Existing asset sources:
 - Icon library and optical rules:
 - Required photography/illustration/generated assets:

@@ -1,7 +1,7 @@
 ---
 name: ui-interaction-reference
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 description: >-
   Select and specify stateful UI interaction patterns; find, evaluate, and adapt references from Uiverse,
   React Bits, and Aceternity UI for React, Vite, Next.js, Tailwind, HTML
@@ -19,6 +19,10 @@ description: >-
 Use this skill for intent-based pattern selection, implementation contracts and live reference adaptation. It does not
 choose the product architecture or visual identity, and it is not a component
 library to install wholesale.
+
+## GSAP execution
+
+When GSAP is explicitly selected or justified for coordinated timelines, scroll, SVG or imperative choreography, use [gsap-execution](references/gsap-execution.md). It owns the scoped implementation and official topic routing; the parent owns design intent, state and acceptance. It is bundled reference material, not an additional globally discovered skill or an installed animation runtime. Simple CSS or an established Motion implementation does not trigger this branch.
 
 ## Local tactile mechanisms
 

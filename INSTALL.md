@@ -1,4 +1,4 @@
-# Xiabuhua Design Stack 5.1.0 installer
+# Xiabuhua Design Stack 5.2.0 installer
 
 `install.py` is a standard-library Python 3 installer. A release package must
 contain `manifest.json` at its root with the schema shown below; the installer
@@ -78,7 +78,7 @@ The manifest schema is intentionally stable:
 
 ```json
 {
-  "version": "5.1.0",
+  "version": "5.2.0",
   "skills": ["...six exact names..."],
   "files": {"skill-name/path": "sha256"}
 }
@@ -97,3 +97,7 @@ and no symlink or unsupported entry. The installer does not install
 `frontend-slides`; that name is allowlisted for safe legacy cleanup in the
 selected target and Codex duplicate root, with ownership checks, while
 unrelated skill directories remain untouched.
+
+## Upgrade from 5.1
+
+The 5.2 installer accepts known 5.1.0 installation manifests as upgrade inputs and can verify a restored 5.1.0 installation after rollback. Package validation still requires the complete current 5.2.0 payload. Unknown versions are rejected; ownership, full-tree hashing and post-install edit protection remain enforced.

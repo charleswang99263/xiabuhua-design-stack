@@ -23,7 +23,12 @@ from pathlib import Path
 from typing import Iterable, Iterator
 
 
-VERSION = "5.1.0"
+VERSION = "5.2.0"
+# Installation manifests are persisted in user skill directories and must remain
+# readable for an explicit rollback after a release upgrade. Keep this list
+# bounded: accepting arbitrary older/newer versions would weaken the ownership
+# and integrity checks around managed trees.
+SUPPORTED_INSTALLATION_VERSIONS = frozenset(("5.1.0", VERSION))
 RELEASE_SKILLS = (
     "brand-style-reference",
     "fireworks-tech-graph",
@@ -490,7 +495,11 @@ def load_manifest(target: Path) -> dict[str, object]:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise InstallError(f"Corrupt installation manifest: {path}") from exc
-    if data.get("version") != VERSION or data.get("skills") != list(RELEASE_SKILLS) or not isinstance(data.get("files"), dict):
+    if (not isinstance(data, dict)
+            or not isinstance(data.get("version"), str)
+            or data.get("version") not in SUPPORTED_INSTALLATION_VERSIONS
+            or data.get("skills") != list(RELEASE_SKILLS)
+            or not isinstance(data.get("files"), dict)):
         raise InstallError(f"Unsupported or corrupt installation manifest: {path}")
     return data
 

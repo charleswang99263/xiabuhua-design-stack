@@ -1,7 +1,7 @@
 ---
 name: brand-style-reference
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 description: >-
   Select and adapt style and brand visual references for product design, web
   apps, mobile apps, landing pages, dashboards, reports, HTML presentations,

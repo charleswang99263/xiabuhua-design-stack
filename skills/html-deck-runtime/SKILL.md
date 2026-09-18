@@ -2,7 +2,7 @@
 name: html-deck-runtime
 description: Execute parent-provided fixed-stage HTML slide decks and page-by-page print/PDF exports, with basic PPTX inventory support. The parent workflow owns content, typography, narrative, and composition; this skill owns stage runtime, navigation, editing, media fitting, export, and technical QA. Do not use for legacy PPT conversion, responsive explainers, scrolling narratives, reports, or ordinary websites.
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 ---
 
 # HTML Deck Runtime

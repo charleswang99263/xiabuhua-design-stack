@@ -1,7 +1,7 @@
 ---
 name: html-ppt-component-museum
 metadata:
-  version: "5.1.0"
+  version: "5.2.0"
 description: Select and implement reusable local interactive components for HTML products, reports, explainers and fixed-stage decks. Use for data exploration, content focus, ordering, feedback, timelines, tactile gestures, spatial scenes and generative simulations after the parent supplies structure and visual direction.
 ---
 

@@ -1,6 +1,6 @@
 # Five-Layer Design QA
 
-Use this reference before handing off Feature or Product work. For a Delta, run only the affected layers plus one adjacent regression check; do not require a full-product audit unless the change alters shared navigation, tokens, or components.
+Use this reference before handing off Feature or Product work. For a Delta, run only the affected layers plus one adjacent regression check; do not require a full-product audit unless the change alters shared navigation, tokens, or components. For icon selection and package provenance, read [icon-system](icon-system.md).
 
 Keep machine checks and rendered human checks separate. A machine can prove structure and consistency; it cannot by itself prove optical balance, discoverability, comprehension, or task success.
 
@@ -37,11 +37,13 @@ Machine-check when possible:
 - repeated components use the intended reusable source
 - control frames, content boxes, icon boxes, spacing, and touch targets meet the declared geometry contract
 - text styles and icon sources are consistent and traceable
+- icon family, package, version/retrieval evidence, and license resolve to the declared source
 
 Human rendered check:
 
 - labels and icon-label groups are optically centered
 - icons share a coherent visual weight, baseline, and selected-state language
+- equivalent semantics use the same family; default, selected, disabled, and dark/inverse states remain legible at the sizes actually used (16/20/24 are checkpoints, not universal requirements)
 - long labels, localization, Dynamic Type/text scaling, and compact widths do not break the component
 - disabled, pressed, loading, error, and selected variants remain legible and aligned
 

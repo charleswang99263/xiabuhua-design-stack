@@ -89,7 +89,7 @@ Values should be tuned in the rendered product, not selected mechanically.
 
 - CSS: simple hover, focus, color, opacity, and local transforms.
 - Motion for React: layout changes, presence, shared layout, gestures, springs, and interruptible component animation.
-- GSAP: complex authored timelines, scroll-driven sequences, advanced SVG, and imperative choreography.
+- GSAP: complex authored timelines, scroll-driven sequences, advanced SVG, and imperative choreography. Once selected, read the [GSAP execution contract](../../ui-interaction-reference/references/gsap-execution.md); it routes exact official topics without loading eight general-purpose skills or changing the approved design.
 - View Transition API: route/view continuity and shared elements with graceful fallback.
 - Web Animations API: focused imperative animation without a larger framework.
 - React Three Fiber/Three.js: only when spatial 3D is integral to the experience.

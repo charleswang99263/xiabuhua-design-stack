@@ -1,6 +1,6 @@
 # Component Geometry And System Truth
 
-Use this reference when designing or reviewing controls, icons, reusable components, component libraries, design-system boards, or design-to-code handoff.
+Use this reference when designing or reviewing controls, icons, reusable components, component libraries, design-system boards, or design-to-code handoff. For the library decision and package rules, read [icon-system](icon-system.md).
 
 ## Geometry Before Optical Correction
 
@@ -44,6 +44,8 @@ For shared components, record at least:
 Validate nested geometry. A centered outer frame does not prove that the label inside a nested group, badge, or icon is centered.
 
 ## Icon Truth
+
+Apply the selection and rendering rules in [icon-system](icon-system.md). Hugeicons Free Stroke Rounded is the default for a new unconstrained product; an established or explicitly requested library remains authoritative.
 
 Every production-intent icon must have three separately declared properties:
 
@@ -90,8 +92,10 @@ Inspect representative components at actual size and in context:
 - icon-only, text-only, and icon-label controls
 - selected/unselected navigation items
 - short and long labels
-- compact and large size variants
+- compact and large size variants, including representative 16/20/24 px renders where those sizes are used
 - light/dark or high-contrast contexts when supported
 - text scaling, localization, and disabled/loading/error states
+
+Confirm equivalent meanings stay within one icon family, and inspect default, selected, disabled, and dark/inverse treatment. These are render checkpoints, not a universal size mandate.
 
 Machine checks can verify frames, bindings, source IDs, and token values. Human inspection decides optical balance, visual weight, recognizability, and whether the system feels coherent.
