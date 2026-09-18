@@ -101,3 +101,5 @@ unrelated skill directories remain untouched.
 ## Upgrade from 5.1
 
 The 5.2 installer accepts known 5.1.0 installation manifests as upgrade inputs and can verify a restored 5.1.0 installation after rollback. Package validation still requires the complete current 5.2.0 payload. Unknown versions are rejected; ownership, full-tree hashing and post-install edit protection remain enforced.
+
+The repository uses `.gitattributes` to preserve exact file bytes on Windows and other platforms. Do not normalize line endings in a downloaded release before running its manifest check.

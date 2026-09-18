@@ -128,7 +128,7 @@ class InstallerTests(unittest.TestCase):
         # exercises the compatibility path in load_manifest().
         for name in installer.RELEASE_SKILLS:
             skill_file = self.target / name / "SKILL.md"
-            skill_file.write_text(skill_file.read_text().replace('version: "5.2.0"', 'version: "5.1.0"'))
+            skill_file.write_bytes(skill_file.read_bytes().replace(b'version: "5.2.0"', b'version: "5.1.0"'))
         prior_path = self.target / installer.MANIFEST_NAME
         prior_data = json.loads(prior_path.read_text())
         prior_data["version"] = "5.1.0"

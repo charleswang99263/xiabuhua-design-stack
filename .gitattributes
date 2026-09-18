@@ -1,0 +1,2 @@
+# Release manifests hash exact bytes. Preserve them on every checkout platform.
+* -text
